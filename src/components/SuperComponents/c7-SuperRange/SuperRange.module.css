@@ -1,0 +1,49 @@
+.numberValue {
+    display: flex;
+    color: white;
+}
+
+.minValue {
+    width: 110px;
+}
+
+.maxValue {
+    width: 110px;
+    margin-left: 50px;
+}
+
+.range_input {
+    margin-left: 23px;
+    position: relative;
+}
+
+.slider {
+    top: 12px;
+    margin-left: 30px;
+    height: 5px;
+    width: 120px;
+    position: relative;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+.range_input input {
+    position: absolute;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: rgb(1, 124, 3);
+    pointer-events: auto;
+    -webkit-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+
+

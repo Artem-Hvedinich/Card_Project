@@ -1,0 +1,48 @@
+.buttonInput {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    border-radius: 7px;
+    height: 25px;
+    z-index: 1;
+    position: relative;
+    font-size: inherit;
+    font-family: inherit;
+    color: white;
+    outline: none;
+    border: none;
+    background-color: hsl(237, 22%, 39%);
+}
+
+.buttonInput::before {
+    border-radius: 7px;
+    height: 25px;
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #367909;
+    transform-origin: center bottom;
+    transform: scaleY(0);
+    transition: transform 0.35s ease-in-out;
+}
+
+.buttonInput:hover {
+    cursor: pointer;
+}
+
+.buttonInput:hover::before {
+    transform-origin: center top;
+    transform: scaleY(1);
+}
+
+.default {
+
+}
+
+.red {
+    background: red;
+}
