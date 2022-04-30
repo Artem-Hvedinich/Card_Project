@@ -9,7 +9,7 @@ import {Register} from "./components/Register";
 import {Testing} from './components/Testing';
 import {Header} from "./components/Header";
 import styled from "styled-components";
-
+/*PAVEL*/
 export const PATH = {
     login: '/login',
     registration: '/registration',
