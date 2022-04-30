@@ -3,7 +3,7 @@ import {Button} from './StylesComponents/Button';
 import {colors} from './StylesComponents/Colors';
 import {AuthCardWrapper, TextWrapper, TitleWrapper} from "./StylesComponents/Wrapper";
 import {InputAndText} from "./StylesComponents/InputAndText";
-// vidish?
+
 export const Login = () => {
     return (
         <div>
