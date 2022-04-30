@@ -12,7 +12,8 @@ export const ForgotPassword = () => {
             <TextWrapper opacity={0.5} color={colors.DarkBlue} fontSz={16}>Enter your email address and we will send you
                 further instructions</TextWrapper>
             <Button bgColor={colors.Blue} width={266} height={36} color={colors.Lavender}>Send Instructions</Button>
-            <TextWrapper opacity={0.5} color={colors.DarkBlue} fontSz={16}>Did you remember your password?</TextWrapper>
+            <TextWrapper textAlign='center' opacity={0.5} color={colors.DarkBlue} fontSz={16}>Did you remember your
+                password?</TextWrapper>
             <TitleWrapper fontSz={16} color={colors.Blue}>Try logging in</TitleWrapper>
         </AuthCardWrapper>
     )
