@@ -1,14 +1,14 @@
 import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {Error404} from "./components/Error404";
-import {Login} from './components/Login';
-import {NewPassword} from './components/NewPassword';
-import {Profile} from './components/Profile';
-import {ForgotPassword} from './components/ForgotPassword';
-import {Register} from "./components/Register";
-import {Header} from "./components/Header";
-import styled from "styled-components";
-import {CheckEmail} from "./components/CheckEmail";
+import {Error404} from "./components/ErrorPage/Error404";
+import {Login} from './components/Login and Registration/Login/Login';
+import {NewPassword} from './components/Components for working with login/NewPassword/NewPassword';
+import {Profile} from './components/Profile/Profile';
+import {ForgotPassword} from './components/Components for working with login/ForgotPassword/ForgotPassword';
+import {Register} from "./components/Login and Registration/Registration/Register";
+import {Header} from "./components/Header/Header";
+import {CheckEmail} from "./components/Components for working with login/CheckEmail/CheckEmail";
+import {AppWrapper} from "./App-styled";
 
 export const PATH = {
     login: '/login',
@@ -18,26 +18,12 @@ export const PATH = {
     forgotPassword: '/recPas',
     newPassword: '/newPas',
     checkEmail: '/checkEmail',
-}
-
-const AppWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh`
-
-const HeaderWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  top: 0`
-
+};
 
 export const App = () => {
     return (
         <AppWrapper>
-            <HeaderWrapper><Header/></HeaderWrapper>
+            <Header/>
             <Routes>
                 <Route path={'/'} element={<Navigate to={PATH.error}/>}/>
                 <Route path={PATH.login} element={<Login/>}/>

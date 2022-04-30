@@ -1,7 +1,7 @@
 import React from 'react';
-import {AuthCardWrapper, TextWrapper, TitleWrapper} from './StylesComponents/Wrapper';
-import {Button, Input} from "./StylesComponents/Button";
-import {colors} from "./StylesComponents/Colors";
+import {AuthCardWrapper, TextWrapper, TitleWrapper} from '../../StylesComponents/Wrapper';
+import {Button, Input} from "../../StylesComponents/Button";
+import {colors} from "../../StylesComponents/Colors";
 
 export const NewPassword = () => {
     return (

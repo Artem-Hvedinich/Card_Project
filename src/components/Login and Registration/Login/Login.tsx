@@ -1,10 +1,10 @@
 import React from 'react';
-import {Button, Input} from './StylesComponents/Button';
-import {colors} from './StylesComponents/Colors';
-import {AuthCardWrapper, TextWrapper, TitleWrapper} from "./StylesComponents/Wrapper";
+import {Button, Input} from '../../StylesComponents/Button';
+import {colors} from '../../StylesComponents/Colors';
+import {AuthCardWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
 
 export const Login = () => {
-    console.log('App')
+
     return (
         <div>
             <AuthCardWrapper width={413} height={600}>
