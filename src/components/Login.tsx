@@ -1,8 +1,7 @@
 import React from 'react';
-import {Button} from './StylesComponents/Button';
+import {Button, Input} from './StylesComponents/Button';
 import {colors} from './StylesComponents/Colors';
 import {AuthCardWrapper, TextWrapper, TitleWrapper} from "./StylesComponents/Wrapper";
-import {InputAndText} from "./StylesComponents/InputAndText";
 
 export const Login = () => {
     return (
@@ -11,14 +10,24 @@ export const Login = () => {
                 <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
                 <TitleWrapper fontSz={22}>Sign In</TitleWrapper>
 
-                <InputAndText text={'Email'} value={'email'} fontSz={13} opacity={0.5} color={colors.DarkBlue}/>
-                <InputAndText text={'Password'} value={'password'} type={'password'} fontSz={13} opacity={0.5}
-                              color={colors.DarkBlue}/>
+                {/*formik*/}
+                <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Email</TextWrapper>
+                <Input value={'email'}/>
 
-                <TextWrapper color={colors.DarkBlue} fontSz={14}>Forgot Password</TextWrapper>
+                <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Password</TextWrapper>
+                <Input value={'password'}/>
+
+                {/*redirect in  Password*/}
+                <TextWrapper textAlign={'end'} color={colors.DarkBlue} fontSz={14}>Forgot Password</TextWrapper>
+
                 <Button height={36} width={266} bgColor={colors.DarkBlue}
                         color={colors.Lavender}>Login</Button>
+                {/*formik*/}
+
+                {/*redirect in Forgot Password */}
                 <TextWrapper color={colors.DarkBlue} fontSz={14} opacity={0.5}>Don’t have an account?</TextWrapper>
+
+                {/*redirect in  Register*/}
                 <TitleWrapper fontSz={16} color={colors.Blue}>Sign Up</TitleWrapper>
             </AuthCardWrapper>
         </div>
