@@ -13,7 +13,6 @@ export const Header = () => {
             <NavLink to={PATH.checkEmail}>Check Email</NavLink>
             <NavLink to={PATH.profile}>Profile</NavLink>
             <NavLink to={PATH.error}>Error 404</NavLink>
-            <NavLink to={PATH.testing}>Testing</NavLink>
         </div>
     )
 }

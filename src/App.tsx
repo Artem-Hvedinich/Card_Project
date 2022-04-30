@@ -6,7 +6,6 @@ import {NewPassword} from './components/NewPassword';
 import {Profile} from './components/Profile';
 import {ForgotPassword} from './components/ForgotPassword';
 import {Register} from "./components/Register";
-import {Testing} from './components/Testing';
 import {Header} from "./components/Header";
 import styled from "styled-components";
 import {CheckEmail} from "./components/CheckEmail";
@@ -18,8 +17,7 @@ export const PATH = {
     error: '/404',
     forgotPassword: '/recPas',
     newPassword: '/newPas',
-    testing: '/testing',
-    checkEmail: '/checkEmail'
+    checkEmail: '/checkEmail',
 }
 
 const AppWrapper = styled.div`
@@ -44,12 +42,10 @@ export const App = () => {
                 <Route path={'/'} element={<Navigate to={PATH.error}/>}/>
                 <Route path={PATH.login} element={<Login/>}/>
                 <Route path={PATH.registration} element={<Register/>}/>
-                <Route path={PATH.forgotPassword} element={<ForgotPassword/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
                 <Route path={PATH.error} element={<Error404/>}/>
-
+                <Route path={PATH.forgotPassword} element={<ForgotPassword/>}/>
                 <Route path={PATH.newPassword} element={<NewPassword/>}/>
-                <Route path={PATH.testing} element={<Testing/>}/>
                 <Route path={PATH.checkEmail} element={<CheckEmail/>}/>
             </Routes>
         </AppWrapper>
