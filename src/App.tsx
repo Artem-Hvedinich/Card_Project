@@ -35,6 +35,7 @@ const HeaderWrapper = styled.div`
 
 
 export const App = () => {
+    console.log('APP')
     return (
         <AppWrapper>
             <HeaderWrapper><Header/></HeaderWrapper>
