@@ -4,8 +4,6 @@ export type ResponseDataLoginOrAuthMe = {
     name: string | null;
     avatar?: string | null;
     publicCardPacksCount: number | null;
-// количество колод
-
     created: Date | null;
     updated: Date | null;
     isAdmin: boolean | null;
@@ -13,4 +11,21 @@ export type ResponseDataLoginOrAuthMe = {
     rememberMe: boolean | null;
 
     error?: string | null;
+};
+
+export type ChangeProfileResponseType = {
+    updatedUser: ResponseDataLoginOrAuthMe
+    error?: string
+}
+
+export type LoginDataType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+};
+
+
+export type LogOutResponseType = {
+    info: string
+    error: string;
 };
