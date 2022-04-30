@@ -8,7 +8,7 @@ export type AppInitialStateType = {
 
 const initialAppState: AppInitialStateType = {
     error: null,
-    isFetching: true,
+    isFetching: false,
 };
 
 const AppSlice = createSlice({

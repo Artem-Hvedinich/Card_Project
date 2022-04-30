@@ -1,7 +1,7 @@
 import {createAction, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ResponseDataLoginOrAuthMe} from "../Types/AuthTypes";
 
-export type initialStateAuthorizationType = ResponseDataLoginOrAuthMe;
+export type initialStateAuthorizationType = ResponseDataLoginOrAuthMe & {isAuth: boolean};
 
 let initialState: initialStateAuthorizationType = {
     _id: null,
@@ -14,7 +14,9 @@ let initialState: initialStateAuthorizationType = {
     isAdmin: null,
     verified: null,
     rememberMe: null,
-    error: null
+    error: null,
+
+    isAuth: false
 };
 
 const AuthSlice = createSlice({
@@ -23,7 +25,7 @@ const AuthSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(setAuthUserDataAC, (state, {payload}: PayloadAction<ResponseDataLoginOrAuthMe>) => {
-            return payload
+            return {...payload, isAuth: true}
         });
     },
 });

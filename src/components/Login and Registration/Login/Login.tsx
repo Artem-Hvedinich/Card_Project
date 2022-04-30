@@ -2,8 +2,9 @@ import React from 'react';
 import {Button, Input} from '../../StylesComponents/Button';
 import {colors} from '../../StylesComponents/Colors';
 import {AuthCardWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
+import {IsLoginRedirect} from "../../../UtilsFunction/RedirectFunction";
 
-export const Login = () => {
+export const Login = IsLoginRedirect(() => {
 
     return (
         <div>
@@ -33,4 +34,4 @@ export const Login = () => {
             </AuthCardWrapper>
         </div>
     )
-}
+});
