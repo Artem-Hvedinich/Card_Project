@@ -15,14 +15,14 @@ export const Register = () => {
             <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
             <TitleWrapper fontSz={22}>Sign Up</TitleWrapper>
             <InputAndText text={'Email'} value={'email'} fontSz={13} opacity={0.5}
-                          color={colors.Blue}/>
+                          color={colors.DarkBlue}/>
             <InputAndText text={'Password'} value={'password'} type={'password'} fontSz={13} opacity={0.5}
-                          color={colors.Blue}/>
+                          color={colors.DarkBlue}/>
             <InputAndText text={'Confirm password'} value={'Password'} type={'password'} fontSz={13} opacity={0.5}
-                          color={colors.Blue}/>
+                          color={colors.DarkBlue}/>
             <ButtonWrapper>
                 <Button height={36} width={124} bgColor={colors.Lavender} color={colors.DarkBlue}>Cancel</Button>
-                <Button height={36} width={187} bgColor={colors.DarkBlue} color={colors.Lavender}>Register</Button>
+                <Button height={36} width={187} bgColor={colors.Blue} color={colors.Lavender}>Register</Button>
             </ButtonWrapper>
         </AuthCardWrapper>
     )

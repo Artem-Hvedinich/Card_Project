@@ -17,9 +17,11 @@ export const TitleWrapper = styled.p<{ fontSz: number }>`
   font-size: ${({fontSz}) => fontSz}px;
   color: #2D2E46;`
 
-export const TextWrapper = styled.p<{ color: string, fontSz: number, opacity?: number }>`
+export const TextWrapper = styled.p<{ color: string, fontSz: number, opacity?: number, textAlign?: string }>`
+  width: 100%;
   font-weight: 400;
   font-size: ${({fontSz}) => fontSz}px;
   font-style: normal;
   color: ${({color}) => color};
-  opacity: ${({opacity}) => opacity} `
+  opacity: ${({opacity}) => opacity};
+  text-align: ${({textAlign}) => textAlign}`

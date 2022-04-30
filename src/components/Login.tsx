@@ -10,9 +10,11 @@ export const Login = () => {
             <AuthCardWrapper width={413} height={600}>
                 <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
                 <TitleWrapper fontSz={22}>Sign In</TitleWrapper>
+
                 <InputAndText text={'Email'} value={'email'} fontSz={13} opacity={0.5} color={colors.DarkBlue}/>
                 <InputAndText text={'Password'} value={'password'} type={'password'} fontSz={13} opacity={0.5}
                               color={colors.DarkBlue}/>
+
                 <TextWrapper color={colors.DarkBlue} fontSz={14}>Forgot Password</TextWrapper>
                 <Button height={36} width={266} bgColor={colors.DarkBlue}
                         color={colors.Lavender}>Login</Button>
