@@ -9,6 +9,8 @@ import {Register} from "./components/Login and Registration/Registration/Registe
 import {Header} from "./components/Header/Header";
 import {CheckEmail} from "./components/Components for working with login/CheckEmail/CheckEmail";
 import {AppWrapper} from "./App-styled";
+import {useAppSelector} from "./Store-Reducers/Store";
+import {AppInitialStateType} from "./Store-Reducers/App-Reducer";
 
 export const PATH = {
     login: '/login',
@@ -21,6 +23,9 @@ export const PATH = {
 };
 
 export const App = () => {
+
+    const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
+
     return (
         <AppWrapper>
             <Header/>
