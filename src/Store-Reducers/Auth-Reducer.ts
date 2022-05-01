@@ -1,7 +1,7 @@
 import {createAction, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ResponseDataLoginOrAuthMe} from "../Types/AuthTypes";
 
-export type initialStateAuthorizationType = ResponseDataLoginOrAuthMe & {isAuth: boolean};
+export type initialStateAuthorizationType = ResponseDataLoginOrAuthMe & { isAuth: boolean };
 
 let initialState: initialStateAuthorizationType = {
     _id: null,

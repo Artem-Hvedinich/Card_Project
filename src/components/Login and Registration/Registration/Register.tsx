@@ -2,7 +2,13 @@ import React from 'react';
 import {AuthCardWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
 import {Button, Input} from "../../StylesComponents/Button";
 import {colors} from "../../StylesComponents/Colors";
-import {ButtonWrapper} from "./Registration-styled";
+import styled from "styled-components";
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly
+`;
 
 export const Register = () => {
     return (

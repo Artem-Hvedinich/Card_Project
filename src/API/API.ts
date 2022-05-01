@@ -1,5 +1,11 @@
 import axios from "axios";
-import {LoginDataType, LogOutResponseType, ResponseDataLoginOrAuthMe} from "../Types/AuthTypes";
+import {
+    LoginDataType,
+    LogOutResponseType,
+    RegisterDataType,
+    ResponseDataLoginOrAuthMe,
+    ResponseRegisterType
+} from "../Types/AuthTypes";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
@@ -18,8 +24,12 @@ export const AuthAPI = {
             .then(response => response)
     },
 
-    LogOut () {
+    logOut() {
         return instance.delete<LogOutResponseType>(`auth/me`)
             .then(response => response.data);
+    },
+
+    register(email: string, password: string) {
+        return instance.post<RegisterDataType, ResponseRegisterType>(`auth/register`, {email, password})
     },
 };

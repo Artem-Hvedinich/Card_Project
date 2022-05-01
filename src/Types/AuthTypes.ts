@@ -29,3 +29,13 @@ export type LogOutResponseType = {
     info: string
     error: string;
 };
+
+export type RegisterDataType = {
+    email: string
+    password: string
+}
+
+export type ResponseRegisterType = {
+    addedUser: {}
+    error?: string
+}

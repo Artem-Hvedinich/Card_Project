@@ -25,3 +25,11 @@ export const TextWrapper = styled.p<{ color: string, fontSz: number, opacity?: n
   color: ${({color}) => color};
   opacity: ${({opacity}) => opacity};
   text-align: ${({textAlign}) => textAlign}`
+
+export const FormWrapper = styled.form<{ height: number }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: ${({height}) => height}px;
+`

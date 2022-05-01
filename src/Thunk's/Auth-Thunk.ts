@@ -4,9 +4,10 @@ import {setIsFetchingAC} from "../Store-Reducers/App-Reducer";
 import {setAuthUserDataAC} from "../Store-Reducers/Auth-Reducer";
 import {handleServerAppError, handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {LoginDataType} from "../Types/AuthTypes";
+import {AppThunkType} from "../Store-Reducers/Store";
 
 
-export const AuthMeTC = () => async (dispatch: Dispatch) => {
+export const AuthMeTC = (): AppThunkType => async dispatch => {
 
     dispatch(setIsFetchingAC({isFetching: true}));
 
@@ -27,15 +28,13 @@ export const AuthMeTC = () => async (dispatch: Dispatch) => {
 };
 
 export const LoginTC = (values: LoginDataType) => async (dispatch: Dispatch) => {
-
     dispatch(setIsFetchingAC({isFetching: true}));
-
     try {
         const response = await AuthAPI.authLogin(values.email, values.password, values.rememberMe)
         if (response) {
             dispatch(setAuthUserDataAC(response));
         } else {
-            // dispatch(handleServerAppError(response.error))
+            // dispatch(handleServerAppError(response.error, dispatch))
         }
     } catch (error) {
         if (error instanceof Error) {
@@ -46,9 +45,8 @@ export const LoginTC = (values: LoginDataType) => async (dispatch: Dispatch) => 
     }
 };
 
-
-export const LogOutTC = () => async (dispatch: Dispatch) => {
-    const response = await AuthAPI.LogOut()
+export const LogOutTC = (): AppThunkType => async dispatch => {
+    const response = await AuthAPI.logOut()
     if (response.info) {
         let resetUser = {
             _id: null,
@@ -70,3 +68,13 @@ export const LogOutTC = () => async (dispatch: Dispatch) => {
         handleServerAppError(response.error, dispatch)
     }
 };
+
+export const RegisterTC = (email: string, password: string): AppThunkType => async dispatch => {
+    const response = await AuthAPI.register(email, password)
+    if (response.addedUser) {
+
+    } else {
+        handleServerAppError(response.error, dispatch)
+    }
+};
+
