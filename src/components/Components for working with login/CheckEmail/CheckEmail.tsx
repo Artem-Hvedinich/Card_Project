@@ -1,7 +1,7 @@
 import React from 'react';
-import {AuthCardWrapper, TextWrapper, TitleWrapper} from "./StylesComponents/Wrapper";
-import {colors} from "./StylesComponents/Colors";
-import {CheckEmailIcon} from "./common/CheckEmailIcon";
+import {AuthCardWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
+import {colors} from "../../StylesComponents/Colors";
+import {CheckEmailIcon} from "./CheckEmailIcon";
 import styled from "styled-components";
 
 const IconWrapper = styled.div`

@@ -1,7 +1,7 @@
 import React from 'react';
-import {AuthCardWrapper, TextWrapper, TitleWrapper} from "./StylesComponents/Wrapper";
-import {colors} from "./StylesComponents/Colors";
-import {Button, Input} from "./StylesComponents/Button";
+import {AuthCardWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
+import {colors} from "../../StylesComponents/Colors";
+import {Button, Input} from "../../StylesComponents/Button";
 
 export const ForgotPassword = () => {
     return (

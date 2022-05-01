@@ -7,7 +7,8 @@ export const Button = styled.button<{ width?: number, height?: number, bgColor?:
   color: ${({color}) => color};
   border-radius: 30px;
   border: none;
-  cursor: pointer`
+  cursor: pointer
+`;
 
 export const Input = styled.input`
   width: 347px;
@@ -18,4 +19,5 @@ export const Input = styled.input`
   border-color: rgba(36, 37, 74, 0.5);
   border-style: solid;
   border-bottom-width: 1px;
-  outline: none`
+  outline: none
+`;

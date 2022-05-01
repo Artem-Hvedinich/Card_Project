@@ -1,44 +1,41 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {Error404} from "./components/Error404";
-import {Login} from './components/Login';
-import {NewPassword} from './components/NewPassword';
-import {Profile} from './components/Profile';
-import {ForgotPassword} from './components/ForgotPassword';
-import {Register} from "./components/Register";
-import {Header} from "./components/Header";
-import styled from "styled-components";
-import {CheckEmail} from "./components/CheckEmail";
+import {Error404} from "./components/Components for working with login/ErrorPage/Error404";
+import {Login} from './components/Login and Registration/Login/Login';
+import {NewPassword} from './components/Components for working with login/NewPassword/NewPassword';
+import {Profile} from './components/Profile/Profile';
+import {ForgotPassword} from './components/Components for working with login/ForgotPassword/ForgotPassword';
+import {Register} from "./components/Login and Registration/Registration/Register";
+import {Header} from "./components/Header/Header";
+import {CheckEmail} from "./components/Components for working with login/CheckEmail/CheckEmail";
+import {AppWrapper} from "./App-styled";
+import {TypedDispatch, useAppSelector} from "./Store-Reducers/Store";
+import {AppInitialStateType} from "./Store-Reducers/App-Reducer";
+import {Loading} from "./components/Common/Loading/Loading";
+import {useDispatch} from "react-redux";
+import {AuthMeTC} from "./Thunk's/Auth-Thunk";
+import {Snackbars} from "./components/SnackBar/SnackBar";
+import {PATH} from "./UtilsFunction/const-enum-path";
 
-export const PATH = {
-    login: '/login',
-    registration: '/registration',
-    profile: '/profile',
-    error: '/404',
-    forgotPassword: '/recPas',
-    newPassword: '/newPas',
-    checkEmail: '/checkEmail',
-}
-
-const AppWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh`
-
-const HeaderWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  top: 0`
 
 
 export const App = () => {
-    console.log('APP')
+
+    const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
+    const dispatch = useDispatch<TypedDispatch>();
+
+    useEffect(() => {
+        dispatch(AuthMeTC());
+    }, []);
+
+
+    if (stateApp.isFetching) return <Loading />
     return (
         <AppWrapper>
-            <HeaderWrapper><Header/></HeaderWrapper>
+            <Header/>
+            {/*   Error Block // need styles
+            <Snackbars />
+            */}
             <Routes>
                 <Route path={'/'} element={<Navigate to={PATH.error}/>}/>
                 <Route path={PATH.login} element={<Login/>}/>
