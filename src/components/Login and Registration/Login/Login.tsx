@@ -12,6 +12,8 @@ import {IsLoginRedirect} from "../../../UtilsFunction/RedirectFunction";
 import {useFormik} from "formik";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
 import {LoginTC} from "../../../Thunk's/Auth-Thunk";
+import {NavLink} from 'react-router-dom';
+import {PATH} from "../../../UtilsFunction/const-enum-path";
 
 type FormikErrorType = {
     email?: string;
@@ -24,7 +26,7 @@ export const Login = IsLoginRedirect(() => {
 
     const dispatch = useTypedDispatch();
 
-    const registrationForm = useFormik({
+    const loginForm = useFormik({
         initialValues: {email: "", password: "", rememberMe: false, captcha: true},
         validate: (values: FormikErrorType) => {
             const errors: FormikErrorType = {};
@@ -42,7 +44,7 @@ export const Login = IsLoginRedirect(() => {
         },
         onSubmit: (values) => {
             dispatch(LoginTC(values))
-            registrationForm.resetForm();
+            loginForm.resetForm();
             console.log(values)
         },
     });
@@ -55,49 +57,52 @@ export const Login = IsLoginRedirect(() => {
             {/*formik*/}
 
 
-            <FormWrapper height={300} onSubmit={registrationForm.handleSubmit}>
+            <FormWrapper height={300} onSubmit={loginForm.handleSubmit}>
                 <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Email</TextWrapper>
                 <Input type="email"
                        id="email"
                        placeholder="email"
-                       {...registrationForm.getFieldProps("email")}/>
+                       {...loginForm.getFieldProps("email")}/>
                 {/*Errors */}
-                {registrationForm.touched.email && registrationForm.errors.email ? (
-                    <ErrorWrapper>{registrationForm.errors.email}</ErrorWrapper>
+                {loginForm.touched.email && loginForm.errors.email ? (
+                    <ErrorWrapper>{loginForm.errors.email}</ErrorWrapper>
                 ) : null}
                 {/*End errors*/}
                 <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Password</TextWrapper>
                 <Input type="password"
                        id="password"
                        placeholder="password"
-                       {...registrationForm.getFieldProps("password")}/>
+                       {...loginForm.getFieldProps("password")}/>
 
-                {registrationForm.touched.password && registrationForm.errors.password ? (
-                    <ErrorWrapper>{registrationForm.errors.password}</ErrorWrapper>
+                {loginForm.touched.password && loginForm.errors.password ? (
+                    <ErrorWrapper>{loginForm.errors.password}</ErrorWrapper>
                 ) : null}
                 <RememberMeWrapper>
                     <input
                         type="checkbox"
                         id="remember"
-                        {...registrationForm.getFieldProps("rememberMe")}
+                        {...loginForm.getFieldProps("rememberMe")}
                     />
                     <TextWrapper fontSz={13} opacity={1} color={colors.DarkBlue}> Remember me</TextWrapper>
                 </RememberMeWrapper>
 
-                {/*redirect in  Password*/}
-                <TextWrapper textAlign={'end'} color={colors.DarkBlue} fontSz={14}>Forgot Password</TextWrapper>
+
+                {/*redirect in Forgot Password */}
+                <TextWrapper textAlign={'end'} color={colors.DarkBlue} fontSz={14}>
+                    <NavLink to={PATH.forgotPassword}>Forgot Password</NavLink>
+                </TextWrapper>
 
                 <Button type="submit"
-                        disabled={!(registrationForm.isValid && registrationForm.dirty)}
+                        disabled={!(loginForm.isValid && loginForm.dirty)}
                         height={36} width={266} bgColor={colors.DarkBlue}
                         color={colors.Lavender}>Login</Button>
                 {/*formik*/}
             </FormWrapper>
-            {/*redirect in Forgot Password */}
-            <TextWrapper color={colors.DarkBlue} fontSz={14} opacity={0.5}>Don’t have an account?</TextWrapper>
 
-            {/*redirect in  Register*/}
-            <TitleWrapper fontSz={16} color={colors.Blue}>Sign Up</TitleWrapper>
+            {/*redirect in Registration*/}
+            <TextWrapper color={colors.DarkBlue} textAlign={'center'} fontSz={14} opacity={0.5}>
+                <NavLink to={PATH.registration}>Don’t have an account?</NavLink>
+            </TextWrapper>
 
         </AuthCardWrapper>
     )
