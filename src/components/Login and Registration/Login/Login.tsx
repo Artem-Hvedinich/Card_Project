@@ -1,7 +1,13 @@
 import React from 'react';
 import {Button, Input} from '../../StylesComponents/Button';
 import {colors} from '../../StylesComponents/Colors';
-import {AuthCardWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
+import {
+    AuthCardWrapper, ErrorWrapper,
+    FormWrapper,
+    RememberMeWrapper,
+    TextWrapper,
+    TitleWrapper
+} from "../../StylesComponents/Wrapper";
 import {IsLoginRedirect} from "../../../UtilsFunction/RedirectFunction";
 import {useFormik} from "formik";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
@@ -12,6 +18,7 @@ type FormikErrorType = {
     password?: string;
     rememberMe?: boolean
 };
+
 
 export const Login = IsLoginRedirect(() => {
 
@@ -34,80 +41,64 @@ export const Login = IsLoginRedirect(() => {
             return errors;
         },
         onSubmit: (values) => {
-            dispatch(LoginTC(values));
+            dispatch(LoginTC(values))
             registrationForm.resetForm();
+            console.log(values)
         },
     });
 
     return (
-        <div>
-            <AuthCardWrapper width={413} height={600}>
-                <TitleWrapper fontSz={26}>Sign In</TitleWrapper>
-                <TitleWrapper fontSz={15}>It-incubator</TitleWrapper>
+        <AuthCardWrapper width={413} height={600}>
+            <TitleWrapper fontSz={26}>Sign In</TitleWrapper>
+            <TitleWrapper fontSz={15}>It-incubator</TitleWrapper>
 
-                {/*formik*/}
+            {/*formik*/}
 
 
-                <form onSubmit={registrationForm.handleSubmit}>
-                    <p>
-                        <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Email</TextWrapper>
-                        <Input type="email"
-                               id="email"
-                               placeholder="email"
-                               {...registrationForm.getFieldProps("email")}/>
-                        {/*Errors */}
-                        {registrationForm.touched.email && registrationForm.errors.email ? (
-                            <div
-                                style={{color: "red", fontSize: "1.2rem"}}>{registrationForm.errors.email}</div>
-                        ) : null}
-                        {/*End errors*/}
-                    </p>
-                    <p>
-                        <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Password</TextWrapper>
-                        <Input type="password"
-                               id="password"
-                               placeholder="password"
-                               {...registrationForm.getFieldProps("password")}/>
+            <FormWrapper height={300} onSubmit={registrationForm.handleSubmit}>
+                <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Email</TextWrapper>
+                <Input type="email"
+                       id="email"
+                       placeholder="email"
+                       {...registrationForm.getFieldProps("email")}/>
+                {/*Errors */}
+                {registrationForm.touched.email && registrationForm.errors.email ? (
+                    <ErrorWrapper>{registrationForm.errors.email}</ErrorWrapper>
+                ) : null}
+                {/*End errors*/}
+                <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Password</TextWrapper>
+                <Input type="password"
+                       id="password"
+                       placeholder="password"
+                       {...registrationForm.getFieldProps("password")}/>
 
-                            {registrationForm.touched.password && registrationForm.errors.password ? (
-                                <div style={{color: "red", fontSize: "1.2rem"
-                                }}>{registrationForm.errors.password}</div>
-                            ) : null}
-                    </p>
-                    <p>
-                        <input
-                            type="checkbox"
-                            id="remember"
-                            {...registrationForm.getFieldProps("rememberMe")}
-                        />
-                        <label htmlFor="remember" >
-                            Remember me
-                        </label>
-
-                        <button
-                            type="submit"
-                            name="submit"
-                            value="Submit"
-                            disabled={!(registrationForm.isValid && registrationForm.dirty)}
-                        >
-                            Submit
-                        </button>
-                    </p>
-                </form>
+                {registrationForm.touched.password && registrationForm.errors.password ? (
+                    <ErrorWrapper>{registrationForm.errors.password}</ErrorWrapper>
+                ) : null}
+                <RememberMeWrapper>
+                    <input
+                        type="checkbox"
+                        id="remember"
+                        {...registrationForm.getFieldProps("rememberMe")}
+                    />
+                    <TextWrapper fontSz={13} opacity={1} color={colors.DarkBlue}> Remember me</TextWrapper>
+                </RememberMeWrapper>
 
                 {/*redirect in  Password*/}
                 <TextWrapper textAlign={'end'} color={colors.DarkBlue} fontSz={14}>Forgot Password</TextWrapper>
 
-                <Button height={36} width={266} bgColor={colors.DarkBlue}
+                <Button type="submit"
+                        disabled={!(registrationForm.isValid && registrationForm.dirty)}
+                        height={36} width={266} bgColor={colors.DarkBlue}
                         color={colors.Lavender}>Login</Button>
                 {/*formik*/}
+            </FormWrapper>
+            {/*redirect in Forgot Password */}
+            <TextWrapper color={colors.DarkBlue} fontSz={14} opacity={0.5}>Don’t have an account?</TextWrapper>
 
-                {/*redirect in Forgot Password */}
-                <TextWrapper color={colors.DarkBlue} fontSz={14} opacity={0.5}>Don’t have an account?</TextWrapper>
+            {/*redirect in  Register*/}
+            <TitleWrapper fontSz={16} color={colors.Blue}>Sign Up</TitleWrapper>
 
-                {/*redirect in  Register*/}
-                <TitleWrapper fontSz={16} color={colors.Blue}>Sign Up</TitleWrapper>
-            </AuthCardWrapper>
-        </div>
+        </AuthCardWrapper>
     )
 });

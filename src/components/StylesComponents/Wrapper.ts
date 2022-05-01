@@ -31,5 +31,15 @@ export const FormWrapper = styled.form<{ height: number }>`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: ${({height}) => height}px;
-`
+  height: ${({height}) => height}px;`
+
+export const RememberMeWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;`
+
+export const ErrorWrapper = styled.div`
+  width: 100%;
+  color: red;
+  font-size: 0.9rem`
