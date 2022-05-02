@@ -1,19 +1,14 @@
-import {ComponentType, useEffect} from "react";
+import {ComponentType} from "react";
 import {useAppSelector} from "../Store-Reducers/Store";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {PATH} from "./const-enum-path";
 
 export function NotAuthRedirect<T>(Component: ComponentType<T>) {
 
     const RedirectComponent = (props: any) => {
 
-        let navigate = useNavigate()
         const isAuth = useAppSelector<boolean>(state => state.AuthorizationReducer.isAuth);
-        useEffect(() => {
-            if (!isAuth){
-                navigate(PATH.login)
-            }
-        }, [isAuth])
+        if (!isAuth) return (<Navigate to={PATH.login}/>);
 
         return <Component {...props as T}/>
 

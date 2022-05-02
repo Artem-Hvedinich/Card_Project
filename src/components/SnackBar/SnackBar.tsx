@@ -18,7 +18,7 @@ export const Snackbars = () => {
     };
 
     return (
-            <div>
+            <div onChange={handleClose}>
                 {error}
             </div>
     );

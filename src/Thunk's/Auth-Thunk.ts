@@ -18,7 +18,7 @@ export const AuthMeTC = (): AppThunkType => async dispatch => {
             dispatch(setAuthUserDataAC(response.data))
             dispatch(setAppStatusAC({status: 'succeeded'}));
         } else {
-            // dispatch(handleServerAppError(response.data))
+            // dispatch(handleServerAppError(response.data, dispatch));
         }
     } catch (error) {
         if (error instanceof Error) {
