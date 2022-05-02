@@ -9,7 +9,6 @@ export type ResponseDataLoginOrAuthMe = {
     isAdmin: boolean | null;
     verified: boolean | null; // подтвердил ли почту
     rememberMe: boolean | null;
-
     error?: string | null;
 };
 

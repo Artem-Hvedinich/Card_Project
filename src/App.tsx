@@ -8,7 +8,6 @@ import {ForgotPassword} from './components/Components for working with login/For
 import {Register} from "./components/Login and Registration/Registration/Register";
 import {Header} from "./components/Header/Header";
 import {CheckEmail} from "./components/Components for working with login/CheckEmail/CheckEmail";
-import {AppWrapper} from "./App-styled";
 import {TypedDispatch, useAppSelector} from "./Store-Reducers/Store";
 import {AppInitialStateType} from "./Store-Reducers/App-Reducer";
 import {Loading} from "./components/Common/Loading/Loading";
@@ -16,7 +15,7 @@ import {useDispatch} from "react-redux";
 import {AuthMeTC} from "./Thunk's/Auth-Thunk";
 import {PATH} from "./UtilsFunction/const-enum-path";
 import {Snackbars} from './components/SnackBar/SnackBar';
-
+import styled from 'styled-components';
 
 export const App = () => {
 
@@ -34,7 +33,7 @@ export const App = () => {
             <Header/>
             {/*/!*   Error Block // need styles*/}
             {stateApp.status === 'loading' && <Loading/>}
-            {/*<Snackbars/>*/}
+            <Snackbars/>
             <Routes>
                 <Route path={'/'} element={<Navigate to={PATH.error}/>}/>
                 <Route path={PATH.login} element={<Login/>}/>
@@ -48,3 +47,16 @@ export const App = () => {
         </AppWrapper>
     )
 }
+
+export const AppWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh`
+
+export const HeaderWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  top: 0`

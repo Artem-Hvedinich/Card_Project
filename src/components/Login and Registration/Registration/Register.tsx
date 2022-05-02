@@ -34,8 +34,8 @@ export const Register = () => {
             }
             if (!values.password) {
                 errors.password = "Password is required";
-            } else if (values.password.length < 4) {
-                errors.password = "Invalid password";
+            } else if (values.password.length < 7) {
+                errors.password = "Invalid password, min symbol length 7";
             }
             if (!values.configPassword) {
                 errors.configPassword = "Config Password is required";
@@ -47,7 +47,6 @@ export const Register = () => {
         onSubmit: (values) => {
             dispatch(RegisterTC(values.email, values.password))
             registrationForm.resetForm();
-            // console.log(values)
         },
     });
     return (
