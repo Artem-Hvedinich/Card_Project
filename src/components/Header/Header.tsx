@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../UtilsFunction/const-enum-path";
-import {HeaderWrapper} from "../../App-styled";
+import {HeaderWrapper} from "../../App";
 
 export const Header = () => {
     return (

@@ -1,15 +1,18 @@
 import React from 'react';
 import {NotAuthRedirect} from "../../UtilsFunction/RedirectFunction";
+import {useDispatch} from "react-redux";
+import {TypedDispatch} from "../../Store-Reducers/Store";
 import {LogOutTC} from "../../Thunk's/Auth-Thunk";
-import {useTypedDispatch} from "../../Store-Reducers/Store";
 
-export const Profile = NotAuthRedirect(() => {
+type ProfileType = {
 
-    const dispatch = useTypedDispatch();
+}
 
-    const onClickHandler = () => {
-        dispatch(LogOutTC());
-    }
+export const Profile = NotAuthRedirect(({}: ProfileType) => {
+
+    const dispatch = useDispatch<TypedDispatch>();
+
+    const onClickHandler = () => dispatch(LogOutTC());
 
     return (
         <div>

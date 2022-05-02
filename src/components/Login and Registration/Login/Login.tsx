@@ -21,7 +21,6 @@ type FormikErrorType = {
     rememberMe?: boolean
 };
 
-
 export const Login = IsLoginRedirect(() => {
 
     const dispatch = useTypedDispatch();
@@ -45,7 +44,6 @@ export const Login = IsLoginRedirect(() => {
         onSubmit: (values) => {
             dispatch(LoginTC(values))
             loginForm.resetForm();
-            console.log(values)
         },
     });
 

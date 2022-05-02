@@ -24,7 +24,7 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(AuthMeTC());
-    }, []);
+    }, [dispatch]);
 
 
     if (stateApp.isFetching) return <Loading/>
