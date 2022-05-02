@@ -14,9 +14,8 @@ import {AppInitialStateType} from "./Store-Reducers/App-Reducer";
 import {Loading} from "./components/Common/Loading/Loading";
 import {useDispatch} from "react-redux";
 import {AuthMeTC} from "./Thunk's/Auth-Thunk";
-import {Snackbars} from "./components/SnackBar/SnackBar";
 import {PATH} from "./UtilsFunction/const-enum-path";
-
+import {Snackbars} from './components/SnackBar/SnackBar';
 
 
 export const App = () => {
@@ -29,13 +28,13 @@ export const App = () => {
     }, []);
 
 
-    if (stateApp.isFetching) return <Loading />
+    if (stateApp.isFetching) return <Loading/>
     return (
         <AppWrapper>
             <Header/>
-            {/*   Error Block // need styles
-            <Snackbars />
-            */}
+            {/*/!*   Error Block // need styles*/}
+            {stateApp.status === 'loading' && <Loading/>}
+            {/*<Snackbars/>*/}
             <Routes>
                 <Route path={'/'} element={<Navigate to={PATH.error}/>}/>
                 <Route path={PATH.login} element={<Login/>}/>

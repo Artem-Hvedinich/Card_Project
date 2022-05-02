@@ -7,7 +7,7 @@ export const Profile = NotAuthRedirect(() => {
 
     const dispatch = useTypedDispatch();
 
-    const onClickHanlder = () => {
+    const onClickHandler = () => {
         dispatch(LogOutTC());
     }
 
@@ -15,7 +15,7 @@ export const Profile = NotAuthRedirect(() => {
         <div>
             <h1>Page is in progress</h1>
 
-            <button onClick={onClickHanlder}>LogOut</button>
+            <button onClick={onClickHandler}>LogOut</button>
         </div>
     )
 });

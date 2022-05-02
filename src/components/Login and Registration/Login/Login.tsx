@@ -55,8 +55,6 @@ export const Login = IsLoginRedirect(() => {
             <TitleWrapper fontSz={15}>It-incubator</TitleWrapper>
 
             {/*formik*/}
-
-
             <FormWrapper height={300} onSubmit={loginForm.handleSubmit}>
                 <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Email</TextWrapper>
                 <Input type="email"

@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {setAppErrorMessageAC} from "../Store-Reducers/App-Reducer";
+import {setAppErrorMessageAC, setAppStatusAC} from "../Store-Reducers/App-Reducer";
 
 
 // generic function
@@ -11,6 +11,8 @@ export const handleServerAppError = (error: string | undefined, dispatch: Dispat
     }
 }
 
-export const handleServerNetworkError = (error: { message: string }, dispatch: Dispatch) => {
-    dispatch(setAppErrorMessageAC({error: error.message}));
+export const handleServerNetworkError = (catchError: unknown, dispatch: Dispatch) => {
+    const error = catchError as Error
+    dispatch(setAppErrorMessageAC({error: error.message}))
+    dispatch(setAppStatusAC({status: 'failed'}))
 }

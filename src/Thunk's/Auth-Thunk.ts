@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {AuthAPI} from "../API/API";
-import {setIsFetchingAC} from "../Store-Reducers/App-Reducer";
+import {setAppStatusAC, setIsFetchingAC} from "../Store-Reducers/App-Reducer";
 import {setAuthUserDataAC} from "../Store-Reducers/Auth-Reducer";
 import {handleServerAppError, handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {LoginDataType} from "../Types/AuthTypes";
@@ -14,7 +14,7 @@ export const AuthMeTC = (): AppThunkType => async dispatch => {
     try {
         const response = await AuthAPI.authMe()
         if (response) {
-            dispatch(setAuthUserDataAC(response))
+            dispatch(setAuthUserDataAC(response.data))
         } else {
             // dispatch(handleServerAppError(response.error))
         }
@@ -28,14 +28,14 @@ export const AuthMeTC = (): AppThunkType => async dispatch => {
 };
 
 export const LoginTC = (values: LoginDataType) => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
     dispatch(setIsFetchingAC({isFetching: true}));
+    const response = await AuthAPI.authLogin(values.email, values.password, values.rememberMe)
     try {
-        const response = await AuthAPI.authLogin(values.email, values.password, values.rememberMe)
         if (response) {
             dispatch(setAuthUserDataAC(response));
-        } else {
-            // dispatch(handleServerAppError(response.error, dispatch))
-        }
+            dispatch(setAppStatusAC({status: 'succeeded'}))
+        } else handleServerAppError(response, dispatch)//??????
     } catch (error) {
         if (error instanceof Error) {
             handleServerNetworkError(error, dispatch);
@@ -46,35 +46,46 @@ export const LoginTC = (values: LoginDataType) => async (dispatch: Dispatch) => 
 };
 
 export const LogOutTC = (): AppThunkType => async dispatch => {
+    dispatch(setAppStatusAC({status: 'loading'}))
     const response = await AuthAPI.logOut()
-    if (response.info) {
-        let resetUser = {
-            _id: null,
-            email: null,
-            name: null,
-            avatar: null,
-            publicCardPacksCount: null,
-            created: null,
-            updated: null,
-            isAdmin: null,
-            verified: null,
-            rememberMe: null,
-            error: null,
-
-            isAuth: false
-        };
-        dispatch(setAuthUserDataAC(resetUser))
-    } else {
-        handleServerAppError(response.error, dispatch)
+    try {
+        if (response.data.info) {
+            let resetUser = {
+                _id: null,
+                email: null,
+                name: null,
+                avatar: null,
+                publicCardPacksCount: null,
+                created: null,
+                updated: null,
+                isAdmin: null,
+                verified: null,
+                rememberMe: null,
+                error: null,
+                isAuth: false
+            };
+            dispatch(setAuthUserDataAC(resetUser))
+            dispatch(setAppStatusAC({status: 'succeeded'}))
+        } else handleServerAppError(response.data.error, dispatch)
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
+    } finally {
+        dispatch(setAppStatusAC({status: 'succeeded'}))
     }
 };
 
 export const RegisterTC = (email: string, password: string): AppThunkType => async dispatch => {
+    dispatch(setAppStatusAC({status: 'loading'}))
     const response = await AuthAPI.register(email, password)
-    if (response.addedUser) {
-
-    } else {
-        handleServerAppError(response.error, dispatch)
+    try {
+        if (response.addedUser) {
+            dispatch(setAppStatusAC({status: 'succeeded'}))
+        } else handleServerAppError(response.error, dispatch)
+    } catch (error) {
+        handleServerNetworkError(error, dispatch)
+    } finally {
+        dispatch(setAppStatusAC({status: 'succeeded'}))
     }
 };
+
 
