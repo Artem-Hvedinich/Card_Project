@@ -6,7 +6,6 @@ import {NewPassword} from './components/Components for working with login/NewPas
 import {Profile} from './components/Profile/Profile';
 import {ForgotPassword} from './components/Components for working with login/ForgotPassword/ForgotPassword';
 import {Register} from "./components/Login and Registration/Registration/Register";
-import {Header} from "./components/Header/Header";
 import {CheckEmail} from "./components/Components for working with login/CheckEmail/CheckEmail";
 import {TypedDispatch, useAppSelector} from "./Store-Reducers/Store";
 import {AppInitialStateType} from "./Store-Reducers/App-Reducer";
@@ -34,7 +33,7 @@ export const App = () => {
             {stateApp.status === 'loading' && <Loading/>}
             <Snackbars/>
             <Routes>
-                <Route path={'/'} element={<Navigate to={PATH.error}/>}/>
+                <Route path={'/'} element={<Navigate to={PATH.profile}/>}/>
                 <Route path={PATH.login} element={<Login/>}/>
                 <Route path={PATH.registration} element={<Register/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>

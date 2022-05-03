@@ -14,7 +14,7 @@ export const AuthCardWrapper = styled.div<{ width: number, height: number }>`
   border-radius: 8px
 `;
 
-export const TitleWrapper = styled.p<{ fontSz: number }>`
+export const TitleWrapper = styled.p<{ fontSz?: number }>`
   font-weight: 600;
   font-size: ${({fontSz}) => fontSz}px;
   color: #2D2E46

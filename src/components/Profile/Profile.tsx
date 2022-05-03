@@ -7,6 +7,7 @@ import {ProfileWrapper} from "../StylesComponents/Wrapper";
 import {Header} from "../Header/Header";
 import styled from "styled-components";
 import {colors} from "../StylesComponents/Colors";
+import { Button } from '../StylesComponents/Button';
 
 type ProfileType = {}
 
@@ -21,11 +22,12 @@ export const Profile = NotAuthRedirect(({}: ProfileType) => {
             <Header/>
             <ProfileWrapper>
                 <ToolsBlock>
-                    <PersonBlock>
+                    {/*<PersonBlock>*/}
 
-                    </PersonBlock>
+                    {/*</PersonBlock>*/}
                 </ToolsBlock>
-                <button onClick={onClickHandler}>LogOut</button>
+                <Button bgColor={colors.DarkBlue} width={60} height={20} color={colors.Lavender}
+                        onClick={onClickHandler}>LogOut</Button>
             </ProfileWrapper>
         </>
     )
