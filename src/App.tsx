@@ -13,8 +13,8 @@ import {Loading} from "./components/Common/Loading/Loading";
 import {useDispatch} from "react-redux";
 import {AuthMeTC} from "./Thunk's/Auth-Thunk";
 import {PATH} from "./UtilsFunction/const-enum-path";
-import {Snackbars} from './components/SnackBar/SnackBar';
 import {AppWrapper} from "./components/StylesComponents/Wrapper";
+import {Snackbar} from "./components/SnackBar/SnackBar";
 
 export const App = () => {
 
@@ -30,7 +30,7 @@ export const App = () => {
             {stateApp.status === 'loading'
                 ? <Loading/>
                 : <>
-                    <Snackbars/>
+                    <Snackbar/>
                     <Routes>
                         <Route path={'/'} element={<Navigate to={PATH.profile}/>}/>
                         <Route path={PATH.login} element={<Login/>}/>
