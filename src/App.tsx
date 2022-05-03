@@ -23,25 +23,26 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(AuthMeTC());
-    }, [dispatch]);
+    }, []);
 
-
-    if (stateApp.isFetching) return <Loading/>
     return (
         <AppWrapper>
-            {/*/!*   Error Block // need styles*/}
-            {stateApp.status === 'loading' && <Loading/>}
-            <Snackbars/>
-            <Routes>
-                <Route path={'/'} element={<Navigate to={PATH.profile}/>}/>
-                <Route path={PATH.login} element={<Login/>}/>
-                <Route path={PATH.registration} element={<Register/>}/>
-                <Route path={PATH.profile} element={<Profile/>}/>
-                <Route path={PATH.error} element={<Error404/>}/>
-                <Route path={PATH.forgotPassword} element={<ForgotPassword/>}/>
-                <Route path={PATH.newPassword + "/:token"} element={<NewPassword/>}/>
-                <Route path={PATH.checkEmail} element={<CheckEmail/>}/>
-            </Routes>
+            {stateApp.status === 'loading'
+                ? <Loading/>
+                : <>
+                    <Snackbars/>
+                    <Routes>
+                        <Route path={'/'} element={<Navigate to={PATH.profile}/>}/>
+                        <Route path={PATH.login} element={<Login/>}/>
+                        <Route path={PATH.registration} element={<Register/>}/>
+                        <Route path={PATH.profile} element={<Profile/>}/>
+                        <Route path={PATH.error} element={<Error404/>}/>
+                        <Route path={PATH.forgotPassword} element={<ForgotPassword/>}/>
+                        <Route path={PATH.newPassword + "/:token"} element={<NewPassword/>}/>
+                        <Route path={PATH.checkEmail} element={<CheckEmail/>}/>
+                    </Routes>
+                </>
+            }
         </AppWrapper>
     )
 };

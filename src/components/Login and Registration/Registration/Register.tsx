@@ -5,9 +5,9 @@ import {colors} from "../../StylesComponents/Colors";
 import styled from "styled-components";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
 import {useFormik} from "formik";
-import {RegisterTC} from "../../../Thunk's/Auth-Thunk";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../UtilsFunction/const-enum-path";
+import {RegisterTC} from "../../../Thunk's/PasswordandEmailThunk";
 
 export const ButtonWrapper = styled.div`
   width: 100%;

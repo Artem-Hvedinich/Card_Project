@@ -6,7 +6,7 @@ import {useFormik} from "formik";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../UtilsFunction/const-enum-path";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
-import {ForgetPasswordTC} from '../../../Thunk\'s/Auth-Thunk';
+import {ForgetPasswordTC} from "../../../Thunk's/PasswordandEmailThunk";
 
 export const ForgotPassword = () => {
     const dispatch = useTypedDispatch();

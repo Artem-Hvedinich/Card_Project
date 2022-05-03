@@ -3,10 +3,9 @@ import {AuthCardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} f
 import {Button, Input} from "../../StylesComponents/Button";
 import {colors} from "../../StylesComponents/Colors";
 import {useFormik} from "formik";
-import {NewPasswordTC} from "../../../Thunk's/Auth-Thunk";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
-import {NavLink, useParams} from 'react-router-dom';
-import {PATH} from "../../../UtilsFunction/const-enum-path";
+import {useParams} from 'react-router-dom';
+import {NewPasswordTC} from "../../../Thunk's/PasswordandEmailThunk";
 
 type FormikErrorType = {
     password?: string

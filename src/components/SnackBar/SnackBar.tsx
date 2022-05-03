@@ -11,6 +11,7 @@ export const Snackbars = () => {
     const dispatch = useDispatch<TypedDispatch>();
 
     const handleClose = () => {
+
         let snack = document.getElementById("snackbar");
         if (snack) {
             snack.className = "show";
@@ -24,10 +25,9 @@ export const Snackbars = () => {
         }
     };
 
-    if (error !== null) {
-        handleClose();
-    }
+    console.log(error)
 
+    if (error) { handleClose() }
     return (
         <div>
             <div id={"snackbar"} className={"snackbar"}>{error}</div>
