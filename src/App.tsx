@@ -35,7 +35,7 @@ export const App = () => {
             {stateApp.status === 'loading' && <Loading/>}
             <Snackbars/>
             <Routes>
-                <Route path={'/'} element={<Navigate to={PATH.error}/>}/>
+                <Route path={'/'} element={<Navigate to={PATH.profile}/>}/>
                 <Route path={PATH.login} element={<Login/>}/>
                 <Route path={PATH.registration} element={<Register/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
@@ -56,7 +56,3 @@ export const AppWrapper = styled.div`
   width: 100%;
   height: 100vh`
 
-export const HeaderWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  top: 0`

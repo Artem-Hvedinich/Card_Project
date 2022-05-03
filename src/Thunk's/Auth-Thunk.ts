@@ -10,8 +10,9 @@ import {AppThunkType} from "../Store-Reducers/Store";
 export const AuthMeTC = (): AppThunkType => async dispatch => {
 
     dispatch(setIsFetchingAC({isFetching: true}));
-    const response = await AuthAPI.authMe()
+
     try {
+        const response = await AuthAPI.authMe()
         if (response.data) {
             dispatch(setAuthUserDataAC(response.data))
         } else {

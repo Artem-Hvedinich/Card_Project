@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../UtilsFunction/const-enum-path";
-import {HeaderWrapper} from "../../App-styled";
+import styled from "styled-components";
 
 export const Header = () => {
     return (
@@ -18,3 +18,7 @@ export const Header = () => {
         </HeaderWrapper>
     )
 }
+export const HeaderWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  top: 0`
