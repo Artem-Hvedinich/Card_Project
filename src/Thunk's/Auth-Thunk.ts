@@ -18,7 +18,7 @@ export const AuthMeTC = (): AppThunkType => async dispatch => {
             dispatch(setAuthUserDataAC(response.data))
             dispatch(setAppStatusAC({status: 'succeeded'}));
         } else {
-            // dispatch(handleServerAppError(response.data, dispatch));
+            handleServerAppError(response.data, dispatch);
         }
     } catch (error) {
         if (error instanceof Error) {
@@ -75,7 +75,9 @@ export const LogOutTC = (): AppThunkType => async dispatch => {
             };
             dispatch(deleteUserDataAC(resetUser));
             dispatch(setAppStatusAC({status: 'succeeded'}));
-        } else handleServerAppError(response.data.error, dispatch)
+        } else {
+            handleServerAppError(response.data.error, dispatch)
+        }
     } catch (error) {
         handleServerNetworkError(error, dispatch);
     } finally {

@@ -15,7 +15,7 @@ import {useDispatch} from "react-redux";
 import {AuthMeTC} from "./Thunk's/Auth-Thunk";
 import {PATH} from "./UtilsFunction/const-enum-path";
 import {Snackbars} from './components/SnackBar/SnackBar';
-import styled from 'styled-components';
+import {AppWrapper} from "./components/StylesComponents/Wrapper";
 
 export const App = () => {
 
@@ -30,7 +30,6 @@ export const App = () => {
     if (stateApp.isFetching) return <Loading/>
     return (
         <AppWrapper>
-            <Header/>
             {/*/!*   Error Block // need styles*/}
             {stateApp.status === 'loading' && <Loading/>}
             <Snackbars/>
@@ -46,17 +45,4 @@ export const App = () => {
             </Routes>
         </AppWrapper>
     )
-}
-
-export const AppWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh`
-
-export const HeaderWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  top: 0`
+};

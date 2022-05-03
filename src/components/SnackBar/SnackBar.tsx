@@ -1,25 +1,36 @@
 import React from 'react';
-import {useDispatch, } from "react-redux";
-import {useAppSelector} from "../../Store-Reducers/Store";
+import "./SnackBar.css";
+import {useDispatch,} from "react-redux";
+import {TypedDispatch, useAppSelector} from "../../Store-Reducers/Store";
 import {AppInitialStateType, setAppErrorMessageAC} from "../../Store-Reducers/App-Reducer";
-
 
 
 export const Snackbars = () => {
 
-    const { error } = useAppSelector<AppInitialStateType>(state => state.AppReducer);
-    const dispatch = useDispatch();
+    const {error} = useAppSelector<AppInitialStateType>(state => state.AppReducer);
+    const dispatch = useDispatch<TypedDispatch>();
 
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-            return
+    const handleClose = () => {
+        let snack = document.getElementById("snackbar");
+        if (snack) {
+            snack.className = "show";
+            setTimeout(() => {
+                if (snack) {
+                    snack.className = snack.className.replace("show", "");
+                }
+
+                dispatch(setAppErrorMessageAC({error: null}));
+            }, 3000);
         }
-        dispatch(setAppErrorMessageAC({error: null}));
     };
 
+    if (error !== null) {
+        handleClose();
+    }
+
     return (
-            <div onChange={handleClose}>
-                {error}
-            </div>
+        <div>
+            <div id={"snackbar"} className={"snackbar"}>{error}</div>
+        </div>
     );
 };
