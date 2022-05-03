@@ -15,7 +15,7 @@ import {useDispatch} from "react-redux";
 import {AuthMeTC} from "./Thunk's/Auth-Thunk";
 import {PATH} from "./UtilsFunction/const-enum-path";
 import {Snackbars} from './components/SnackBar/SnackBar';
-import styled from 'styled-components';
+import {AppWrapper} from "./components/StylesComponents/Wrapper";
 
 export const App = () => {
 
@@ -24,18 +24,17 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(AuthMeTC());
-    }, []);
+    }, [dispatch]);
 
 
     if (stateApp.isFetching) return <Loading/>
     return (
         <AppWrapper>
-            <Header/>
             {/*/!*   Error Block // need styles*/}
             {stateApp.status === 'loading' && <Loading/>}
             <Snackbars/>
             <Routes>
-                <Route path={'/'} element={<Navigate to={PATH.profile}/>}/>
+                <Route path={'/'} element={<Navigate to={PATH.error}/>}/>
                 <Route path={PATH.login} element={<Login/>}/>
                 <Route path={PATH.registration} element={<Register/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
@@ -46,13 +45,4 @@ export const App = () => {
             </Routes>
         </AppWrapper>
     )
-}
-
-export const AppWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh`
-
+};

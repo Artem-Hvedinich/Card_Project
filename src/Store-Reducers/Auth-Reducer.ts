@@ -15,7 +15,6 @@ let initialState: initialStateAuthorizationType = {
     verified: null,
     rememberMe: null,
     error: null,
-
     isAuth: false
 };
 
@@ -24,8 +23,12 @@ const AuthSlice = createSlice({
     initialState: initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(setAuthUserDataAC, (state, {payload}: PayloadAction<ResponseDataLoginOrAuthMe>) => {
-            return {...payload, isAuth: true}
+        builder.addCase(setAuthUserDataAC, (state:initialStateAuthorizationType, action: PayloadAction<ResponseDataLoginOrAuthMe>) => {
+            return {...action.payload, isAuth: true}
+        });
+
+        builder.addCase(deleteUserDataAC, (state:initialStateAuthorizationType, action: PayloadAction<ResponseDataLoginOrAuthMe>) => {
+            return {...action.payload, isAuth: false}
         });
     },
 });
@@ -33,3 +36,4 @@ const AuthSlice = createSlice({
 export const AuthorizationReducer = AuthSlice.reducer;
 
 export const setAuthUserDataAC = createAction<ResponseDataLoginOrAuthMe>('AUTH_ME');
+export const deleteUserDataAC = createAction<ResponseDataLoginOrAuthMe>('Log_OUT_ME');

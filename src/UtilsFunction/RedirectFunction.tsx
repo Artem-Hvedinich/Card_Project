@@ -8,7 +8,7 @@ export function NotAuthRedirect<T>(Component: ComponentType<T>) {
     const RedirectComponent = (props: any) => {
 
         const isAuth = useAppSelector<boolean>(state => state.AuthorizationReducer.isAuth);
-        if (!isAuth) return (<Navigate to={PATH.login} />);
+        if (!isAuth) return (<Navigate to={PATH.login}/>);
 
         return <Component {...props as T}/>
 
@@ -22,7 +22,7 @@ export function IsLoginRedirect<T>(Component: ComponentType<T>) {
     const RedirectComponent = (props: any) => {
 
         const isAuth = useAppSelector<boolean>(state => state.AuthorizationReducer.isAuth);
-        if (isAuth) return (<Navigate to={PATH.profile} />);
+        if (isAuth) return (<Navigate to={PATH.profile}/>);
 
         return <Component {...props as T}/>
 
