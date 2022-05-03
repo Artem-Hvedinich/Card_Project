@@ -24,7 +24,7 @@ export type LoginDataType = {
 };
 
 
-export type LogOutResponseType = {
+export type InfoErrorResponseType = {
     info: string
     error: string;
 };
@@ -37,4 +37,9 @@ export type RegisterDataType = {
 export type ResponseRegisterType = {
     addedUser: {}
     error?: string
+}
+export type ForgotPasswordDataType = {
+    email: string
+    from: string
+    message: string
 }

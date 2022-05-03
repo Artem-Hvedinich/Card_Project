@@ -6,9 +6,9 @@ export const Button = styled.button<{ width?: number, height?: number, bgColor?:
   background-color: ${({bgColor}) => bgColor};
   color: ${({color}) => color};
   border-radius: 30px;
+  letter-spacing: 0.7px;
   border: none;
-  cursor: pointer
-`;
+  cursor: pointer`;
 
 export const Input = styled.input`
   width: 347px;

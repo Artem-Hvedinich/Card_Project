@@ -30,7 +30,7 @@ export const TextWrapper = styled.p<{ color: string, fontSz: number, opacity?: n
   text-align: ${({textAlign}) => textAlign}
 `;
 
-export const FormWrapper = styled.form<{ height: number }>`
+export const FormWrapper = styled.form<{ height?: number }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

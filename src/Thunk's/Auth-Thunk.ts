@@ -101,4 +101,18 @@ export const RegisterTC = (email: string, password: string): AppThunkType => asy
     }
 };
 
+export const ForgetPasswordTC = (email: string): AppThunkType => async dispatch => {
+    dispatch(setAppStatusAC({status: 'loading'}));
+    try {
+        const response = await AuthAPI.forgotPassword(email);
+        if (response.info) {
+            dispatch(setAppStatusAC({status: 'succeeded'}));
+        } else handleServerAppError(response.error, dispatch);
+    } catch (error) {
+        handleServerNetworkError(error, dispatch);
+    } finally {
+        dispatch(setAppStatusAC({status: 'succeeded'}));
+    }
+};
+
 
