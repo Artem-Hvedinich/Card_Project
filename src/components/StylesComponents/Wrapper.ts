@@ -51,7 +51,6 @@ export const ErrorWrapper = styled.div`
   font-size: 0.9rem
 `;
 
-
 export const HeaderWrapper = styled.div`
   display: flex;
   justify-content: center;

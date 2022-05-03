@@ -47,6 +47,7 @@ export const ForgotPassword = () => {
                     Enter your email address and we will send you further instructions</TextWrapper>
 
                 <Button type={'submit'}
+                        disabled={!(ForgotPassword.isValid && ForgotPassword.dirty)}
                         bgColor={colors.Blue} width={266} height={36} color={colors.Lavender}>
                     Send Instructions</Button>
 

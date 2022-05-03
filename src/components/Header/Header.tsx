@@ -45,7 +45,7 @@ const BlockNavigate = styled.div`
   width: 350px;
   height: 100%`;
 
-const ItemBlockNavigate = styled.a`
+const ItemBlockNavigate = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,8 +66,8 @@ const ItemBlockNavigate = styled.a`
     border-bottom: 3px solid ${colors.LightBlue};
   }
 
-  &:active {
-    background-color: ${colors.ActiveNavlinkColor};
-    border-bottom: 3px solid ${colors.LightBlue};
-  }
+  // &:active {
+    //   background-color: ${colors.ActiveNavlinkColor};
+    //   border-bottom: 3px solid ${colors.LightBlue};
+  // }
 `;

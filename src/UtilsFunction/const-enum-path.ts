@@ -4,6 +4,6 @@ export const PATH = {
     profile: '/profile',
     error: '/404',
     forgotPassword: '/recPas',
-    newPassword: '/newPas',
+    newPassword: '/set-new-password',
     checkEmail: '/checkEmail',
 };

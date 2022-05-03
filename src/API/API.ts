@@ -5,11 +5,12 @@ import {
     RegisterDataType,
     ResponseDataLoginOrAuthMe,
     ResponseRegisterType,
-    ForgotPasswordDataType
+    ForgotPasswordDataType,
+    NewPasswordDataType
 } from "../Types/AuthTypes";
 
 export const instance = axios.create({
-    baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
+    baseURL: process.env.REACT_APP_BACK_URL || ' https://neko-back.herokuapp.com/2.0',
     withCredentials: true,
 });
 
@@ -30,9 +31,17 @@ export const AuthAPI = {
     forgotPassword(email: string) {
         return instance.post<ForgotPasswordDataType, InfoErrorResponseType>(`auth/forgot`,
             {
-                email, from: 'ai73a@yandex.by>',
-                message: `<div style="background-color: lime; padding: 15px">password recovery link: 
-<a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`
+                email, from: 'ai73a@yandex.by',
+                message: `
+<div style="background-color: #2D2E46; padding: 15px; color: lavender">
+Password recovery link: 
+<a style="text-decoration:none; color: deepskyblue;" href='http://localhost:3001/#/set-new-password/$token$'>link</a></div>`
             })
+    },
+    newPassword(password: string, resetPasswordToken: string) {
+        return instance.post<NewPasswordDataType, InfoErrorResponseType>(`auth/set-new-password`, {
+            password,
+            resetPasswordToken
+        })
     }
 };
