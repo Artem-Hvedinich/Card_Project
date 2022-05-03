@@ -20,9 +20,6 @@ export const store = configureStore({
     middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
 })
 
-// Для быстрого извлечения из селектора , теперь можно указать только один тип ,
-// например: const a = useAppSelector<ReducerType>(state => state.Reducer)
-//если понял сотри комент и пользуйся
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
 
 

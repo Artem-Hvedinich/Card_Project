@@ -14,6 +14,7 @@ import {useTypedDispatch} from "../../../Store-Reducers/Store";
 import {LoginTC} from "../../../Thunk's/Auth-Thunk";
 import {NavLink} from 'react-router-dom';
 import {PATH} from "../../../UtilsFunction/const-enum-path";
+import styled from "styled-components";
 
 type FormikErrorType = {
     email?: string;
@@ -74,7 +75,7 @@ export const Login = IsLoginRedirect(() => {
                     <ErrorWrapper>{loginForm.errors.password}</ErrorWrapper>
                 ) : null}
                 <RememberMeWrapper>
-                    <input
+                    <StyledCheckBox
                         type="checkbox"
                         id="remember"
                         {...loginForm.getFieldProps("rememberMe")}
@@ -97,9 +98,30 @@ export const Login = IsLoginRedirect(() => {
 
             {/*redirect in Registration*/}
             <TextWrapper color={colors.DarkBlue} textAlign={'center'} fontSz={14} opacity={0.5}>
-                <NavLink to={PATH.registration}>Don’t have an account?</NavLink>
+                <ButtonHovered>
+                    <NavLink to={PATH.registration}>Don’t have an account?</NavLink>
+                </ButtonHovered>
             </TextWrapper>
 
         </AuthCardWrapper>
     )
 });
+
+
+const StyledCheckBox = styled.input`
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+`;
+
+const ButtonHovered = styled.div`
+  border-radius: 20px;
+  width: 200px;
+  margin: 0 auto;
+  padding: 5px 10px;
+
+  &:hover {
+    transition: 1s all;
+    background-color: ${colors.LightPurpure};
+  }
+`;

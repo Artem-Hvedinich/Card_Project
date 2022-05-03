@@ -3,6 +3,8 @@ import {AuthCardWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents
 import {colors} from "../../StylesComponents/Colors";
 import {CheckEmailIcon} from "./CheckEmailIcon";
 import styled from "styled-components";
+import {useAppSelector} from "../../../Store-Reducers/Store";
+import {AppInitialStateType} from "../../../Store-Reducers/App-Reducer";
 
 const IconWrapper = styled.div`
   display: flex;
@@ -14,15 +16,24 @@ const IconWrapper = styled.div`
   background: #D7D8EF`
 
 export const CheckEmail = () => {
+
+    const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
+
+
+
     return (
         <AuthCardWrapper width={413} height={468}>
             <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
             <IconWrapper>
                 <CheckEmailIcon/>
             </IconWrapper>
-            <TitleWrapper fontSz={22}>Check Email</TitleWrapper>
-            <TextWrapper textAlign={'center'} opacity={0.5} color={colors.DarkBlue} fontSz={16}>We’ve sent an Email with instructions to
-                example@mail.com</TextWrapper>
+            <TitleWrapper fontSz={22}> Check Email </TitleWrapper>
+            <TextWrapper textAlign={'center'}
+                         opacity={0.5}
+                         color={colors.DarkBlue}
+                         fontSz={16}>
+                {`We’ve sent an Email with instructions to ${stateApp.email}`}
+            </TextWrapper>
         </AuthCardWrapper>
 
     )

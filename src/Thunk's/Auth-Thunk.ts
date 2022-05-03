@@ -60,7 +60,6 @@ export const LogOutTC = (): AppThunkType => async dispatch => {
                 verified: null,
                 rememberMe: null,
                 error: null,
-                isAuth: false
             };
             dispatch(deleteUserDataAC(resetUser));
             dispatch(setAppStatusAC({status: 'succeeded'}));

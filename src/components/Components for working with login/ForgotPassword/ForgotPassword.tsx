@@ -3,12 +3,15 @@ import {AuthCardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} f
 import {colors} from "../../StylesComponents/Colors";
 import {Button, Input} from "../../StylesComponents/Button";
 import {useFormik} from "formik";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {PATH} from "../../../UtilsFunction/const-enum-path";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
 import {ForgetPasswordTC} from "../../../Thunk's/PasswordandEmailThunk";
 
+
 export const ForgotPassword = () => {
+
+    const navigate = useNavigate();
     const dispatch = useTypedDispatch();
 
     const ForgotPassword = useFormik({
@@ -23,7 +26,7 @@ export const ForgotPassword = () => {
             return errors;
         },
         onSubmit: (values) => {
-            dispatch(ForgetPasswordTC(values.email))
+            dispatch(ForgetPasswordTC(values.email, navigate))
             ForgotPassword.resetForm();
         },
     });
