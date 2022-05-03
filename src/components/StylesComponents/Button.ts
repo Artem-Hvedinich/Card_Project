@@ -8,7 +8,11 @@ export const Button = styled.button<{ width?: number, height?: number, bgColor?:
   border-radius: 30px;
   letter-spacing: 0.7px;
   border: none;
-  cursor: pointer`;
+  cursor: pointer;
+  transition: all 1s;
+  :disabled {
+    opacity: 0.5;
+  }`;
 
 export const Input = styled.input`
   width: 347px;
