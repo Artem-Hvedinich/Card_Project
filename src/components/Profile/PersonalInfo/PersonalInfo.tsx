@@ -63,9 +63,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
                     <Img src={avatar} alt={'avatar'}/>
 
                     <AddNewAva id='avatar'>
-                        {/*<input type="file"*/}
-                        {/*       // onChange={(e)=>setFiledValues()}*/}
-                        {/*/>*/}
+
                     </AddNewAva>
 
                     <InputWrapper>
