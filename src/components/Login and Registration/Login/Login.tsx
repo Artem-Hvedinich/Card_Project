@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Input} from '../../StylesComponents/Button';
 import {colors} from '../../StylesComponents/Colors';
 import {
-    AuthCardWrapper, ErrorWrapper,
+    CardWrapper, ErrorWrapper,
     FormWrapper,
     RememberMeWrapper,
     TextWrapper,
@@ -48,7 +48,7 @@ export const Login = IsLoginRedirect(() => {
     });
 
     return (
-        <AuthCardWrapper width={413} height={600}>
+        <CardWrapper width={413} height={600}>
             <TitleWrapper fontSz={26}>Sign In</TitleWrapper>
             <TitleWrapper fontSz={15}>It-incubator</TitleWrapper>
 
@@ -100,6 +100,6 @@ export const Login = IsLoginRedirect(() => {
                 <NavLink to={PATH.registration}>Don’t have an account?</NavLink>
             </TextWrapper>
 
-        </AuthCardWrapper>
+        </CardWrapper>
     )
 });

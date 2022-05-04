@@ -6,7 +6,6 @@ import {handleServerAppError, handleServerNetworkError} from "../UtilsFunction/E
 import {LoginDataType} from "../Types/AuthTypes";
 import {AppThunkType} from "../Store-Reducers/Store";
 
-
 export const AuthMeTC = (): AppThunkType => async dispatch => {
 
     dispatch(setAppStatusAC({status: 'loading'}));
@@ -114,6 +113,7 @@ export const ForgetPasswordTC = (email: string): AppThunkType => async dispatch 
         dispatch(setAppStatusAC({status: 'succeeded'}));
     }
 };
+
 export const NewPasswordTC = (password: string, passwordToken: string): AppThunkType => async dispatch => {
     dispatch(setAppStatusAC({status: 'loading'}));
     try {
