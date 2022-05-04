@@ -1,5 +1,5 @@
 import React from 'react';
-import {AuthCardWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
+import {TextWrapper, TitleWrapper, CardWrapper} from "../../StylesComponents/Wrapper";
 import {colors} from "../../StylesComponents/Colors";
 import {CheckEmailIcon} from "./CheckEmailIcon";
 import styled from "styled-components";
@@ -22,7 +22,7 @@ export const CheckEmail = () => {
 
 
     return (
-        <AuthCardWrapper width={413} height={468}>
+        <CardWrapper width={413} height={468}>
             <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
             <IconWrapper>
                 <CheckEmailIcon/>
@@ -34,7 +34,7 @@ export const CheckEmail = () => {
                          fontSz={16}>
                 {`We’ve sent an Email with instructions to ${stateApp.email}`}
             </TextWrapper>
-        </AuthCardWrapper>
+        </CardWrapper>
 
     )
 }

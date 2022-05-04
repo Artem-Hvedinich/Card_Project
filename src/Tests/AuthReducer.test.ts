@@ -30,8 +30,8 @@ test("Set auth users data in state", () => {
 
     let data = {
         _id: '626fddb118b7cd22a495df07',
-        email: 'isefroge38@gmail.com',
-        name: 'isefroge38@gmail.com',
+        email: 'pavelKuh@gmail.com',
+        name: 'pavelKuh@gmail.com',
         avatar: null,
         publicCardPacksCount: 0,
         created: new Date(),
@@ -52,7 +52,7 @@ test("Set auth users data in state", () => {
 
     expect(endState.isAuth).toBe(true);
     expect(endState._id).toBe('626fddb118b7cd22a495df07');
-    expect(endState.name).toBe('isefroge38@gmail.com');
+    expect(endState.email).toBe('pavelKuh@gmail.com');
 
 });
 
