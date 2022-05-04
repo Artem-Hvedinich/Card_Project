@@ -1,4 +1,9 @@
-import {AuthorizationReducer, initialStateAuthorizationType, setAuthUserDataAC} from "../Store-Reducers/Auth-Reducer";
+import {
+    AuthorizationReducer,
+    deleteUserDataAC,
+    initialStateAuthorizationType,
+    setAuthUserDataAC
+} from "../Store-Reducers/Auth-Reducer";
 
 
 let startState: initialStateAuthorizationType;
@@ -68,7 +73,7 @@ test("Delete user profile data", () => {
         isAuth: false
     }
 
-    const action = setAuthUserDataAC(data);
+    const action = deleteUserDataAC(data);
 
     const endState = AuthorizationReducer(startState, action);
 
