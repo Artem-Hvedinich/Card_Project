@@ -8,6 +8,7 @@ import {
     ForgotPasswordDataType,
     NewPasswordDataType
 } from "../Types/AuthTypes";
+import {ResponsePacksType} from "../Types/CardsTypes";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || ' https://neko-back.herokuapp.com/2.0',
@@ -45,3 +46,10 @@ Password recovery link:
         })
     }
 };
+
+
+export const CardAPI = {
+    getPacks() {
+        return instance.get<ResponsePacksType>('/cards/pack');
+    },
+}
