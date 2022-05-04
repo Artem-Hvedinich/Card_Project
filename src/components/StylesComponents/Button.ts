@@ -10,6 +10,7 @@ export const Button = styled.button<{ width?: number, height?: number, bgColor?:
   border: none;
   cursor: pointer;
   transition: all 1s;
+  
   :disabled {
     opacity: 0.5;
   }`;

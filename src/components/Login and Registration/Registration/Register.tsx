@@ -1,19 +1,14 @@
 import React from 'react';
-import {AuthCardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
+import {ButtonWrapper, CardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
 import {Button, Input} from "../../StylesComponents/Button";
 import {colors} from "../../StylesComponents/Colors";
-import styled from "styled-components";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
 import {useFormik} from "formik";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../UtilsFunction/const-enum-path";
 import {RegisterTC} from "../../../Thunk's/PasswordandEmailThunk";
 
-export const ButtonWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly
-`;
+
 type FormikErrorType = {
     email?: string;
     password?: string;
@@ -50,7 +45,7 @@ export const Register = () => {
         },
     });
     return (
-        <AuthCardWrapper width={413} height={540}>
+        <CardWrapper width={413} height={540}>
 
             <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
             <TitleWrapper fontSz={22}>Sign Up</TitleWrapper>
@@ -87,6 +82,7 @@ export const Register = () => {
                 {registrationForm.touched.configPassword && registrationForm.errors.configPassword ? (
                     <ErrorWrapper>{registrationForm.errors.configPassword}</ErrorWrapper>
                 ) : null}
+
                 <ButtonWrapper>
                     {/*button redirect in login*/}
                     <NavLink to={PATH.login}>
@@ -100,6 +96,6 @@ export const Register = () => {
                 </ButtonWrapper>
             </FormWrapper>
             {/*formik*/}
-        </AuthCardWrapper>
+        </CardWrapper>
     )
 }

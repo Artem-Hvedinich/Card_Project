@@ -12,7 +12,7 @@ export const Header = () => {
     /*сделал ховер, но как активную кнопку так подкрасить в сталедкомп хоть убей не нашел , если знаешь доделай плиз*/
     return (
         <HeaderWrapper>
-            {/*Не знаю нужен ли редирект по клике на лого , на всякий случай сделал*/}
+            {/*Не знаю нужен ли редирект по клике на лого, на всякий случай сделал*/}
             <NavLink to={PATH.profile}><Text>It-incubator</Text></NavLink>
             <BlockNavigate>
                 <ItemBlockNavigate>
@@ -59,7 +59,6 @@ const ItemBlockNavigate = styled.div`
   cursor: pointer;
   transition: 1s all;
   border-bottom: 3px solid ${colors.LightPurpure};
-
 
   &:hover {
     background-color: ${colors.ActiveNavlinkColor};

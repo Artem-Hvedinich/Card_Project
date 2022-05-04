@@ -1,5 +1,5 @@
 import React from 'react';
-import {AuthCardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
+import {CardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
 import {colors} from "../../StylesComponents/Colors";
 import {Button, Input} from "../../StylesComponents/Button";
 import {useFormik} from "formik";
@@ -31,7 +31,7 @@ export const ForgotPassword = () => {
         },
     });
     return (
-        <AuthCardWrapper width={413} height={540}>
+        <CardWrapper width={413} height={540}>
             <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
             <TitleWrapper fontSz={22}>Forgot your password?</TitleWrapper>
             {/*Formik*/}
@@ -63,6 +63,6 @@ export const ForgotPassword = () => {
             <TitleWrapper fontSz={16} color={colors.Blue}>
                 <NavLink to={PATH.login}>Try logging in</NavLink>
             </TitleWrapper>
-        </AuthCardWrapper>
+        </CardWrapper>
     )
 }

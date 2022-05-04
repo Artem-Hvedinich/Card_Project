@@ -1,11 +1,12 @@
 import React from 'react';
-import {AuthCardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} from '../../StylesComponents/Wrapper';
+import {CardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} from '../../StylesComponents/Wrapper';
 import {Button, Input} from "../../StylesComponents/Button";
 import {colors} from "../../StylesComponents/Colors";
 import {useFormik} from "formik";
+import {} from "../../../Thunk's/Auth-Thunk";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
-import {useParams} from 'react-router-dom';
-import {NewPasswordTC} from "../../../Thunk's/PasswordandEmailThunk";
+import { useParams} from 'react-router-dom';
+import { NewPasswordTC } from '../../../Thunk\'s/PasswordandEmailThunk';
 
 type FormikErrorType = {
     password?: string
@@ -41,7 +42,7 @@ export const NewPassword = () => {
 
 
     return (
-        <AuthCardWrapper width={413} height={550}>
+        <CardWrapper width={413} height={550}>
             <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
             <TitleWrapper fontSz={22}>Create new password</TitleWrapper>
             {/*formik*/}
@@ -74,7 +75,7 @@ export const NewPassword = () => {
                 {/*</NavLink>*/}
             </FormWrapper>
             {/*formik*/}
-        </AuthCardWrapper>
+        </CardWrapper>
     )
 }
 
