@@ -6,23 +6,32 @@ import IconPacks from "../../Assets/Group 608.png";
 import IconProfile from "../../Assets/Union (Stroke).png";
 import styled from "styled-components";
 import {colors} from "../StylesComponents/Colors";
+import {TypeIdPage} from "../ProfileGeneral/ProfileGeneral";
 
+type HeaderType = {
+    page: TypeIdPage
+    setPage: (id: TypeIdPage) => void
+}
 
-export const Header = () => {
-    /*сделал ховер, но как активную кнопку так подкрасить в сталедкомп хоть убей не нашел , если знаешь доделай плиз*/
+export const Header = ({setPage, page}: HeaderType) => {
+
+    const itemList = [
+        {logo: IconPacks, name: 'Packs list', id: 1 as TypeIdPage},
+        {logo: IconProfile, name: 'Profile', id: 2 as TypeIdPage},
+    ];
+
+    const PageList = itemList.map( el =>
+        <ItemBlockNavigate key={el.id} onClick={() => setPage(el.id)}>
+            <ImgWrapper src={el.logo} alt={el.logo}/>
+            {el.name}
+        </ItemBlockNavigate>
+    );
+
     return (
         <HeaderWrapper>
-            {/*Не знаю нужен ли редирект по клике на лого, на всякий случай сделал*/}
             <NavLink to={PATH.profile}><Text>It-incubator</Text></NavLink>
             <BlockNavigate>
-                <ItemBlockNavigate>
-                    <ImgWrapper src={IconPacks} alt={"IconPacks"}/>
-                    Packs list
-                </ItemBlockNavigate>
-                <ItemBlockNavigate>
-                    <ImgWrapper src={IconProfile} alt={"IconProfile"}/>
-                    Profile
-                </ItemBlockNavigate>
+                {PageList}
             </BlockNavigate>
         </HeaderWrapper>
     )
@@ -65,8 +74,8 @@ const ItemBlockNavigate = styled.div`
     border-bottom: 3px solid ${colors.LightBlue};
   }
 
-  // &:active {
-    //   background-color: ${colors.ActiveNavlinkColor};
-    //   border-bottom: 3px solid ${colors.LightBlue};
-  // }
+  &:active {
+      background-color: ${colors.ActiveNavlinkColor};
+      border-bottom: 3px solid ${colors.LightBlue};
+  }
 `;

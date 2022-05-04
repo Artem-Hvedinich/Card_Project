@@ -55,14 +55,16 @@ export const HeaderWrapper = styled.div`
   top: 0;
   width: 100%;
   height: 60px;
-  background-color: ${colors.LightPurpure};`;
+  background-color: ${colors.LightPurpure};
+`;
 export const ProfileWrapper = styled.div`
   margin: 0 auto;
   width: 80%;
   height: 740px;
-  border-radius: 8px;
-  background-color: ${colors.BackgroundWight};`;
-
+  padding: 24px 48px;
+  border-radius: 0 8px 8px 0;
+  background-color: ${colors.BackgroundWight};
+`;
 export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -70,8 +72,13 @@ export const AppWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh`;
-
 export const ButtonWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;`
+
+export const GeneralProfileWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+`;

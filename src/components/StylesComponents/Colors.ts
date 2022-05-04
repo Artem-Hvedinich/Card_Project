@@ -1,4 +1,5 @@
 export const colors = {
+    WhiteColor: '#FFFFFF',
     DarkBlue: '#24254A',
     Blue: '#21268F',
     LightBlue: '#21268F',
@@ -12,4 +13,6 @@ export const colors = {
     ActiveNavlinkColor: '#DCCCDB',
     BackgroundWight: '#FEFEFF',
     ToolsBackground: '#ECECF9',
+    FilterButtonColor: '#9A91C8',
 }
+
