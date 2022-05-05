@@ -1,36 +1,80 @@
-import React from 'react';
-import {OnePacksType} from "../../../../../Types/CardsTypes";
+import React, {useEffect, useState} from 'react';
+import s from "./Table.module.css";
+import {PacksType, OnePacksType} from "../../../../../Types/CardsTypes";
 import styled from "styled-components";
+import {Table, Space} from 'antd';
 
-const TableList = [
-    {id: 1, name: 'Name'},
-    {id: 2, name: 'Cards'},
-    {id: 3, name: 'Last Updated'},
-    {id: 4, name: 'Created by'},
-    {id: 5, name: 'Actions'},
-];
 
 type CardTableType = {
     itemPack: OnePacksType[]
 }
 
 export const CardTable = ({itemPack}: CardTableType) => {
+
+    const data: PacksType[] = [];
+    console.log(data)
+
+    const [localState, setLocalState] = useState<PacksType[]>(data);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        setLoading(true);
+        itemPack.map(el => data.push({
+            key: el._id,
+            name: el.name,
+            cards: el.cardsCount,
+            last_updated: el.updated,
+            created_by: el.created,
+        }));
+        setLocalState(data);
+        setLoading(false);
+    },[itemPack]);
+
+
+    const {Column} = Table;
+
+
     return (
         <PacksBlock>
-            <TitleBlock>
-                {TableList.map(el => <Title key={el.id}>{el.name}</Title>)}
-            </TitleBlock>
-            {itemPack.map(el =>
-                <PacksInfoBlock key={el._id}>
-                    <PacksInfoText>{el.name}</PacksInfoText>
-                    <PacksInfoText>{el.cardsCount}</PacksInfoText>
-                    <PacksInfoText>{el.updated}</PacksInfoText>
-                    <PacksInfoText>{el.created}</PacksInfoText>
-                </PacksInfoBlock>)
-            }
+            <Table dataSource={localState}
+                   pagination={false}
+                   size={"large"}
+                   loading={loading}>
+
+                <Column title="Name" dataIndex="name" key="name" width={"20%"} className={s.font_main}/>
+                <Column title="Cards" dataIndex="cards" key="cards" width={"10%"} align={"center"} className={s.font}/>
+                <Column title='Last Updated'
+                        dataIndex='last_updated'
+                        key='last_updated'
+                        width={"25%"}
+                        className={s.font}
+                        align={"center"}
+                        sorter={(a: { last_updated: string }, b: { last_updated: string }) =>
+                            a.last_updated.length - b.last_updated.length}/>
+                <Column title="Created by" dataIndex="created_by" key="created_by" width={"25%"} align={"center"} className={s.font}/>
+                <Column
+                    className={s.font}
+                    title={'Actions'}
+                    key={'actions'}
+                    render={() => (
+                        <Space size="middle">
+                            <DeleteTableButton>
+                                Delete
+                            </DeleteTableButton>
+                            <TableButton>
+                                Edit
+                            </TableButton>
+                            <TableButton>
+                                Learn
+                            </TableButton>
+                        </Space>
+                    )}
+                />
+            </Table>
         </PacksBlock>
     );
 };
+
 
 const PacksBlock = styled.div`
   height: auto;
@@ -41,40 +85,22 @@ const PacksBlock = styled.div`
   margin-top: 2vw;
   box-shadow: -0.1vw -0.1vw 0.5vw #cbcbcb,
   0.1vw 0.1vw 0.5vw 0.1vw #cbcbcb;`
-const TitleBlock = styled.div`
-  width: 100%;
-  background-color: #ECECF9;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-right: 100px`
-const Title = styled.span`
-  font-size: 0.8vw;
-  font-weight: 600;
-  padding: 0.5vw 1vw;`
-const PacksInfoBlock = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: #F8F7FD;
-  width: 100%;
-  height: 2.5vw;
-
-  :nth-child(2n) {
-    background-color: #FFFFFF;
-  }`
-const PacksInfoText = styled.span`
-  font-size: 0.8vw;
-  padding: 0.5vw 1vw;
-  :nth-child(1) {
-    width: 20%;
-  }
-  :nth-child(2) {
-  width: 13%;
-  }
-  :nth-child(3) {
-  width: 22%;
-  }
-  :nth-child(4) {
-  width: 20%;
-  }
+const TableButton = styled.div`
+  cursor: pointer;
+  background-color: #D7D8EF;
+  padding: 5px 10px;
+  color: #21268F;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+`;
+const DeleteTableButton = styled.div`
+  border: none;
+  cursor: pointer;
+  background-color: #F1453D;
+  padding: 5px 10px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
 `;

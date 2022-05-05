@@ -9,6 +9,7 @@ import SerchImg from '../../../../Assets/Union.svg'
 import {colors} from "../../../StylesComponents/Colors";
 import {Pagination} from 'antd';
 
+
 export const AllPacks = () => {
 
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
@@ -18,7 +19,8 @@ export const AllPacks = () => {
 
     useEffect(() => {
         dispatch(getAllPacksTC());
-    }, [])
+    }, []);
+
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (error && error.trim() !== '') setError(null)
@@ -66,10 +68,6 @@ export const AllPacks = () => {
         </ProfileWrapper>
     );
 };
-
-
-
-
 
 
 const PaginationBlock = styled.div`

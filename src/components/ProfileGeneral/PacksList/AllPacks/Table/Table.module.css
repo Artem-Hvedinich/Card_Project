@@ -1,0 +1,17 @@
+thead tr {
+    background-color: #F8F7FD;
+}
+
+tr:nth-child(2n) {
+    background-color: #F8F7FD;
+}
+
+th {
+    background-color: #ECECF9;
+    font-size: 1.2rem;
+}
+
+td {
+    font-size: 1rem;
+    font-weight: 400;
+}

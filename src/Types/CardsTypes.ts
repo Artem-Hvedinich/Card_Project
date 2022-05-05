@@ -1,5 +1,13 @@
 export type FilterCardsType = "All" | "My";
 
+export type PacksType = {
+    key: string,
+    name: string,
+    cards: number,
+    last_updated: string,
+    created_by: string,
+}
+
 export type OnePacksType = {
     _id: string
     user_id: string
