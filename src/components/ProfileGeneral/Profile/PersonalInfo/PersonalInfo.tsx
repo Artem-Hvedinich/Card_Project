@@ -28,9 +28,12 @@ type PersonalInfoFormikType = {
     email?: string
 }
 export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) => {
-    const meAuth = useAppSelector<initialStateAuthorizationType>(s => s.AuthorizationReducer)
 
+    const MaxLengthInput = 50;
+
+    const meAuth = useAppSelector<initialStateAuthorizationType>(s => s.AuthorizationReducer);
     const dispatch = useTypedDispatch();
+
     const handelClick = () => {
         setEditMode(false)
     }
@@ -38,7 +41,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
     const PersonalInfo = useFormik({
         initialValues: {
             avatar: avatar,
-            nickname: '',
+            nickname: meAuth.name ? meAuth.name : '',
             email: meAuth.email ? meAuth.email : ''
         },
         validate: (values: PersonalInfoFormikType) => {
@@ -73,6 +76,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
                             <Input type="text"
                                    id="nickname"
                                    placeholder="nickname"
+                                   maxLength={MaxLengthInput}
                                    {...PersonalInfo.getFieldProps("nickname")}/>
                             {/*Errors */}
                             {PersonalInfo.touched.nickname && PersonalInfo.errors.nickname ? (
@@ -85,6 +89,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
                             <Input type="email"
                                    id="email"
                                    placeholder="Registered email"
+                                   maxLength={MaxLengthInput}
                                    {...PersonalInfo.getFieldProps("email")}/>
                         </div>
                         {/*Errors */}

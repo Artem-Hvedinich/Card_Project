@@ -35,7 +35,8 @@ export const CardTable = ({itemPack}: CardTableType) => {
 const PacksBlock = styled.div`
   height: auto;
   overflow: hidden;
-  max-height: 60vh;
+  min-height: 70%;
+  max-height: 70%;
   width: 100%;
   margin-top: 2vw;
   box-shadow: -0.1vw -0.1vw 0.5vw #cbcbcb,
@@ -45,7 +46,8 @@ const TitleBlock = styled.div`
   background-color: #ECECF9;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;`
+  justify-content: space-between;
+  padding-right: 100px`
 const Title = styled.span`
   font-size: 0.8vw;
   font-weight: 600;
@@ -62,4 +64,17 @@ const PacksInfoBlock = styled.div`
   }`
 const PacksInfoText = styled.span`
   font-size: 0.8vw;
-  padding: 0.5vw 1vw;`
+  padding: 0.5vw 1vw;
+  :nth-child(1) {
+    width: 20%;
+  }
+  :nth-child(2) {
+  width: 13%;
+  }
+  :nth-child(3) {
+  width: 22%;
+  }
+  :nth-child(4) {
+  width: 20%;
+  }
+`;

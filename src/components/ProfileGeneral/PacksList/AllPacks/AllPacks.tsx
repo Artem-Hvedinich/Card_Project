@@ -7,6 +7,7 @@ import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/Pro
 import styled from "styled-components";
 import SerchImg from '../../../../Assets/Union.svg'
 import {colors} from "../../../StylesComponents/Colors";
+import {Pagination} from 'antd';
 
 export const AllPacks = () => {
 
@@ -56,9 +57,27 @@ export const AllPacks = () => {
 
             <CardTable itemPack={stateCards.cardPack}/>
 
+            <PaginationBlock>
+                <Pagination size={"default"}
+                            defaultCurrent={1}
+                            total={500}
+                />
+            </PaginationBlock>
         </ProfileWrapper>
     );
 };
+
+
+
+
+
+
+const PaginationBlock = styled.div`
+  position: relative;
+  width: 60%;
+  top: 5%;
+  left: 0%;
+`
 const SearchBlock = styled.div`
   display: flex;
 `

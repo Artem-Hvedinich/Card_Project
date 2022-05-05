@@ -10,14 +10,17 @@ import {
 } from '../../StylesComponents/ProfileAndPacksWrapper';
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
+import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
+import {Slider} from "antd";
+import 'antd/dist/antd.css';
 
 
-export const PacksList = () => {
+export const PacksList = NotAuthRedirect(() => {
     const dispatch = useTypedDispatch();
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
     const onClickHandler = (value: FilterCardsType) => dispatch(setChangeFilteredPageAC({value}));
 
-    const active = stateCards.filter === "All"
+    const active = stateCards.filter === "All";
 
     return (
         <GeneralProfileWrapper>
@@ -38,14 +41,25 @@ export const PacksList = () => {
                 <NumberCards>
                     <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
                 </NumberCards>
+
+                <RangeBlock>
+                    <Slider range tooltipVisible max={150} defaultValue={[30, 150]}/>
+                </RangeBlock>
+
             </ToolsProfileBlock>
 
             <AllPacks/>
 
         </GeneralProfileWrapper>
     )
-}
+});
 
+
+
+const RangeBlock = styled.div`
+  width: 80%;
+  margin: 20px auto;
+`;
 
 const ShowPacks = styled.div`
   display: flex;
