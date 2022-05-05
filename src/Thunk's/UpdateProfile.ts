@@ -10,7 +10,7 @@ export const NewNameAndAvatarTC = (newName: string, newAvatar: string): AppThunk
     try {
         const response = await AuthAPI.newNameAndAvatar(newName, newAvatar);
         if (response.data.updatedUser) {
-            dispatch(addNewNameAndAvatar({...response.data.updatedUser, name: newName, avatar: newAvatar}));
+            dispatch(addNewNameAndAvatar(response.data.updatedUser));
             dispatch(setAppStatusAC({status: 'succeeded'}));
         }
     } catch (error) {

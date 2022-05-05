@@ -52,17 +52,7 @@ export type NewNameAndAvatarType = {
     avatar: string
 }
 
-export type DataType = {
-    updatedUser: ResponseDataLoginOrAuthMe,
-    token: string,
-    tokenDeathTime: number
-}
-
 export type ResponseUpdateDataType = {
-    config: {}
-    data: DataType
-    headers: {}
-    request: {}
-    status: number
-    statusText: string
+    updatedUser: ResponseDataLoginOrAuthMe,
+    error?: string
 }
