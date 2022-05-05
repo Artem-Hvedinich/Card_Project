@@ -15,8 +15,8 @@ import {AuthMeTC} from "./Thunk's/Auth-Thunk";
 import {PATH} from "./UtilsFunction/const-enum-path";
 import {AppWrapper} from "./components/StylesComponents/Wrapper";
 import {Snackbar} from "./components/SnackBar/SnackBar";
-import {Header} from "./components/Header/Header";
 import {PacksList} from './components/PacksList/PacksList';
+import { Header } from './components/Header/Header';
 
 export const App = () => {
 

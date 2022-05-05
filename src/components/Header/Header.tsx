@@ -61,7 +61,6 @@ const ItemBlockNavigate = styled(NavLink)`
   align-items: center;
   width: 50%;
   height: 100%;
-  //border: 1px solid red;
   font-family: SF UI Display;
   font-size: 14px;
   line-height: 16px;
@@ -77,8 +76,8 @@ const ItemBlockNavigate = styled(NavLink)`
   }
 
   &:active {
-    background-color: ${colors.ActiveNavlinkColor};
-    border-bottom: 3px solid ${colors.LightBlue};
+      background-color: ${colors.ActiveNavlinkColor};
+      border-bottom: 3px solid ${colors.LightBlue};
   }
 `;
 const ButtonWrapper = styled.div`

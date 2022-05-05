@@ -6,14 +6,14 @@ import {
     FormWrapper,
     TextWrapper,
     TitleWrapper
-} from "../../StylesComponents/Wrapper";
+} from "../../../StylesComponents/Wrapper";
 import styled from "styled-components";
 import {Img} from '../Profile';
-import {Button, Input} from "../../StylesComponents/Button";
-import {colors} from "../../StylesComponents/Colors";
-import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
+import {Button, Input} from "../../../StylesComponents/Button";
+import {colors} from "../../../StylesComponents/Colors";
+import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
 import {useFormik} from "formik";
-import {initialStateAuthorizationType} from "../../../Store-Reducers/Auth-Reducer";
+import {initialStateAuthorizationType} from "../../../../Store-Reducers/Auth-Reducer";
 import {AddNewAva} from "./AddNewAva/AddNewAva";
 import {NewNameAndAvatarTC} from "../../../Thunk's/UpdateProfile";
 

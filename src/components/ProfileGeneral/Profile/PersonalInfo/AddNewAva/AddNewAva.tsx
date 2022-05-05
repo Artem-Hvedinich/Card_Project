@@ -1,7 +1,7 @@
 import React, {ChangeEvent, ChangeEventHandler, useState} from "react";
 import styled from "styled-components";
-import {AddNewAvaIcon} from "../../../../Assets/AddNewAvaIcon";
-import {colors} from "../../../StylesComponents/Colors";
+import {AddNewAvaIcon} from "../../../../../Assets/AddNewAvaIcon";
+import {colors} from "../../../../StylesComponents/Colors";
 
 
 type AddNewAvaType = {
