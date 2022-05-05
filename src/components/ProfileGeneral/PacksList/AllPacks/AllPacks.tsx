@@ -18,7 +18,7 @@ export const AllPacks = () => {
     },[])
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        // if (error && error.trim() !== '') setError(null)
+        if (error && error.trim() !== '') setError(null)
         if (e.ctrlKey || e.key === "Enter") {
             onClickHandler && onClickHandler()
         } else {
