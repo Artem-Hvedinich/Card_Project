@@ -1,41 +1,77 @@
 import React from 'react';
-import s from "./PacksList.module.css";
-import {GeneralProfileWrapper} from "../../StylesComponents/Wrapper";
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {CardsInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Cards-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
 import {FilterCardsType} from "../../../Types/CardsTypes";
+import {
+    GeneralProfileWrapper,
+    TitleProfileWrapper,
+    ToolsProfileBlock
+} from '../../StylesComponents/ProfileAndPacksWrapper';
+import styled from 'styled-components';
+import {colors} from "../../StylesComponents/Colors";
 
 
 export const PacksList = () => {
+    const dispatch = useTypedDispatch();
+    const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
+    const onClickHandler = (value: FilterCardsType) => dispatch(setChangeFilteredPageAC({value}));
 
-        const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
-        const dispatch = useTypedDispatch();
+    const active = stateCards.filter === "All"
 
-        const onClickHandler = (value: FilterCardsType) => dispatch(setChangeFilteredPageAC({value}));
+    return (
+        <GeneralProfileWrapper>
+            <ToolsProfileBlock>
+                <ShowPacks>
+                    <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
+                    <ButtonWrapper>
+                        <Button active={!active}
+                                onClick={() => onClickHandler("My")}>My
+                        </Button>
 
-        return (
-            <GeneralProfileWrapper>
-                <div className={s.tools_block}>
-                    <div className={s.text_filters_button}>Show packs cards</div>
-                    <div className={s.buttons_block}>
-                        <button className={stateCards.filter === "All" ? s.buttons_filter : s.buttons_filter_active}
-                                onClick={() => onClickHandler("My")}>
-                            My
-                        </button>
-                        <div className={s.palka}/>
-                        <button className={stateCards.filter === "My" ? s.buttons_filter : s.buttons_filter_active}
-                                onClick={() => onClickHandler( "All")}>
-                            All
-                        </button>
-                    </div>
-                    <div className={s.text_filter}>Number of cards</div>
-                </div>
+                        <Button active={active}
+                                onClick={() => onClickHandler("All")}>All
+                        </Button>
 
-                <AllPacks />
+                    </ButtonWrapper>
+                </ShowPacks>
+                <NumberCards>
+                    <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
+                </NumberCards>
+            </ToolsProfileBlock>
 
-            </GeneralProfileWrapper>
-        );
-    }
-;
+            <AllPacks/>
 
+        </GeneralProfileWrapper>
+    )
+}
+
+
+const ShowPacks = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 5vw;`
+
+const NumberCards = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 5vw;`
+const ButtonWrapper = styled.div`
+  display: flex;`
+
+const Button = styled.button<{ active: boolean }>`
+  width: 4vw;
+  height: 2vw;
+  border: none;
+  cursor: pointer;
+  font-size: 0.7vw;
+  background-color: ${({active}) => active ? colors.FilterButtonColor : colors.WhiteColor};
+  color: ${({active}) => active ? colors.WhiteColor : colors.TextColor};
+  transition: background-color 0.5s, color 0.5s;
+  transition-delay: 0.1s;`

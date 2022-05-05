@@ -1,10 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import s from "../PacksList.module.css";
-import {ProfileWrapper} from "../../../StylesComponents/Wrapper";
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
 import {CardsInitialStateType} from "../../../../Store-Reducers/Cards-Reducer";
 import {getAllPacksTC, SearchPackTC} from "../../../../Thunk's/PacksThunk";
 import {CardTable} from "./Table/Table";
+import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/ProfileAndPacksWrapper';
+import styled from "styled-components";
+import SerchImg from '../../../../Assets/Union.svg'
+import {colors} from "../../../StylesComponents/Colors";
 
 export const AllPacks = () => {
 
@@ -15,7 +17,7 @@ export const AllPacks = () => {
 
     useEffect(() => {
         dispatch(getAllPacksTC());
-    },[])
+    }, [])
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (error && error.trim() !== '') setError(null)
@@ -37,23 +39,60 @@ export const AllPacks = () => {
     return (
         <ProfileWrapper>
 
-            <div className={s.title}>Packs List</div>
+            <TitleProfileWrapper fontSz={1.5}>Packs List</TitleProfileWrapper>
 
-            <div className={s.search_block}>
-                <input className={s.search_input}
-                       placeholder={"Search..."}
-                       onChange={(e) => onChangeHandler(e)}
-                       value={value}
-                       onKeyPress={(e) => onKeyPress(e)}
+            <SearchBlock>
+                <InputWrapper
+                    placeholder={"Search..."}
+                    onChange={(e) => onChangeHandler(e)}
+                    value={value}
+                    onKeyPress={(e) => onKeyPress(e)}
                 />
                 {error}
-                <button onClick={onClickHandler} className={s.button_add}>
+                <ButtonAddNewPack onClick={onClickHandler}>
                     Add new pack
-                </button>
-            </div>
+                </ButtonAddNewPack>
+            </SearchBlock>
 
             <CardTable itemPack={stateCards.cardPack}/>
 
         </ProfileWrapper>
     );
 };
+const SearchBlock = styled.div`
+  display: flex;
+`
+const InputWrapper = styled.input`
+  height: 2vw;
+  width: 90%;
+  border-radius: 0.2vw;
+  margin-right: 2vw;
+  background: url(${SerchImg}) no-repeat scroll 0.5vw 0.5vw;
+  background-size: 1vw;
+  padding-left: 2vw;
+  font-size: 0.8vw;
+  border: 1px solid #D9D9F1;
+  opacity: 0.7;
+
+  :nth-child(1) {
+    background-color: #ECECF9;
+  }
+
+  :hover {
+    border: 1px solid #635D80;
+  }
+
+  :focus {
+    outline: none;
+    border: 1px solid #635D80;
+  }`
+const ButtonAddNewPack = styled.button`
+  width: 20%;
+  height: 2vw;
+  font-size: 0.8vw;
+  background-color: ${colors.Blue};
+  color: ${colors.WhiteColor};
+  border-radius: 2vw;
+  letter-spacing: 0.7px;
+  border: none;
+  cursor: pointer;`

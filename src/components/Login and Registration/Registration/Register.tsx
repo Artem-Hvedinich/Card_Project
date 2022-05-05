@@ -1,5 +1,5 @@
 import React from 'react';
-import {ButtonWrapper, CardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
+import {ButtonWrapper, CardWrapper, ErrorWrapper, FormWrapper, TextAuthWrapper, TitleAuthWrapper} from "../../StylesComponents/AuthCardWrapper";
 import {Button, Input} from "../../StylesComponents/Button";
 import {colors} from "../../StylesComponents/Colors";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
@@ -47,12 +47,12 @@ export const Register = () => {
     return (
         <CardWrapper width={413} height={540}>
 
-            <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
-            <TitleWrapper fontSz={22}>Sign Up</TitleWrapper>
+            <TitleAuthWrapper fontSz={26}>It-incubator</TitleAuthWrapper>
+            <TitleAuthWrapper fontSz={22}>Sign Up</TitleAuthWrapper>
             {/*formik*/}
             <FormWrapper height={300} onSubmit={registrationForm.handleSubmit}>
 
-                <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Email</TextWrapper>
+                <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Email</TextAuthWrapper>
                 <Input type="email"
                        id="email"
                        placeholder="email"
@@ -62,7 +62,7 @@ export const Register = () => {
                     <ErrorWrapper>{registrationForm.errors.email}</ErrorWrapper>
                 ) : null}
 
-                <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Password</TextWrapper>
+                <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Password</TextAuthWrapper>
                 <Input type="password"
                        id="password"
                        placeholder="password"
@@ -73,7 +73,7 @@ export const Register = () => {
                 ) : null}
 
 
-                <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Config Password</TextWrapper>
+                <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Config Password</TextAuthWrapper>
                 <Input type="password"
                        id="configPassword"
                        placeholder="config password"

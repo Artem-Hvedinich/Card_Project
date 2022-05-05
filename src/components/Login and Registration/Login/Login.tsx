@@ -5,9 +5,9 @@ import {
     CardWrapper, ErrorWrapper,
     FormWrapper,
     RememberMeWrapper,
-    TextWrapper,
-    TitleWrapper
-} from "../../StylesComponents/Wrapper";
+    TextAuthWrapper,
+    TitleAuthWrapper
+} from "../../StylesComponents/AuthCardWrapper";
 import {IsLoginRedirect} from "../../../UtilsFunction/RedirectFunction";
 import {useFormik} from "formik";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
@@ -50,12 +50,12 @@ export const Login = IsLoginRedirect(() => {
 
     return (
         <CardWrapper width={413} height={600}>
-            <TitleWrapper fontSz={26}>Sign In</TitleWrapper>
-            <TitleWrapper fontSz={15}>It-incubator</TitleWrapper>
+            <TitleAuthWrapper fontSz={26}>Sign In</TitleAuthWrapper>
+            <TitleAuthWrapper fontSz={15}>It-incubator</TitleAuthWrapper>
 
             {/*formik*/}
             <FormWrapper height={300} onSubmit={loginForm.handleSubmit}>
-                <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Email</TextWrapper>
+                <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Email</TextAuthWrapper>
                 <Input type="email"
                        id="email"
                        placeholder="email"
@@ -65,7 +65,7 @@ export const Login = IsLoginRedirect(() => {
                     <ErrorWrapper>{loginForm.errors.email}</ErrorWrapper>
                 ) : null}
                 {/*End errors*/}
-                <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Password</TextWrapper>
+                <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Password</TextAuthWrapper>
                 <Input type="password"
                        id="password"
                        placeholder="password"
@@ -80,14 +80,14 @@ export const Login = IsLoginRedirect(() => {
                         id="remember"
                         {...loginForm.getFieldProps("rememberMe")}
                     />
-                    <TextWrapper fontSz={13} opacity={1} color={colors.DarkBlue}> Remember me</TextWrapper>
+                    <TextAuthWrapper fontSz={13} opacity={1} color={colors.DarkBlue}> Remember me</TextAuthWrapper>
                 </RememberMeWrapper>
 
 
                 {/*redirect in Forgot Password */}
-                <TextWrapper textAlign={'end'} color={colors.DarkBlue} fontSz={14}>
+                <TextAuthWrapper textAlign={'end'} color={colors.DarkBlue} fontSz={14}>
                     <NavLink to={PATH.forgotPassword}>Forgot Password</NavLink>
-                </TextWrapper>
+                </TextAuthWrapper>
 
                 <Button type="submit"
                         disabled={!(loginForm.isValid && loginForm.dirty)}
@@ -97,11 +97,11 @@ export const Login = IsLoginRedirect(() => {
             </FormWrapper>
 
             {/*redirect in Registration*/}
-            <TextWrapper color={colors.DarkBlue} textAlign={'center'} fontSz={14} opacity={0.5}>
+            <TextAuthWrapper color={colors.DarkBlue} textAlign={'center'} fontSz={14} opacity={0.5}>
                 <ButtonHovered>
                     <NavLink to={PATH.registration}>Don’t have an account?</NavLink>
                 </ButtonHovered>
-            </TextWrapper>
+            </TextAuthWrapper>
 
         </CardWrapper>
     )

@@ -4,11 +4,10 @@ import {
     CardWrapper,
     ErrorWrapper,
     FormWrapper,
-    TextWrapper,
-    TitleWrapper
-} from "../../../StylesComponents/Wrapper";
+    TextAuthWrapper,
+    TitleAuthWrapper
+} from "../../../StylesComponents/AuthCardWrapper";
 import styled from "styled-components";
-import {Img} from '../Profile';
 import {Button, Input} from "../../../StylesComponents/Button";
 import {colors} from "../../../StylesComponents/Colors";
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
@@ -16,6 +15,7 @@ import {useFormik} from "formik";
 import {initialStateAuthorizationType} from "../../../../Store-Reducers/Auth-Reducer";
 import {AddNewAva} from "./AddNewAva/AddNewAva";
 import { NewNameAndAvatarTC } from '../../../../Thunk\'s/UpdateProfile';
+import { Img } from '../Profile';
 
 type PersonalInfoType = {
     setEditMode: (editMode: boolean) => void,
@@ -59,7 +59,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
     return (
         <ModalWrapper active={active}>
             <CardWrapper width={413} height={540}>
-                <TitleWrapper fontSz={22}>Personal Information</TitleWrapper>
+                <TitleAuthWrapper fontSz={22}>Personal Information</TitleAuthWrapper>
                 <FormWrapper height={400} onSubmit={PersonalInfo.handleSubmit}>
                     <Img src={avatar} alt={'avatar'}/>
 
@@ -69,7 +69,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
 
                     <InputWrapper>
                         <div>
-                            <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Nickname</TextWrapper>
+                            <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Nickname</TextAuthWrapper>
                             <Input type="text"
                                    id="nickname"
                                    placeholder="nickname"
@@ -79,9 +79,9 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
                                 <ErrorWrapper>{PersonalInfo.errors.nickname}</ErrorWrapper>) : null}
                         </div>
                         <div>
-                            <TextWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>
+                            <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>
                                 Registered Email
-                            </TextWrapper>
+                            </TextAuthWrapper>
                             <Input type="email"
                                    id="email"
                                    placeholder="Registered email"

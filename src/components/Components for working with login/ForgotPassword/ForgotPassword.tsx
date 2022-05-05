@@ -1,5 +1,5 @@
 import React from 'react';
-import {CardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} from "../../StylesComponents/Wrapper";
+import {CardWrapper, ErrorWrapper, FormWrapper, TextAuthWrapper, TitleAuthWrapper} from "../../StylesComponents/AuthCardWrapper";
 import {colors} from "../../StylesComponents/Colors";
 import {Button, Input} from "../../StylesComponents/Button";
 import {useFormik} from "formik";
@@ -32,8 +32,8 @@ export const ForgotPassword = () => {
     });
     return (
         <CardWrapper width={413} height={540}>
-            <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
-            <TitleWrapper fontSz={22}>Forgot your password?</TitleWrapper>
+            <TitleAuthWrapper fontSz={26}>It-incubator</TitleAuthWrapper>
+            <TitleAuthWrapper fontSz={22}>Forgot your password?</TitleAuthWrapper>
             {/*Formik*/}
             <FormWrapper height={200} onSubmit={ForgotPassword.handleSubmit}>
 
@@ -46,8 +46,8 @@ export const ForgotPassword = () => {
                     <ErrorWrapper>{ForgotPassword.errors.email}</ErrorWrapper>
                 ) : null}
 
-                <TextWrapper opacity={0.5} color={colors.DarkBlue} fontSz={16}>
-                    Enter your email address and we will send you further instructions</TextWrapper>
+                <TextAuthWrapper opacity={0.5} color={colors.DarkBlue} fontSz={16}>
+                    Enter your email address and we will send you further instructions</TextAuthWrapper>
 
                 <Button type={'submit'}
                         disabled={!(ForgotPassword.isValid && ForgotPassword.dirty)}
@@ -56,13 +56,13 @@ export const ForgotPassword = () => {
 
             </FormWrapper>
             {/*Formik*/}
-            <TextWrapper textAlign='center' opacity={0.5} color={colors.DarkBlue} fontSz={16}>
-                Did you remember your password?</TextWrapper>
+            <TextAuthWrapper textAlign='center' opacity={0.5} color={colors.DarkBlue} fontSz={16}>
+                Did you remember your password?</TextAuthWrapper>
 
             {/*redirect in login*/}
-            <TitleWrapper fontSz={16} color={colors.Blue}>
+            <TitleAuthWrapper fontSz={16} color={colors.Blue}>
                 <NavLink to={PATH.login}>Try logging in</NavLink>
-            </TitleWrapper>
+            </TitleAuthWrapper>
         </CardWrapper>
     )
 }

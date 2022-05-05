@@ -12,11 +12,11 @@ import {Loading} from "./components/Common/Loading/Loading";
 import {useDispatch} from "react-redux";
 import {AuthMeTC} from "./Thunk's/Auth-Thunk";
 import {PATH} from "./UtilsFunction/const-enum-path";
-import {AppWrapper} from "./components/StylesComponents/Wrapper";
+import {AppWrapper} from "./components/StylesComponents/AuthCardWrapper";
 import {Snackbar} from "./components/SnackBar/SnackBar";
 import { Header } from './components/Header/Header';
-import { Profile } from './components/ProfileGeneral/Profile/Profile';
 import {PacksList} from "./components/ProfileGeneral/PacksList/PacksList";
+import { Profile } from './components/ProfileGeneral/Profile/Profile';
 
 export const App = () => {
 

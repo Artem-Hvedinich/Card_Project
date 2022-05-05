@@ -1,9 +1,8 @@
 import React from 'react';
-import {CardWrapper, ErrorWrapper, FormWrapper, TextWrapper, TitleWrapper} from '../../StylesComponents/Wrapper';
+import {CardWrapper, ErrorWrapper, FormWrapper, TextAuthWrapper, TitleAuthWrapper} from '../../StylesComponents/AuthCardWrapper';
 import {Button, Input} from "../../StylesComponents/Button";
 import {colors} from "../../StylesComponents/Colors";
 import {useFormik} from "formik";
-import {} from "../../../Thunk's/Auth-Thunk";
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
 import { useParams} from 'react-router-dom';
 import { NewPasswordTC } from '../../../Thunk\'s/PasswordandEmailThunk';
@@ -43,8 +42,8 @@ export const NewPassword = () => {
 
     return (
         <CardWrapper width={413} height={550}>
-            <TitleWrapper fontSz={26}>It-incubator</TitleWrapper>
-            <TitleWrapper fontSz={22}>Create new password</TitleWrapper>
+            <TitleAuthWrapper fontSz={26}>It-incubator</TitleAuthWrapper>
+            <TitleAuthWrapper fontSz={22}>Create new password</TitleAuthWrapper>
             {/*formik*/}
             <FormWrapper height={300} onSubmit={NewPassword.handleSubmit}>
                 <Input type="password"
@@ -65,8 +64,8 @@ export const NewPassword = () => {
                     <ErrorWrapper>{NewPassword.errors.configPassword}</ErrorWrapper>
                 ) : null}
 
-                <TextWrapper opacity={0.5} color={colors.DarkBlue} fontSz={16}>Create new password and we will send you
-                    further instructions to email</TextWrapper>
+                <TextAuthWrapper opacity={0.5} color={colors.DarkBlue} fontSz={16}>Create new password and we will send you
+                    further instructions to email</TextAuthWrapper>
                 {/*<NavLink to={PATH.login}>*/}
                     <Button type={'submit'}
                             disabled={!(NewPassword.isValid && NewPassword.dirty)}

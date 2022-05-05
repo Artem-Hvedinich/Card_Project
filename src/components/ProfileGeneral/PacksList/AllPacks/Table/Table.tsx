@@ -1,6 +1,6 @@
 import React from 'react';
-import s from "../../PacksList.module.css";
 import {OnePacksType} from "../../../../../Types/CardsTypes";
+import styled from "styled-components";
 
 const TableList = [
     {id: 1, name: 'Name'},
@@ -16,20 +16,50 @@ type CardTableType = {
 
 export const CardTable = ({itemPack}: CardTableType) => {
     return (
-        <div className={s.packs_block}>
-            <div className={s.table}>
-                <div className={s.item_columns}>
-                    {TableList.map(el => <li className={s.name_columns_li} key={el.id}>{el.name}</li>)}
-                </div>
-                {itemPack.map(el =>
-                    <div key={el._id} className={s.li}>
-                        <span className={s.item}>{el.name}</span>
-                        <span>{el.cardsCount}</span>
-                        <span>{el.updated}</span>
-                        <span>{el.created}</span>
-                    </div>)
-                }
-            </div>
-        </div>
+        <PacksBlock>
+            <TitleBlock>
+                {TableList.map(el => <Title key={el.id}>{el.name}</Title>)}
+            </TitleBlock>
+            {itemPack.map(el =>
+                <PacksInfoBlock key={el._id}>
+                    <PacksInfoText>{el.name}</PacksInfoText>
+                    <PacksInfoText>{el.cardsCount}</PacksInfoText>
+                    <PacksInfoText>{el.updated}</PacksInfoText>
+                    <PacksInfoText>{el.created}</PacksInfoText>
+                </PacksInfoBlock>)
+            }
+        </PacksBlock>
     );
 };
+
+const PacksBlock = styled.div`
+  height: auto;
+  overflow: hidden;
+  max-height: 60vh;
+  width: 100%;
+  margin-top: 2vw;
+  box-shadow: -0.1vw -0.1vw 0.5vw #cbcbcb,
+  0.1vw 0.1vw 0.5vw 0.1vw #cbcbcb;`
+const TitleBlock = styled.div`
+  width: 100%;
+  background-color: #ECECF9;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;`
+const Title = styled.span`
+  font-size: 0.8vw;
+  font-weight: 600;
+  padding: 0.5vw 1vw;`
+const PacksInfoBlock = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #F8F7FD;
+  width: 100%;
+  height: 2.5vw;
+
+  :nth-child(2n) {
+    background-color: #FFFFFF;
+  }`
+const PacksInfoText = styled.span`
+  font-size: 0.8vw;
+  padding: 0.5vw 1vw;`

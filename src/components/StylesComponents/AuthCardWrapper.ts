@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {colors} from "./Colors";
 
 export const CardWrapper = styled.div<{ width: number, height: number }>`
   display: flex;
@@ -13,12 +12,12 @@ export const CardWrapper = styled.div<{ width: number, height: number }>`
   color: #2D2E46;
   border-radius: 8px`;
 
-export const TitleWrapper = styled.p<{ fontSz?: number }>`
+export const TitleAuthWrapper = styled.p<{ fontSz?: number }>`
   font-weight: 600;
   font-size: ${({fontSz}) => fontSz}px;
   color: #2D2E46`;
 
-export const TextWrapper = styled.p<{ color?: string, fontSz: number, opacity?: number, textAlign?: string }>`
+export const TextAuthWrapper = styled.p<{ color?: string, fontSz: number, opacity?: number, textAlign?: string }>`
   width: 100%;
   font-weight: 400;
   font-size: ${({fontSz}) => fontSz}px;
@@ -46,25 +45,8 @@ export const ErrorWrapper = styled.div`
   color: red;
   font-size: 0.9rem`;
 
-export const HeaderWrapper = styled.div`
-  display: flex;
-  z-index: 100;
-  justify-content: space-between;
-  padding: 0 10vw;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 60px;
-  background-color: ${colors.LightPurpure};`;
 
-export const ProfileWrapper = styled.div`
-  width: 80%;
-  height: 740px;
-  padding: 24px 48px;
-  border-radius: 0 8px 8px 0;
-  background-color: ${colors.BackgroundWight};
-`;
+
 export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,9 +59,3 @@ export const ButtonWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;`
-
-export const GeneralProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-`;

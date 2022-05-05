@@ -5,30 +5,31 @@ import {NotAuthRedirect} from '../../../UtilsFunction/RedirectFunction';
 import {useAppSelector} from '../../../Store-Reducers/Store';
 import {initialStateAuthorizationType} from '../../../Store-Reducers/Auth-Reducer';
 import {colors} from '../../StylesComponents/Colors';
-import {GeneralProfileWrapper, ProfileWrapper, TextWrapper, TitleWrapper} from '../../StylesComponents/Wrapper';
+import {
+    GeneralProfileWrapper,
+    ProfileWrapper,
+    TextProfileWrapper,
+    TitleProfileWrapper, ToolsProfileBlock
+} from '../../StylesComponents/ProfileAndPacksWrapper';
 
-type ProfileType = {}
-
-export const Profile = NotAuthRedirect(({}: ProfileType) => {
+export const Profile = NotAuthRedirect(() => {
     const meAuth = useAppSelector<initialStateAuthorizationType>(s => s.AuthorizationReducer)
     const [editMode, setEditMode] = useState<boolean>(false)
     const avatar = meAuth.avatar ? meAuth.avatar : 'https://static.thenounproject.com/png/801390-200.png'
     return (
         <>
             <GeneralProfileWrapper>
-                <ToolsBlock>
+                <ToolsProfileBlock>
                     <PersonBlock>
                         <Img src={avatar} alt={'avatar'}/>
-                        <TitleWrapper>{meAuth.name}</TitleWrapper>
-                        <TextWrapper fontSz={14} opacity={0.5} color={colors.TextColor} textAlign={'center'}>Front-end
-                            developer</TextWrapper>
+                        <TitleProfileWrapper fontSz={1}>{meAuth.name}</TitleProfileWrapper>
+                        <TextProfileWrapper fontSz={0.7} opacity={0.5} color={colors.TextColor} textAlign={'center'}>Front-end
+                            developer</TextProfileWrapper>
                         <EditButton onClick={() => setEditMode(true)}>Edit Profile</EditButton>
                         {editMode && <PersonalInfo active={editMode} avatar={avatar} setEditMode={setEditMode}/>}
                     </PersonBlock>
-                </ToolsBlock>
+                </ToolsProfileBlock>
                 <ProfileWrapper>
-
-
 
                 </ProfileWrapper>
             </GeneralProfileWrapper>
@@ -41,30 +42,34 @@ const PersonBlock = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  height: 200px;
+  padding: 1vw;
+  height: 12vw;
   width: 100%;
-  border-radius: 8px 0 8px 8px;
+  border-radius: 0.4vw 0 0.8vw 0.8vw;
   z-index: 5;
   background-color: ${colors.LightPink};`
 
-const ToolsBlock = styled.div`
-  height: 100%;
-  width: 200px;
-  border-radius: 8px 8px 0 8px;
-  background-color: ${colors.ToolsBackground};`
-
 export const Img = styled.img`
-  width: 96px;
-  height: 96px;
+  width: 5vw;
+  height: 5vw;
   border-radius: 50%;
   background-color: ${colors.Lavender};`
+
 const EditButton = styled.button`
-  border: 1px solid ${colors.InputColor};
+  border: 0.1vw solid ${colors.InputColor};
   color: ${colors.Blue};
+  background: none;
   font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 2px;
-  cursor: pointer`
+  font-size: 0.7vw;
+  padding: 0.3vw 0.5vw;
+  border-radius: 0.2vw;
+  cursor: pointer;
+  transition: color 0.7s, background-color 0.7s;
+  transition-delay: 0.1s;
+
+  :hover {
+    background-color: ${colors.Blue};
+    color: ${colors.Lavender};
+  }`
 
 
