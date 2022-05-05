@@ -1,31 +1,35 @@
 import React, {useEffect, useState} from 'react';
 import s from "./Table.module.css";
-import {PacksType, OnePacksType} from "../../../../../Types/CardsTypes";
+import {PacksType, OnePacksType} from "../../../../../Types/PacksTypes";
 import styled from "styled-components";
 import {Table, Space} from 'antd';
 
 
 type CardTableType = {
     itemPack: OnePacksType[]
+    isFetching: boolean
 }
 
-export const CardTable = ({itemPack}: CardTableType) => {
+export const CardTable = ({itemPack, isFetching}: CardTableType) => {
 
     const data: PacksType[] = [];
     console.log(data)
 
     const [localState, setLocalState] = useState<PacksType[]>(data);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         setLoading(true);
-        itemPack.map(el => data.push({
-            key: el._id,
-            name: el.name,
-            cards: el.cardsCount,
-            last_updated: el.updated,
-            created_by: el.created,
-        }));
+
+            console.log(itemPack)
+            itemPack.map(el => data.push({
+                key: el._id,
+                name: el.name,
+                cards: el.cardsCount,
+                last_updated: el.updated,
+                created_by: el.created,
+            }));
+
         setLocalState(data);
         setLoading(false);
     },[itemPack]);
@@ -39,7 +43,7 @@ export const CardTable = ({itemPack}: CardTableType) => {
             <Table dataSource={localState}
                    pagination={false}
                    size={"large"}
-                   loading={loading}>
+                   loading={isFetching || loading}>
 
                 <Column title="Name" dataIndex="name" key="name" width={"20%"} className={s.font_main}/>
                 <Column title="Cards" dataIndex="cards" key="cards" width={"10%"} align={"center"} className={s.font}/>

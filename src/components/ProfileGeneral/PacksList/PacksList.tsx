@@ -1,8 +1,8 @@
 import React from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {CardsInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Cards-Reducer";
+import {CardsInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
-import {FilterCardsType} from "../../../Types/CardsTypes";
+import {FilterCardsType} from "../../../Types/PacksTypes";
 import {
     GeneralProfileWrapper,
     TitleProfileWrapper,
@@ -19,6 +19,8 @@ export const PacksList = NotAuthRedirect(() => {
     const dispatch = useTypedDispatch();
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
     const onClickHandler = (value: FilterCardsType) => dispatch(setChangeFilteredPageAC({value}));
+
+
 
     const active = stateCards.filter === "All";
 
@@ -43,7 +45,7 @@ export const PacksList = NotAuthRedirect(() => {
                 </NumberCards>
 
                 <RangeBlock>
-                    <Slider range tooltipVisible max={150} defaultValue={[30, 150]}/>
+                    <Slider range tooltipVisible max={150} defaultValue={[30, 110]}/>
                 </RangeBlock>
 
             </ToolsProfileBlock>

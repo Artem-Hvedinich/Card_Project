@@ -41,9 +41,11 @@ export type GetCardsResponseType = {
 
 export type ResponsePacksType = {
     cardPack: OnePacksType[]
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
+    cardPacksTotalCount: number | null
+    maxCardsCount: number | null
+    minCardsCount: number | null
+    page: number | null
+    pageCount: number | null
+    token: string | null
+    tokenDeathTime: number | null
 }

@@ -8,7 +8,7 @@ import {
     ForgotPasswordDataType,
     NewPasswordDataType, NewNameAndAvatarType, ResponseUpdateDataType
 } from "../Types/AuthTypes";
-import {ResponsePacksType} from "../Types/CardsTypes";
+import {ResponsePacksType} from "../Types/PacksTypes";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || ' https://neko-back.herokuapp.com/2.0',

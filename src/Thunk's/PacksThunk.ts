@@ -1,5 +1,5 @@
 import {AppThunkType} from "../Store-Reducers/Store";
-import {setPacksDataAC, setSearchPackValue} from "../Store-Reducers/Cards-Reducer";
+import {setPacksDataAC, setSearchPackValue, setFetchingPacksTableAC} from "../Store-Reducers/Packs-Reducer";
 import {Dispatch} from "redux";
 import axios from "axios";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
@@ -11,15 +11,18 @@ export const SearchPackTC = (value: string): AppThunkType => async dispatch => {
 }
 
 export const getAllPacksTC = () => async (dispatch: Dispatch) => {
-
+        dispatch(setFetchingPacksTableAC({isFetching: true}));
     try {
-        const {data} = await CardAPI.getPacks();
-        if (data) {
-            dispatch(setPacksDataAC({data}));
+        const response = await CardAPI.getPacks();
+        console.log(response.data)
+        if (response.data) {
+            dispatch(setPacksDataAC(response.data));
+            dispatch(setFetchingPacksTableAC({isFetching: true}));
         }
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
+            dispatch(setFetchingPacksTableAC({isFetching: true}));
         }
     }
 };
