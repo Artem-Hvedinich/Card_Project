@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../UtilsFunction/const-enum-path";
-import {HeaderWrapper, TitleWrapper} from "../StylesComponents/Wrapper";
+import {HeaderWrapper, TextWrapper, TitleWrapper} from "../StylesComponents/Wrapper";
 import IconPacks from "../../Assets/Group 608.png";
 import IconProfile from "../../Assets/Union (Stroke).png";
 import styled from "styled-components";
@@ -13,13 +13,13 @@ export const Header = () => {
     return (
         <HeaderWrapper>
             {/*Не знаю нужен ли редирект по клике на лого, на всякий случай сделал*/}
-            <NavLink to={PATH.profile}><Text>It-incubator</Text></NavLink>
+            <Title>It-incubator</Title>
             <BlockNavigate>
-                <ItemBlockNavigate>
+                <ItemBlockNavigate to={PATH.packsList}>
                     <ImgWrapper src={IconPacks} alt={"IconPacks"}/>
                     Packs list
                 </ItemBlockNavigate>
-                <ItemBlockNavigate>
+                <ItemBlockNavigate to={PATH.profile}>
                     <ImgWrapper src={IconProfile} alt={"IconProfile"}/>
                     Profile
                 </ItemBlockNavigate>
@@ -32,12 +32,10 @@ export const Header = () => {
 const ImgWrapper = styled.img`
   margin-right: 15px;`
 
-const Text = styled(TitleWrapper)`
+const Title = styled(TitleWrapper)`
   position: absolute;
   font-size: 26px;
-  top: 10px;
-  left: 136px;
-  cursor: pointer;`;
+  left: 10vw`;
 
 const BlockNavigate = styled.div`
   display: flex;
@@ -45,7 +43,7 @@ const BlockNavigate = styled.div`
   width: 350px;
   height: 100%`;
 
-const ItemBlockNavigate = styled.div`
+const ItemBlockNavigate = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
