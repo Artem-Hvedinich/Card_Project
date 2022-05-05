@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
 import {NotAuthRedirect} from "../../UtilsFunction/RedirectFunction";
-import {useDispatch} from "react-redux";
-import {TypedDispatch, useAppSelector} from "../../Store-Reducers/Store";
-import {LogOutTC} from "../../Thunk's/Auth-Thunk";
+import { useAppSelector} from "../../Store-Reducers/Store";
 import {ProfileWrapper, TextWrapper, TitleWrapper} from "../StylesComponents/Wrapper";
 import styled from "styled-components";
 import {colors} from "../StylesComponents/Colors";
-import {Button} from '../StylesComponents/Button';
 import {PersonalInfo} from "./PersonalInfo/PersonalInfo";
 import {initialStateAuthorizationType} from "../../Store-Reducers/Auth-Reducer";
 
@@ -14,10 +11,7 @@ type ProfileType = {}
 
 export const Profile = NotAuthRedirect(({}: ProfileType) => {
     const meAuth = useAppSelector<initialStateAuthorizationType>(s => s.AuthorizationReducer)
-    const dispatch = useDispatch<TypedDispatch>();
     const [editMode, setEditMode] = useState<boolean>(false)
-
-    const onClickHandler = () => dispatch(LogOutTC());
     const avatar = meAuth.avatar ? meAuth.avatar : 'https://static.thenounproject.com/png/801390-200.png'
     return (
         <>
@@ -31,10 +25,7 @@ export const Profile = NotAuthRedirect(({}: ProfileType) => {
                         <EditButton onClick={() => setEditMode(true)}>Edit Profile</EditButton>
                         {editMode && <PersonalInfo active={editMode} avatar={avatar} setEditMode={setEditMode}/>}
                     </PersonBlock>
-
                 </ToolsBlock>
-                <Button bgColor={colors.DarkBlue} width={60} height={20} color={colors.Lavender}
-                        onClick={onClickHandler}>LogOut</Button>
             </ProfileWrapper>
         </>
     )

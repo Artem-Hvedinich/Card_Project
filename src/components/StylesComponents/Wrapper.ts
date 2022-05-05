@@ -49,13 +49,15 @@ export const ErrorWrapper = styled.div`
 export const HeaderWrapper = styled.div`
   display: flex;
   z-index: 100;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 10vw;
   align-items: center;
   position: fixed;
   top: 0;
   width: 100%;
   height: 60px;
   background-color: ${colors.LightPurpure};`;
+
 export const ProfileWrapper = styled.div`
   margin: 0 auto;
   width: 80%;

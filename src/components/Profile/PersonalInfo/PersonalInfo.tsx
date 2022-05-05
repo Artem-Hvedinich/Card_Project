@@ -63,9 +63,9 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
                 <FormWrapper height={400} onSubmit={PersonalInfo.handleSubmit}>
                     <Img src={avatar} alt={'avatar'}/>
 
-                    <AddNewAva id='avatar'>
+                    <AddNewAva id='avatar'/>
 
-                    </AddNewAva>
+
 
                     <InputWrapper>
                         <div>
@@ -112,8 +112,7 @@ const ModalWrapper = styled.div<{ active: boolean }>`
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(#E6D4DE, #5c6193);
-`
+  background: linear-gradient(#E6D4DE, #5c6193);`
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;

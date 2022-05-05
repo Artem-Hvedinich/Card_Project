@@ -52,7 +52,6 @@ export type NewNameAndAvatarType = {
     avatar: string
 }
 
-
 export type DataType = {
     updatedUser: ResponseDataLoginOrAuthMe,
     token: string,

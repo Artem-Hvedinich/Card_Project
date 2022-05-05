@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, ChangeEventHandler, useState} from "react";
 import styled from "styled-components";
 import {AddNewAvaIcon} from "../../../../Assets/AddNewAvaIcon";
 import {colors} from "../../../StylesComponents/Colors";
@@ -9,7 +9,6 @@ type AddNewAvaType = {
     value?: any
     disabled?: any
     accept?: any
-    children:any
 }
 
 
@@ -32,13 +31,20 @@ const NewAvatarWrapper = styled.label`
     opacity: 0.9;
   }`
 
-export const AddNewAva = ({id, value, disabled, accept,children}: AddNewAvaType) => {
-        // const [file, setFile] = useState<string | null>(null)
-        // console.log(file)
+export const AddNewAva = ({id, value, disabled, accept}: AddNewAvaType) => {
+        const [file, setFile] = useState<string>()
+
+        const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+            if (e.currentTarget.files)
+                setFile(window.URL.createObjectURL(e.currentTarget.files[0]))
+        }
+        console.log(file)
         return (
             <NewAvatarWrapper htmlFor={id}>
                 <AddNewAvaIcon/>
-                {children}
+                <input id={id} type={'file'}
+                       style={{display: 'none'}}
+                       onChange={onChange}/>
             </NewAvatarWrapper>
         );
     }
