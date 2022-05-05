@@ -15,7 +15,7 @@ import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store
 import {useFormik} from "formik";
 import {initialStateAuthorizationType} from "../../../../Store-Reducers/Auth-Reducer";
 import {AddNewAva} from "./AddNewAva/AddNewAva";
-import {NewNameAndAvatarTC} from "../../../Thunk's/UpdateProfile";
+import { NewNameAndAvatarTC } from '../../../../Thunk\'s/UpdateProfile';
 
 type PersonalInfoType = {
     setEditMode: (editMode: boolean) => void,

@@ -59,7 +59,6 @@ export const HeaderWrapper = styled.div`
   background-color: ${colors.LightPurpure};`;
 
 export const ProfileWrapper = styled.div`
-  margin: 0 auto;
   width: 80%;
   height: 740px;
   padding: 24px 48px;

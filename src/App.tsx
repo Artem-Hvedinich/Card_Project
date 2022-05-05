@@ -3,7 +3,6 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import {Error404} from "./components/Components for working with login/ErrorPage/Error404";
 import {Login} from './components/Login and Registration/Login/Login';
 import {NewPassword} from './components/Components for working with login/NewPassword/NewPassword';
-import {Profile} from './components/Profile/Profile';
 import {ForgotPassword} from './components/Components for working with login/ForgotPassword/ForgotPassword';
 import {Register} from "./components/Login and Registration/Registration/Register";
 import {CheckEmail} from "./components/Components for working with login/CheckEmail/CheckEmail";
@@ -15,8 +14,9 @@ import {AuthMeTC} from "./Thunk's/Auth-Thunk";
 import {PATH} from "./UtilsFunction/const-enum-path";
 import {AppWrapper} from "./components/StylesComponents/Wrapper";
 import {Snackbar} from "./components/SnackBar/SnackBar";
-import {PacksList} from './components/PacksList/PacksList';
 import { Header } from './components/Header/Header';
+import { Profile } from './components/ProfileGeneral/Profile/Profile';
+import {PacksList} from "./components/ProfileGeneral/PacksList/PacksList";
 
 export const App = () => {
 
