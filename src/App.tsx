@@ -15,10 +15,13 @@ import {AuthMeTC} from "./Thunk's/Auth-Thunk";
 import {PATH} from "./UtilsFunction/const-enum-path";
 import {AppWrapper} from "./components/StylesComponents/Wrapper";
 import {Snackbar} from "./components/SnackBar/SnackBar";
+import {Header} from "./components/Header/Header";
+import {PacksList} from './components/PacksList/PacksList';
 
 export const App = () => {
 
     const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
+    const isAuth = useAppSelector<boolean>(state => state.AuthorizationReducer.isAuth);
     const dispatch = useDispatch<TypedDispatch>();
 
     useEffect(() => {
@@ -30,12 +33,14 @@ export const App = () => {
             {stateApp.status === 'loading'
                 ? <Loading/>
                 : <>
+                    {isAuth && <Header/>}
                     <Snackbar/>
                     <Routes>
                         <Route path={'/'} element={<Navigate to={PATH.profile}/>}/>
                         <Route path={PATH.login} element={<Login/>}/>
                         <Route path={PATH.registration} element={<Register/>}/>
                         <Route path={PATH.profile} element={<Profile/>}/>
+                        <Route path={PATH.packsList} element={<PacksList/>}/>
                         <Route path={PATH.error} element={<Error404/>}/>
                         <Route path={PATH.forgotPassword} element={<ForgotPassword/>}/>
                         <Route path={PATH.newPassword + "/:token"} element={<NewPassword/>}/>

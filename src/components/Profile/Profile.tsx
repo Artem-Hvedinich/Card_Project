@@ -4,7 +4,6 @@ import {useDispatch} from "react-redux";
 import {TypedDispatch, useAppSelector} from "../../Store-Reducers/Store";
 import {LogOutTC} from "../../Thunk's/Auth-Thunk";
 import {ProfileWrapper, TextWrapper, TitleWrapper} from "../StylesComponents/Wrapper";
-import {Header} from "../Header/Header";
 import styled from "styled-components";
 import {colors} from "../StylesComponents/Colors";
 import {Button} from '../StylesComponents/Button';
@@ -22,7 +21,6 @@ export const Profile = NotAuthRedirect(({}: ProfileType) => {
     const avatar = meAuth.avatar ? meAuth.avatar : 'https://static.thenounproject.com/png/801390-200.png'
     return (
         <>
-            <Header/>
             <ProfileWrapper>
                 <ToolsBlock>
                     <PersonBlock>

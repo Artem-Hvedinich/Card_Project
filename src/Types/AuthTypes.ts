@@ -43,7 +43,27 @@ export type ForgotPasswordDataType = {
     from: string
     message: string
 }
-export type NewPasswordDataType={
+export type NewPasswordDataType = {
     password: string
     resetPasswordToken: string
+}
+export type NewNameAndAvatarType = {
+    name: string
+    avatar: string
+}
+
+
+export type DataType = {
+    updatedUser: ResponseDataLoginOrAuthMe,
+    token: string,
+    tokenDeathTime: number
+}
+
+export type ResponseUpdateDataType = {
+    config: {}
+    data: DataType
+    headers: {}
+    request: {}
+    status: number
+    statusText: string
 }

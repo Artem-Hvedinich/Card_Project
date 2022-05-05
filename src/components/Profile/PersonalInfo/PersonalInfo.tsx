@@ -15,6 +15,7 @@ import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {useFormik} from "formik";
 import {initialStateAuthorizationType} from "../../../Store-Reducers/Auth-Reducer";
 import {AddNewAva} from "./AddNewAva/AddNewAva";
+import {NewNameAndAvatarTC} from "../../../Thunk's/UpdateProfile";
 
 type PersonalInfoType = {
     setEditMode: (editMode: boolean) => void,
@@ -37,7 +38,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
     const PersonalInfo = useFormik({
         initialValues: {
             avatar: avatar,
-            nickname: meAuth.name ? meAuth.name : '',
+            nickname: '',
             email: meAuth.email ? meAuth.email : ''
         },
         validate: (values: PersonalInfoFormikType) => {
@@ -50,8 +51,8 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
             return errors;
         },
         onSubmit: (values) => {
-            console.log(values)
-            // dispatch(ForgetPasswordTC(values.email))
+            console.log(values.nickname)
+            dispatch(NewNameAndAvatarTC(values.nickname, values.avatar))
             PersonalInfo.resetForm();
         },
     });
