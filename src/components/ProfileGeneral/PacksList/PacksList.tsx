@@ -18,7 +18,7 @@ import 'antd/dist/antd.css';
 export const PacksList = NotAuthRedirect(() => {
     const dispatch = useTypedDispatch();
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
-    const onClickHandler = (value: FilterCardsType) => dispatch(setChangeFilteredPageAC({value}));
+    const onClickHandler = (valueFilter: FilterCardsType) => dispatch(setChangeFilteredPageAC({valueFilter}));
 
 
 

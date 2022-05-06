@@ -57,7 +57,7 @@ export const AllPacks = () => {
                 </ButtonAddNewPack>
             </SearchBlock>
 
-            <CardTable itemPack={stateCard.cardPack} isFetching={stateCard.isFetching}/>
+            <CardTable itemPack={stateCard.data.cardPacks} isFetching={stateCard.isFetching}/>
 
             <PaginationBlock>
                 <Pagination size={"default"}

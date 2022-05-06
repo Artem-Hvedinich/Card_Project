@@ -8,6 +8,14 @@ export type PacksType = {
     created_by: string,
 }
 
+export type CreatePackType = {
+    cardsPack: {
+        name?: string
+        deckCover?: string
+        private?: boolean
+    }
+}
+
 export type OnePacksType = {
     _id: string
     user_id: string
@@ -40,12 +48,12 @@ export type GetCardsResponseType = {
 }
 
 export type ResponsePacksType = {
-    cardPack: OnePacksType[]
-    cardPacksTotalCount: number | null
-    maxCardsCount: number | null
-    minCardsCount: number | null
-    page: number | null
-    pageCount: number | null
-    token: string | null
-    tokenDeathTime: number | null
+    cardPacks: OnePacksType[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
 }
