@@ -45,7 +45,7 @@ export const ButtonProfile = styled.button<{ width?: number, height?: number, bg
   background-color: ${({bgColor}) => bgColor};
   color: ${({color}) => color};
   font-size: 0.7vw;
-  border-radius: 0.6vw;
+  border-radius: 1vw;
   letter-spacing: 0.1vw;
   border: none;
   cursor: pointer;

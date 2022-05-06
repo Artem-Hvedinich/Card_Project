@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {PersonalInfo} from "./PersonalInfo/PersonalInfo";
 import {NotAuthRedirect} from '../../../UtilsFunction/RedirectFunction';
-import {useAppSelector} from '../../../Store-Reducers/Store';
+import {useAppSelector, useTypedDispatch} from '../../../Store-Reducers/Store';
 import {initialStateAuthorizationType} from '../../../Store-Reducers/Auth-Reducer';
 import {colors} from '../../StylesComponents/Colors';
 import {
@@ -16,6 +16,13 @@ export const Profile = NotAuthRedirect(() => {
     const meAuth = useAppSelector<initialStateAuthorizationType>(s => s.AuthorizationReducer)
     const [editMode, setEditMode] = useState<boolean>(false)
     const avatar = meAuth.avatar ? meAuth.avatar : 'https://static.thenounproject.com/png/801390-200.png'
+    const dispatch = useTypedDispatch();
+
+    // useEffect(() => {
+    //      dispatch
+    //
+    // }, [])
+
     return (
         <>
             <GeneralProfileWrapper>
