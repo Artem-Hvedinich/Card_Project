@@ -18,9 +18,10 @@ export const AuthMeTC = (): AppThunkType => async dispatch => {
             dispatch(setAppStatusAC({status: 'succeeded'}));
         }
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            handleServerNetworkError(error.response.data.error, dispatch);
-        }
+        dispatch(setAppStatusAC({status: 'failed'}))
+        // if (axios.isAxiosError(error) && error.response) {
+        //     handleServerNetworkError(error.response.data.error, dispatch);
+        // }
     }
 };
 
@@ -66,6 +67,8 @@ export const LogOutTC = (): AppThunkType => async dispatch => {
             handleServerNetworkError(response.data.info, dispatch);
         }
     } catch (error) {
+        dispatch(setAppStatusAC({status: 'failed'}));
+
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
         }

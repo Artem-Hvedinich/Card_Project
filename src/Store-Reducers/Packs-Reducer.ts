@@ -41,7 +41,7 @@ const CardsSlice = createSlice({
             state.data.cardPacks = state.data.cardPacks.filter(el => el._id !== action.payload.pack)
         },
         createPackAC(state, action: PayloadAction<{ createPack: {name: string, private?: boolean, deckCover?: string} }>) {
-            let date = new Date(Date.UTC(2012, 11, 12, 3, 0, 0)).toLocaleDateString();
+            let date = new Date().toLocaleDateString();
             state.data.cardPacks = [{
                 name: action.payload.createPack.name,
                 cardsCount: 0,

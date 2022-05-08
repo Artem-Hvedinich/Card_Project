@@ -28,7 +28,7 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                 name: el.name,
                 cards: el.cardsCount,
                 last_updated: el.updated,
-                created_by: el.created,
+                created_by: el.created.slice(0,10),
             }));
             setLocalState(data);
         }
