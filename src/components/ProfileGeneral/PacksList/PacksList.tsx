@@ -11,9 +11,6 @@ import {
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
-import {Slider} from "antd";
-import 'antd/dist/antd.css';
-
 
 export const PacksList = NotAuthRedirect(() => {
     const dispatch = useTypedDispatch();
@@ -45,7 +42,7 @@ export const PacksList = NotAuthRedirect(() => {
                 </NumberCards>
 
                 <RangeBlock>
-                    <Slider range tooltipVisible max={150} defaultValue={[30, 110]}/>
+{/*Dabble range*/}
                 </RangeBlock>
 
             </ToolsProfileBlock>

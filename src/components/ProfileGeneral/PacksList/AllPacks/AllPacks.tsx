@@ -7,7 +7,6 @@ import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/Pro
 import styled from "styled-components";
 import SerchImg from '../../../../Assets/Union.svg'
 import {colors} from "../../../StylesComponents/Colors";
-import {Pagination} from 'antd';
 
 
 export const AllPacks = () => {
@@ -60,10 +59,7 @@ export const AllPacks = () => {
             <CardTable itemPack={stateCard.data.cardPacks} isFetching={stateCard.isFetching}/>
 
             <PaginationBlock>
-                <Pagination size={"default"}
-                            defaultCurrent={1}
-                            total={500}
-                />
+                {/*Pagination*/}
             </PaginationBlock>
         </ProfileWrapper>
     );

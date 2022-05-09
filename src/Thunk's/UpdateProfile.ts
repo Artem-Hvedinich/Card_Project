@@ -5,10 +5,10 @@ import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {addNewNameAndAvatar} from "../Store-Reducers/Auth-Reducer";
 import {AppThunkType} from "../Store-Reducers/Store";
 
-export const NewNameAndAvatarTC = (newName: string, newAvatar: string): AppThunkType => async dispatch => {
+export const NewNameAndAvatarTC = (newName: string): AppThunkType => async dispatch => {
     dispatch(setAppStatusAC({status: 'loading'}));
     try {
-        const response = await AuthAPI.newNameAndAvatar(newName, newAvatar);
+        const response = await AuthAPI.newNameAndAvatar(newName);
         if (response.data.updatedUser) {
             dispatch(addNewNameAndAvatar(response.data.updatedUser));
             dispatch(setAppStatusAC({status: 'succeeded'}));
