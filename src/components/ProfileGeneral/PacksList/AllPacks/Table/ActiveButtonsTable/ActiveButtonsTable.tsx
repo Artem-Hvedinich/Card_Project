@@ -1,29 +1,27 @@
 import React from 'react';
-import {Space} from 'antd';
 import styled from "styled-components";
 import {PacksType} from "../../../../../../Types/PacksTypes";
 
 type ActiveButtonsTableType = {
-    record: PacksType
     onEditClick: (id: string) => void
     onDeleteClick: (id: string) => void
     onLearnClick: (id: string) => void
 }
 
-export const ActiveButtonsTable = ({onEditClick, onLearnClick, onDeleteClick, record}:ActiveButtonsTableType) => {
+export const ActiveButtonsTable = ({onEditClick, onLearnClick, onDeleteClick}:ActiveButtonsTableType) => {
 
     return (
-        <Space size="middle">
-            <DeleteTableButton onClick={(e) => onDeleteClick(record.key)}>
+        <>
+            <DeleteTableButton onClick={(e) => onDeleteClick('')}>
                 Delete
             </DeleteTableButton>
-            <TableButton onClick={(e) => onEditClick(record.key)}>
+            <TableButton onClick={(e) => onEditClick('')}>
                 Edit
             </TableButton>
-            <TableButton onClick={(e) => onLearnClick(record.key)}>
+            <TableButton onClick={(e) => onLearnClick('')}>
                 Learn
             </TableButton>
-        </Space>
+        </>
     );
 };
 

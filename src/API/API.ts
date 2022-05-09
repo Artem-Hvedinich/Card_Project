@@ -47,6 +47,8 @@ Password recovery link:
     },
     newName(name: string) {
         return instance.put<NewNameAndAvatarType, { data: ResponseUpdateDataType }>(`/auth/me`, {name})
+    newNameAndAvatar(name: string) {
+        return instance.put<NewNameAndAvatarType, { data: ResponseUpdateDataType }>(`/auth/me`, {name})
     },
 };
 

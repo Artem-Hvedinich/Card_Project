@@ -1,13 +1,16 @@
-import React, {ChangeEvent, useCallback, useState} from "react";
+import React, {ChangeEvent,} from "react";
 import styled from "styled-components";
 import {AddNewAvaIcon} from "../../../../../Assets/AddNewAvaIcon";
 import {colors} from "../../../../StylesComponents/Colors";
-import {NewAvaTC} from "../../../../../Thunk's/UpdateProfile";
+import {NewNameAndAvatarTC} from "../../../../../Thunk's/UpdateProfile";
 import {useTypedDispatch} from "../../../../../Store-Reducers/Store";
 
 
 type AddNewAvaType = {
     id?: string
+    value?: any
+    disabled?: any
+    accept?: any
 }
 
 export const AddNewAva = ({id}: AddNewAvaType) => {
@@ -16,7 +19,7 @@ export const AddNewAva = ({id}: AddNewAvaType) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         debugger
         if (e.currentTarget.files)
-            dispatch(NewAvaTC(window.URL.createObjectURL(e.currentTarget.files[0])))
+            dispatch(NewNameAndAvatarTC(window.URL.createObjectURL(e.currentTarget.files[0])))
     }
 
     return (
