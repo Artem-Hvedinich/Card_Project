@@ -45,8 +45,8 @@ Password recovery link:
             resetPasswordToken
         })
     },
-    newNameAndAvatar(name: string, avatar: string) {
-        return instance.put<NewNameAndAvatarType, { data: ResponseUpdateDataType }>(`/auth/me`, {name, avatar})
+    newNameAndAvatar(name: string) {
+        return instance.put<NewNameAndAvatarType, { data: ResponseUpdateDataType }>(`/auth/me`, {name})
     },
 };
 
