@@ -45,8 +45,6 @@ export const ErrorWrapper = styled.div`
   color: red;
   font-size: 0.9rem`;
 
-
-
 export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;

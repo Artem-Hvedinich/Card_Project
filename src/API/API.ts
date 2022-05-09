@@ -47,10 +47,8 @@ Password recovery link:
     },
     newName(name: string) {
         return instance.put<NewNameAndAvatarType, { data: ResponseUpdateDataType }>(`/auth/me`, {name})
-    newNameAndAvatar(name: string) {
-        return instance.put<NewNameAndAvatarType, { data: ResponseUpdateDataType }>(`/auth/me`, {name})
-    },
-};
+    }
+}
 
 export const FileAPI = {
     postFile(formData: string) {
@@ -86,7 +84,7 @@ export const CardAPI = {
     async updateCard() {
         // return await instance.put(`/cards/card`, {card: updatedCard})
     },
-    async createPack(createPack: {namePack?: string, deckCover?: string, private?: boolean }) {
+    async createPack(createPack: { namePack?: string, deckCover?: string, private?: boolean }) {
         return instance.post<CreatePackType, any, any>(`/cards/pack`, {cardPack: createPack})
     },
 }

@@ -7,6 +7,7 @@ import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/Pro
 import styled from "styled-components";
 import SerchImg from '../../../../Assets/Union.svg'
 import {colors} from "../../../StylesComponents/Colors";
+import {Pagination} from "./Pagination";
 
 
 export const AllPacks = () => {
@@ -59,7 +60,11 @@ export const AllPacks = () => {
             <CardTable itemPack={stateCard.data.cardPacks} isFetching={stateCard.isFetching}/>
 
             <PaginationBlock>
-                {/*Pagination*/}
+                <Pagination portionSize={10}
+                            totalItemsCount={stateCard.data.cardPacksTotalCount}
+                            pageSize={stateCard.data.pageCount}
+                            onPageChanged={()=>{}}
+                            currentPage={stateCard.data.page}/>
             </PaginationBlock>
         </ProfileWrapper>
     );
@@ -68,9 +73,7 @@ export const AllPacks = () => {
 
 const PaginationBlock = styled.div`
   position: relative;
-  width: 60%;
-  top: 5%;
-  left: 0%;
+  width: 100%;
 `
 const SearchBlock = styled.div`
   display: flex;

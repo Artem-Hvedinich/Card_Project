@@ -14,8 +14,8 @@ import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store
 import {useFormik} from "formik";
 import {initialStateAuthorizationType} from "../../../../Store-Reducers/Auth-Reducer";
 import {AddNewAva} from "./AddNewAva/AddNewAva";
-import { NewNameAndAvatarTC } from '../../../../Thunk\'s/UpdateProfile';
-import { Img } from '../Profile';
+import {NewNameAndAvatarTC} from '../../../../Thunk\'s/UpdateProfile';
+import {Img} from '../Profile';
 
 type PersonalInfoType = {
     setEditMode: (editMode: boolean) => void,
@@ -55,7 +55,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
         },
         onSubmit: (values) => {
             console.log(values.nickname)
-            dispatch(NewNameAndAvatarTC(values.nickname, values.avatar))
+            dispatch(NewNameAndAvatarTC(values.nickname))
             PersonalInfo.resetForm();
         },
     });
@@ -69,10 +69,10 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
                     <AddNewAva id='avatar'/>
 
 
-
                     <InputWrapper>
                         <div>
-                            <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Nickname</TextAuthWrapper>
+                            <TextAuthWrapper fontSz={13} opacity={0.5}
+                                             color={colors.DarkBlue}>Nickname</TextAuthWrapper>
                             <Input type="text"
                                    id="nickname"
                                    placeholder="nickname"
