@@ -4,8 +4,6 @@ import {
     CardWrapper,
     ErrorWrapper,
     FormWrapper,
-    TextAuthWrapper,
-    TitleAuthWrapper
 } from "../../../StylesComponents/AuthCardWrapper";
 import styled from "styled-components";
 import {Button, Input} from "../../../StylesComponents/Button";
@@ -16,6 +14,12 @@ import {initialStateAuthorizationType} from "../../../../Store-Reducers/Auth-Red
 import {AddNewAva} from "./AddNewAva/AddNewAva";
 import {NewNameAndAvatarTC} from '../../../../Thunk\'s/UpdateProfile';
 import {Img} from '../Profile';
+import {
+    ButtonProfile, CardProfileWrapper,
+    InputProfileWrapper,
+    TextProfileWrapper,
+    TitleProfileWrapper
+} from "../../../StylesComponents/ProfileAndPacksWrapper";
 
 type PersonalInfoType = {
     setEditMode: (editMode: boolean) => void,
@@ -28,8 +32,6 @@ type PersonalInfoFormikType = {
     email?: string
 }
 export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) => {
-
-    const MaxLengthInput = 50;
 
     const meAuth = useAppSelector<initialStateAuthorizationType>(s => s.AuthorizationReducer);
     const dispatch = useTypedDispatch();
@@ -61,8 +63,8 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
     });
     return (
         <ModalWrapper active={active}>
-            <CardWrapper width={413} height={540}>
-                <TitleAuthWrapper fontSz={22}>Personal Information</TitleAuthWrapper>
+            <CardProfileWrapper width={20} height={30}>
+                <TitleProfileWrapper fontSz={1}>Personal Information</TitleProfileWrapper>
                 <FormWrapper height={400} onSubmit={PersonalInfo.handleSubmit}>
                     <Img src={avatar} alt={'avatar'}/>
 
@@ -70,40 +72,34 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
 
 
                     <InputWrapper>
-                        <div>
-                            <TextAuthWrapper fontSz={13} opacity={0.5}
-                                             color={colors.DarkBlue}>Nickname</TextAuthWrapper>
-                            <Input type="text"
+                            <TextProfileWrapper fontSz={0.7} opacity={0.5}
+                                             color={colors.DarkBlue}>Nickname</TextProfileWrapper>
+                            <InputProfileWrapper type="text"
                                    id="nickname"
                                    placeholder="nickname"
-                                   maxLength={MaxLengthInput}
                                    {...PersonalInfo.getFieldProps("nickname")}/>
                             {/*Errors */}
                             {PersonalInfo.touched.nickname && PersonalInfo.errors.nickname ? (
                                 <ErrorWrapper>{PersonalInfo.errors.nickname}</ErrorWrapper>) : null}
-                        </div>
-                        <div>
-                            <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>
+                            <TextProfileWrapper fontSz={0.7} opacity={0.5} color={colors.DarkBlue}>
                                 Registered Email
-                            </TextAuthWrapper>
-                            <Input type="email"
+                            </TextProfileWrapper>
+                            <InputProfileWrapper type="email"
                                    id="email"
                                    placeholder="Registered email"
-                                   maxLength={MaxLengthInput}
                                    {...PersonalInfo.getFieldProps("email")}/>
-                        </div>
                         {/*Errors */}
                         {PersonalInfo.touched.email && PersonalInfo.errors.email ? (
                             <ErrorWrapper>{PersonalInfo.errors.email}</ErrorWrapper>) : null}
                     </InputWrapper>
                     <ButtonWrapper>
-                        <Button width={124} height={36} bgColor={colors.AzureishWhite} color={colors.Blue}
-                                onClick={handelClick}>Cancel</Button>
-                        <Button width={127} height={36} color={colors.Lavender} bgColor={colors.Blue}
-                                type={'submit'}>Save</Button>
+                        <ButtonProfile width={7} height={2} bgColor={colors.AzureishWhite} color={colors.Blue}
+                                onClick={handelClick}>Cancel</ButtonProfile>
+                        <ButtonProfile width={7} height={2}  color={colors.Lavender} bgColor={colors.Blue}
+                                type={'submit'}>Save</ButtonProfile>
                     </ButtonWrapper>
                 </FormWrapper>
-            </CardWrapper>
+            </CardProfileWrapper>
         </ModalWrapper>
     )
 }
@@ -122,5 +118,4 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 200px`
-
+  height: 10vw`

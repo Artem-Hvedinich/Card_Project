@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CardWrapper = styled.div<{ width: number, height: number }>`
+export const CardWrapper = styled.div<{ width?: number, height?: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
