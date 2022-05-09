@@ -57,8 +57,8 @@ const PersonBlock = styled.div`
   background-color: ${colors.LightPink};`
 
 export const Img = styled.img`
-  width: 5vw;
-  height: 5vw;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background-color: ${colors.Lavender};`
 

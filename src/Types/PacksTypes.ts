@@ -1,5 +1,21 @@
 export type FilterCardsType = "All" | "My";
 
+export type PacksType = {
+    key: string,
+    name: string,
+    cards: number,
+    last_updated: string,
+    created_by: string,
+}
+
+export type CreatePackType = {
+    cardsPack: {
+        name?: string
+        deckCover?: string
+        private?: boolean
+    }
+}
+
 export type OnePacksType = {
     _id: string
     user_id: string
@@ -32,10 +48,12 @@ export type GetCardsResponseType = {
 }
 
 export type ResponsePacksType = {
-    cardPack: OnePacksType[]
+    cardPacks: OnePacksType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
     page: number
     pageCount: number
+    token: string
+    tokenDeathTime: number
 }

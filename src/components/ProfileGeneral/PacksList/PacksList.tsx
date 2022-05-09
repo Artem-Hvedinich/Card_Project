@@ -1,8 +1,8 @@
 import React from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {CardsInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Cards-Reducer";
+import {CardsInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
-import {FilterCardsType} from "../../../Types/CardsTypes";
+import {FilterCardsType} from "../../../Types/PacksTypes";
 import {
     GeneralProfileWrapper,
     TitleProfileWrapper,
@@ -10,14 +10,19 @@ import {
 } from '../../StylesComponents/ProfileAndPacksWrapper';
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
+import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
+import {Slider} from "antd";
+import 'antd/dist/antd.css';
 
 
-export const PacksList = () => {
+export const PacksList = NotAuthRedirect(() => {
     const dispatch = useTypedDispatch();
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
-    const onClickHandler = (value: FilterCardsType) => dispatch(setChangeFilteredPageAC({value}));
+    const onClickHandler = (valueFilter: FilterCardsType) => dispatch(setChangeFilteredPageAC({valueFilter}));
 
-    const active = stateCards.filter === "All"
+
+
+    const active = stateCards.filter === "All";
 
     return (
         <GeneralProfileWrapper>
@@ -38,14 +43,25 @@ export const PacksList = () => {
                 <NumberCards>
                     <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
                 </NumberCards>
+
+                <RangeBlock>
+                    <Slider range tooltipVisible max={150} defaultValue={[30, 110]}/>
+                </RangeBlock>
+
             </ToolsProfileBlock>
 
             <AllPacks/>
 
         </GeneralProfileWrapper>
     )
-}
+});
 
+
+
+const RangeBlock = styled.div`
+  width: 80%;
+  margin: 20px auto;
+`;
 
 const ShowPacks = styled.div`
   display: flex;

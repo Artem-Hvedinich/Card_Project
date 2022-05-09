@@ -1,23 +1,26 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
-import {CardsInitialStateType} from "../../../../Store-Reducers/Cards-Reducer";
+import {CardsInitialStateType} from "../../../../Store-Reducers/Packs-Reducer";
 import {getAllPacksTC, SearchPackTC} from "../../../../Thunk's/PacksThunk";
 import {CardTable} from "./Table/Table";
 import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/ProfileAndPacksWrapper';
 import styled from "styled-components";
 import SerchImg from '../../../../Assets/Union.svg'
 import {colors} from "../../../StylesComponents/Colors";
+import {Pagination} from 'antd';
+
 
 export const AllPacks = () => {
 
-    const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
+    const stateCard = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
     const dispatch = useTypedDispatch();
     const [value, setValue] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         dispatch(getAllPacksTC());
-    }, [])
+    }, []);
+
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (error && error.trim() !== '') setError(null)
@@ -54,23 +57,37 @@ export const AllPacks = () => {
                 </ButtonAddNewPack>
             </SearchBlock>
 
-            <CardTable itemPack={stateCards.cardPack}/>
+            <CardTable itemPack={stateCard.data.cardPacks} isFetching={stateCard.isFetching}/>
 
+            <PaginationBlock>
+                <Pagination size={"default"}
+                            defaultCurrent={1}
+                            total={500}
+                />
+            </PaginationBlock>
         </ProfileWrapper>
     );
 };
+
+
+const PaginationBlock = styled.div`
+  position: relative;
+  width: 60%;
+  top: 5%;
+  left: 0%;
+`
 const SearchBlock = styled.div`
   display: flex;
 `
 const InputWrapper = styled.input`
-  height: 2vw;
+  height: 4vh;
   width: 90%;
-  border-radius: 0.2vw;
+  border-radius: 0.3vw;
   margin-right: 2vw;
-  background: url(${SerchImg}) no-repeat scroll 0.5vw 0.5vw;
+  background: url(${SerchImg}) no-repeat scroll 0.6vw 0.6vw;
   background-size: 1vw;
   padding-left: 2vw;
-  font-size: 0.8vw;
+  font-size: 0.9vw;
   border: 1px solid #D9D9F1;
   opacity: 0.7;
 
@@ -88,7 +105,7 @@ const InputWrapper = styled.input`
   }`
 const ButtonAddNewPack = styled.button`
   width: 20%;
-  height: 2vw;
+  height: 2.4vw;
   font-size: 0.8vw;
   background-color: ${colors.Blue};
   color: ${colors.WhiteColor};

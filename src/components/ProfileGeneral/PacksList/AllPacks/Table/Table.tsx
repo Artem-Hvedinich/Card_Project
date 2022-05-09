@@ -1,65 +1,91 @@
-import React from 'react';
-import {OnePacksType} from "../../../../../Types/CardsTypes";
+import React, {useEffect, useState} from 'react';
+import s from "./Table.module.css";
+import {PacksType, OnePacksType} from "../../../../../Types/PacksTypes";
 import styled from "styled-components";
+import {Table} from 'antd';
+import {setFetchingPacksTableAC} from "../../../../../Store-Reducers/Packs-Reducer";
+import {useTypedDispatch} from "../../../../../Store-Reducers/Store";
+import {ActiveButtonsTable} from "./ActiveButtonsTable/ActiveButtonsTable";
+import {detelePackTC} from "../../../../../Thunk's/PacksThunk";
 
-const TableList = [
-    {id: 1, name: 'Name'},
-    {id: 2, name: 'Cards'},
-    {id: 3, name: 'Last Updated'},
-    {id: 4, name: 'Created by'},
-    {id: 5, name: 'Actions'},
-];
 
 type CardTableType = {
     itemPack: OnePacksType[]
+    isFetching: boolean
 }
 
-export const CardTable = ({itemPack}: CardTableType) => {
+export const CardTable = ({itemPack, isFetching}: CardTableType) => {
+
+    const data: PacksType[] = [];
+
+    const [localState, setLocalState] = useState<PacksType[]>(data);
+    const dispatch = useTypedDispatch();
+
+    useEffect(() => {
+        if (itemPack.length !== 0) {
+            itemPack.map(el => data.push({
+                key: el._id,
+                name: el.name,
+                cards: el.cardsCount,
+                last_updated: el.updated,
+                created_by: el.created.slice(0,10),
+            }));
+            setLocalState(data);
+        }
+        dispatch(setFetchingPacksTableAC({isFetching: false}));
+    },[itemPack]);
+
+    const onDeleteClick = (id: string) => {
+        dispatch(detelePackTC(id))
+    }
+    const onEditClick = () => {
+
+    }
+    const onLearnClick = () => {
+
+    }
+
     return (
         <PacksBlock>
-            <TitleBlock>
-                {TableList.map(el => <Title key={el.id}>{el.name}</Title>)}
-            </TitleBlock>
-            {itemPack.map(el =>
-                <PacksInfoBlock key={el._id}>
-                    <PacksInfoText>{el.name}</PacksInfoText>
-                    <PacksInfoText>{el.cardsCount}</PacksInfoText>
-                    <PacksInfoText>{el.updated}</PacksInfoText>
-                    <PacksInfoText>{el.created}</PacksInfoText>
-                </PacksInfoBlock>)
-            }
+            <Table dataSource={localState}
+                   pagination={false}
+                   size={"large"}
+                   loading={isFetching}>
+
+                <Table.Column title="Name" dataIndex="name" key="name" width={"20%"} className={s.font_main}/>
+                <Table.Column title="Cards" dataIndex="cards" key="cards" width={"10%"} align={"center"} className={s.font}/>
+                <Table.Column title='Last Updated'
+                        dataIndex='last_updated'
+                        key='last_updated'
+                        width={"25%"}
+                        className={s.font}
+                        align={"center"}
+                        sorter={(a: { last_updated: string }, b: { last_updated: string }) =>
+                            a.last_updated.length - b.last_updated.length}/>
+                <Table.Column title="Created by" dataIndex="created_by" key="created_by" width={"25%"} align={"center"} className={s.font}/>
+                <Table.Column
+                    className={s.font}
+                    title={'Actions'}
+                    key={'actions'}
+                    render={(value, record: PacksType) => (
+                            <ActiveButtonsTable record={record}
+                                                onLearnClick={onLearnClick}
+                                                onEditClick={onEditClick}
+                                                onDeleteClick={onDeleteClick} />
+                    )}
+                />
+            </Table>
         </PacksBlock>
     );
 };
 
+
 const PacksBlock = styled.div`
   height: auto;
   overflow: hidden;
-  max-height: 60vh;
+  min-height: 70%;
+  max-height: 70%;
   width: 100%;
   margin-top: 2vw;
   box-shadow: -0.1vw -0.1vw 0.5vw #cbcbcb,
   0.1vw 0.1vw 0.5vw 0.1vw #cbcbcb;`
-const TitleBlock = styled.div`
-  width: 100%;
-  background-color: #ECECF9;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;`
-const Title = styled.span`
-  font-size: 0.8vw;
-  font-weight: 600;
-  padding: 0.5vw 1vw;`
-const PacksInfoBlock = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: #F8F7FD;
-  width: 100%;
-  height: 2.5vw;
-
-  :nth-child(2n) {
-    background-color: #FFFFFF;
-  }`
-const PacksInfoText = styled.span`
-  font-size: 0.8vw;
-  padding: 0.5vw 1vw;`

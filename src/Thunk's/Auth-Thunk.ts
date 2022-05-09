@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {AuthAPI} from "../API/API";
-import {setAppStatusAC} from "../Store-Reducers/App-Reducer";
+import {setAppStatusAC, setAppSuccessMessageAC} from "../Store-Reducers/App-Reducer";
 import {deleteUserDataAC, setAuthUserDataAC} from "../Store-Reducers/Auth-Reducer";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {LoginDataType} from "../Types/AuthTypes";
@@ -18,9 +18,10 @@ export const AuthMeTC = (): AppThunkType => async dispatch => {
             dispatch(setAppStatusAC({status: 'succeeded'}));
         }
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            handleServerNetworkError(error.response.data.error, dispatch);
-        }
+        dispatch(setAppStatusAC({status: 'failed'}))
+        // if (axios.isAxiosError(error) && error.response) {
+        //     handleServerNetworkError(error.response.data.error, dispatch);
+        // }
     }
 };
 
@@ -63,13 +64,15 @@ export const LogOutTC = (): AppThunkType => async dispatch => {
             };
             dispatch(deleteUserDataAC(resetUser));
             dispatch(setAppStatusAC({status: 'succeeded'}));
-            handleServerNetworkError(response.data.info, dispatch);
+            dispatch(setAppSuccessMessageAC({success: response.data.info}));
         }
     } catch (error) {
+        dispatch(setAppStatusAC({status: 'failed'}));
+
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
         }
     }
 };
 
-
+console.log("s");

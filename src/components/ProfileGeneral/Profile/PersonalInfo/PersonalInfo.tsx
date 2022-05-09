@@ -16,6 +16,7 @@ type PersonalInfoType = {
     active: boolean
 }
 type PersonalInfoFormikType = {
+    avatar?: string
     nickname?: string
     email?: string
 }
@@ -26,6 +27,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
     const handelClick = () => {
         setEditMode(false)
     }
+
     const PersonalInfo = useFormik({
         initialValues: {
             nickname: '',
@@ -86,6 +88,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
         </ModalWrapper>
     )
 }
+
 const ModalWrapper = styled.div<{ active: boolean }>`
   position: fixed;
   display: flex;
