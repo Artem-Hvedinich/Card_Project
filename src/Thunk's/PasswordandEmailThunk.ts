@@ -1,5 +1,5 @@
 import {AppThunkType} from "../Store-Reducers/Store";
-import {setAppStatusAC, setEmailAddresUserAC} from "../Store-Reducers/App-Reducer";
+import {setAppStatusAC, setEmailAddressUserAC} from "../Store-Reducers/App-Reducer";
 import {AuthAPI} from "../API/API";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import axios from "axios";
@@ -31,7 +31,7 @@ export const ForgetPasswordTC = (email: string, navigate: NavigateFunction): App
         const response = await AuthAPI.forgotPassword(email);
         if (response) {
             dispatch(setAppStatusAC({status: 'succeeded'}));
-            dispatch(setEmailAddresUserAC({email}));
+            dispatch(setEmailAddressUserAC({email}));
 
             navigate(PATH.checkEmail);
             setTimeout(() => {

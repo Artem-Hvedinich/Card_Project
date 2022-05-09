@@ -3,7 +3,7 @@ import {
     AppReducer,
     RequestStatusType,
     setAppErrorMessageAC,
-    setAppStatusAC, setEmailAddresUserAC
+    setAppStatusAC, setEmailAddressUserAC
 } from "../Store-Reducers/App-Reducer";
 
 
@@ -14,6 +14,7 @@ beforeEach(() => {
     startState = {
         status: 'idle' as RequestStatusType,
         error: null,
+        success: null,
         email: null,
     };
 })
@@ -44,10 +45,10 @@ test("Set global Error in App or Server", () => {
 
 });
 
-test("Set global Error in App or Server", () => {
+test("\"Set global Error in App or Server\"", () => {
 
-    const action = setEmailAddresUserAC({email: "123@mail.ru"});
-    const action2 = setEmailAddresUserAC({email: "7777@mail.ru"});
+    const action = setEmailAddressUserAC({email: "123@mail.ru"});
+    const action2 = setEmailAddressUserAC({email: "7777@mail.ru"});
 
     const endState = AppReducer(startState, action);
     const endState2 = AppReducer(startState, action2);

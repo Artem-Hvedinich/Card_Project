@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {Error404} from "./components/Components for working with login/ErrorPage/Error404";
-import {Login} from './components/Login and Registration/Login/Login';
-import {NewPassword} from './components/Components for working with login/NewPassword/NewPassword';
-import {ForgotPassword} from './components/Components for working with login/ForgotPassword/ForgotPassword';
-import {Register} from "./components/Login and Registration/Registration/Register";
-import {CheckEmail} from "./components/Components for working with login/CheckEmail/CheckEmail";
+import {Error404} from "./components/ComponentsForWorkingWithLogin/ErrorPage/Error404";
+import {Login} from './components/LoginAndRegistration/Login/Login';
+import {NewPassword} from './components/ComponentsForWorkingWithLogin/NewPassword/NewPassword';
+import {ForgotPassword} from './components/ComponentsForWorkingWithLogin/ForgotPassword/ForgotPassword';
+import {Register} from "./components/LoginAndRegistration/Registration/Register";
+import {CheckEmail} from "./components/ComponentsForWorkingWithLogin/CheckEmail/CheckEmail";
 import {TypedDispatch, useAppSelector} from "./Store-Reducers/Store";
 import {AppInitialStateType} from "./Store-Reducers/App-Reducer";
 import {Loading} from "./components/Common/Loading/Loading";

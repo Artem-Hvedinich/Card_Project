@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {AuthAPI} from "../API/API";
-import {setAppStatusAC} from "../Store-Reducers/App-Reducer";
+import {setAppStatusAC, setAppSuccessMessageAC} from "../Store-Reducers/App-Reducer";
 import {deleteUserDataAC, setAuthUserDataAC} from "../Store-Reducers/Auth-Reducer";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {LoginDataType} from "../Types/AuthTypes";
@@ -64,7 +64,7 @@ export const LogOutTC = (): AppThunkType => async dispatch => {
             };
             dispatch(deleteUserDataAC(resetUser));
             dispatch(setAppStatusAC({status: 'succeeded'}));
-            handleServerNetworkError(response.data.info, dispatch);
+            dispatch(setAppSuccessMessageAC({success: response.data.info}));
         }
     } catch (error) {
         dispatch(setAppStatusAC({status: 'failed'}));
@@ -75,4 +75,4 @@ export const LogOutTC = (): AppThunkType => async dispatch => {
     }
 };
 
-
+console.log("s");
