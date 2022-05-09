@@ -74,5 +74,3 @@ export const LogOutTC = (): AppThunkType => async dispatch => {
         }
     }
 };
-
-console.log("s");
