@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {CardsInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
@@ -11,6 +11,7 @@ import {
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
+import {DoubleRange} from "../../../UtilsFunction/DoubleRange";
 
 export const PacksList = NotAuthRedirect(() => {
     const dispatch = useTypedDispatch();
@@ -18,8 +19,10 @@ export const PacksList = NotAuthRedirect(() => {
     const onClickHandler = (valueFilter: FilterCardsType) => dispatch(setChangeFilteredPageAC({valueFilter}));
 
 
-
     const active = stateCards.filter === "All";
+
+    const [valueMin, setValueMin] = useState(0)
+    const [valueMax, setValueMax] = useState(50)
 
     return (
         <GeneralProfileWrapper>
@@ -42,7 +45,10 @@ export const PacksList = NotAuthRedirect(() => {
                 </NumberCards>
 
                 <RangeBlock>
-{/*Dabble range*/}
+                    <DoubleRange onChangeRange={setValueMin}
+                                 onChangeRange2={setValueMax}
+                                 valueMin={valueMin}
+                                 valueMax={valueMax}/>
                 </RangeBlock>
 
             </ToolsProfileBlock>
@@ -52,7 +58,6 @@ export const PacksList = NotAuthRedirect(() => {
         </GeneralProfileWrapper>
     )
 });
-
 
 
 const RangeBlock = styled.div`
