@@ -24,25 +24,27 @@ export const DoubleRange = ({onChangeRange, onChangeRange2, valueMin, valueMax,}
     }
 
     return (
-        <>
+        <DoubleRangeWrapper>
             <NumberValue>
-                <ValueWrapper value={valueMin} count={0}>
+                <ValueWrapper value={valueMin} count={-2}>
                     <Value>{valueMin}</Value>
                 </ValueWrapper>
-                <ValueWrapper value={valueMax} count={-5}>
+                <ValueWrapper value={valueMax} count={-7}>
                     <Value>{valueMax}</Value>
                 </ValueWrapper>
             </NumberValue>
             <Slider/>
             <RangeInput>
-                <Input bgCol={valueMin < valueMax ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
+                <Input index={valueMin < valueMax ? 1 : 2}
+                       bgCol={valueMin < valueMax ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
                        type={'range'}
                        id={'valueMax'}
                        onChange={onChangeCallback2}
                        value={valueMax}
                        min={'0'} max={'50'}
                 />
-                <Input bgCol={valueMin > valueMax ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
+                <Input index={valueMin > valueMax ? 1 : 2}
+                       bgCol={valueMin > valueMax ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
                        id={'valueMin'}
                        type={'range'}
                        onChange={onChangeCallback}
@@ -50,9 +52,11 @@ export const DoubleRange = ({onChangeRange, onChangeRange2, valueMin, valueMax,}
                        value={valueMin}
                 />
             </RangeInput>
-        </>
+        </DoubleRangeWrapper>
     )
 }
+const DoubleRangeWrapper = styled.div``
+
 const NumberValue = styled.div`
   display: flex;
   justify-content: space-around;
@@ -62,7 +66,7 @@ const NumberValue = styled.div`
 `
 const ValueWrapper = styled.div<{ value: number, count: number }>`
   position: relative;
-  left: ${({value}) => value}%;
+  left: ${({value}) => value * 1.85}%;
   transform: translate(${({count}) => `${count}vw`});
 `
 const Value = styled.label`
@@ -81,35 +85,34 @@ const Slider = styled.div`
   display: flex;
   justify-content: center;
   top: 0.5vw;
-  left: 1.7vw;
   height: 0.3vw;
-  width: 6.5vw;
+  width: 10vw;
   position: relative;
   background: rgb(126, 128, 175);
   border-radius: 0.2vw;
 `
 
 const RangeInput = styled.span`
-  left: 1.7vw;
   position: relative;
 
   input {
     position: absolute;
-    width: 6.5vw;
+    width: 10vw;
     background: none;
     pointer-events: none;
     -webkit-appearance: none;
     -moz-appearance: none;
   }
 `
-const Input = styled.input<{ value: number, bgCol: string }>`
+const Input = styled.input<{ value: number, bgCol: string, index: number }>`
   display: flex;
   justify-content: start;
+  z-index: ${({index}) => index};
 
   ::-webkit-slider-thumb {
     height: 0.7vw;
     width: 0.7vw;
-    border-radius: 20%;
+    border-radius: 50%;
     background: ${colors.DarkBlue};
     pointer-events: auto;
     -webkit-appearance: none;
@@ -117,7 +120,7 @@ const Input = styled.input<{ value: number, bgCol: string }>`
 
   :after {
     height: 0.3vw;
-    width: ${({value}) => value * 1.8}%;
+    width: ${({value}) => value * 1.87}%;
     position: absolute;
     top: 0.2vw;
     border-bottom-left-radius: 0.2vw;

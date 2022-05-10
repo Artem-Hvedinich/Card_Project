@@ -6,7 +6,6 @@ import {setFetchingPacksTableAC} from "../../../../../Store-Reducers/Packs-Reduc
 import {useTypedDispatch} from "../../../../../Store-Reducers/Store";
 import {ActiveButtonsTable} from "./ActiveButtonsTable/ActiveButtonsTable";
 import {detelePackTC} from "../../../../../Thunk's/PacksThunk";
-import {Loading} from "../../../../Common/Loading/Loading";
 import {LoadingTable} from "../../../../Common/Loading/LoadingTable";
 
 
@@ -36,7 +35,7 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                 key: el._id,
                 name: el.name,
                 cards: el.cardsCount,
-                last_updated: el.updated.slice(0, 10),
+                last_updated: el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`),
                 created_by: "Some Long Name",
                 // created_by: el.user_id,
             }));
@@ -54,12 +53,13 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
     const onLearnClick = (id: string) => {
 
     }
+    console.log(localState)
 
     return (
         <PacksBlock>
             {isFetching
-            ? <LoadingTable />
-            : <div className={s.table}>
+                ? <LoadingTable/>
+                : <div className={s.table}>
                     <div className={s.item_columns}>
                         <div className={s.item}>
                             {TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)}
@@ -73,10 +73,10 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                                 <span className={s.item}>{el.last_updated}</span>
                                 <span className={s.item}>{el.created_by}</span>
                                 <span className={s.item}>
-                                <ActiveButtonsTable  id={el.key}
-                                                     onLearnClick={onLearnClick}
-                                                     onEditClick={onEditClick}
-                                                     onDeleteClick={onDeleteClick}/>
+                                <ActiveButtonsTable id={el.key}
+                                                    onLearnClick={onLearnClick}
+                                                    onEditClick={onEditClick}
+                                                    onDeleteClick={onDeleteClick}/>
                             </span>
                             </div>
                         </div>
@@ -87,8 +87,6 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
         </PacksBlock>
     );
 };
-
-
 
 
 const PacksBlock = styled.div`
