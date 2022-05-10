@@ -1,7 +1,5 @@
-import {createAction, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {CreatePackType, FilterCardsType, OnePacksType, ResponsePacksType} from "../Types/PacksTypes";
-import {ResponseDataLoginOrAuthMe} from "../Types/AuthTypes";
-import {initialStateAuthorizationType, setAuthUserDataAC} from "./Auth-Reducer";
+import { createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {FilterCardsType, ResponsePacksType} from "../Types/PacksTypes";
 
 export type CardsInitialStateType = {
     data: ResponsePacksType
