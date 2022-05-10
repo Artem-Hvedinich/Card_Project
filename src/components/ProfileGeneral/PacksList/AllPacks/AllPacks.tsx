@@ -16,6 +16,7 @@ export const AllPacks = () => {
     const dispatch = useTypedDispatch();
     const [value, setValue] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
+    const [show, setShow] = useState<boolean>(false);
 
     useEffect(() => {
         dispatch(getAllPacksTC());
@@ -36,6 +37,7 @@ export const AllPacks = () => {
         setValue(text.currentTarget.value);
     }
     const onClickHandler = () => {
+        setShow(true);
         dispatch(createPackTC(value));
         setValue('');
     };
@@ -47,8 +49,8 @@ export const AllPacks = () => {
             <TitleProfileWrapper fontSz={1.5}>Packs List</TitleProfileWrapper>
 
             <SearchBlock>
-                <InputWrapper
-                    placeholder={"Add new Packs..."}
+                <InputWrapper error={error === ''}
+                    placeholder={"Search..."}
                     onChange={(e) => onChangeHandler(e)}
                     value={value}
                     onKeyPress={(e) => onKeyPress(e)}
@@ -80,7 +82,7 @@ const PaginationBlock = styled.div`
 const SearchBlock = styled.div`
   display: flex;
 `
-const InputWrapper = styled.input`
+const InputWrapper = styled.input<{error: boolean}>`
   height: 4vh;
   width: 90%;
   border-radius: 0.3vw;
@@ -89,7 +91,7 @@ const InputWrapper = styled.input`
   background-size: 1vw;
   padding-left: 2vw;
   font-size: 0.9vw;
-  border: 1px solid #D9D9F1;
+  border: 1px solid ${(error => error ? '#D9D9F1' : 'red')};
   opacity: 0.7;
 
   :nth-child(1) {

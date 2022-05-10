@@ -1,3 +1,8 @@
+.table {
+    height: 100%;
+    width: 100%;
+}
+
 .item_columns {
     width: 100%;
     height: 50px;
@@ -9,9 +14,15 @@
 .item {
     align-items: center;
     width: 90%;
-    height: 2vw;
+    height: 2.2vw;
     padding: 0 24px;
     display: flex;
+}
+
+@media (max-width: 1600px) {
+    .item {
+        height: 2vw;
+    }
 }
 
 .item:nth-child(1) {
