@@ -52,9 +52,30 @@ export const createPackTC = (namePack: string): AppThunkType => async dispatch =
 
 
 export const getAllPacksTC = (): AppThunkType => async dispatch => {
+
         dispatch(setFetchingPacksTableAC({isFetching: true}));
     try {
-        const response = await CardAPI.getPacks();
+        let pageCount = 10;
+        const response = await CardAPI.getPacks(pageCount);
+        if (response.data) {
+            dispatch(setPacksDataAC(response.data));
+            dispatch(setFetchingPacksTableAC({isFetching: false}));
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            handleServerNetworkError(error.response.data.error, dispatch);
+            dispatch(setFetchingPacksTableAC({isFetching: false}));
+        }
+    }
+};
+
+
+export const getOnePagePacksTC = (numberPage: number): AppThunkType => async dispatch => {
+
+        dispatch(setFetchingPacksTableAC({isFetching: true}));
+    try {
+        let pageCount = 10;
+        const response = await CardAPI.getPacks(pageCount, numberPage);
         if (response.data) {
             dispatch(setPacksDataAC(response.data));
             dispatch(setFetchingPacksTableAC({isFetching: false}));

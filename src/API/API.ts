@@ -8,7 +8,7 @@ import {
     ForgotPasswordDataType,
     NewPasswordDataType, NewNameAndAvatarType, ResponseUpdateDataType
 } from "../Types/AuthTypes";
-import {CreatePackType, ResponsePacksType} from "../Types/PacksTypes";
+import {CreatePackType, PacksReqestType, ResponsePacksType} from "../Types/PacksTypes";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || 'https://neko-back.herokuapp.com/2.0',
@@ -75,8 +75,8 @@ export const FileAPI = {
 }
 
 export const CardAPI = {
-    getPacks() {
-        return instance.get<ResponsePacksType>('/cards/pack');
+    getPacks(pageCount?: number, page?: number) {
+        return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {params: {pageCount: pageCount, page: page}});
     },
     deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`);

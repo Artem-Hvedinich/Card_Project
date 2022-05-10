@@ -1,5 +1,15 @@
 export type FilterCardsType = "All" | "My";
 
+export type PacksReqestType = {
+    packName: string
+    min: number
+    max: number
+    sortPacks : string
+    page: number
+    pageCount: number
+    user_id: string
+}
+
 export type PacksType = {
     key: string,
     name: string,

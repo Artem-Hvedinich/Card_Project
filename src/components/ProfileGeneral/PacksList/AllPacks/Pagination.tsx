@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {Button} from '../../../StylesComponents/Button';
-import {ButtonProfile} from "../../../StylesComponents/ProfileAndPacksWrapper";
 import {colors} from "../../../StylesComponents/Colors";
 import {Arrow} from "../../../../UtilsFunction/Arrow";
 

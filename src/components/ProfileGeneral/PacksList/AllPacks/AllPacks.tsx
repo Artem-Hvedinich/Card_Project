@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
 import {CardsInitialStateType} from "../../../../Store-Reducers/Packs-Reducer";
-import {getAllPacksTC, SearchPackTC} from "../../../../Thunk's/PacksThunk";
+import {createPackTC, getAllPacksTC, getOnePagePacksTC} from "../../../../Thunk's/PacksThunk";
 import {CardTable} from "./Table/Table";
 import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/ProfileAndPacksWrapper';
 import styled from "styled-components";
@@ -21,6 +21,7 @@ export const AllPacks = () => {
         dispatch(getAllPacksTC());
     }, []);
 
+    let pageCount = 10;
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (error && error.trim() !== '') setError(null)
@@ -35,9 +36,12 @@ export const AllPacks = () => {
         setValue(text.currentTarget.value);
     }
     const onClickHandler = () => {
-        dispatch(SearchPackTC(value));
+        dispatch(createPackTC(value));
         setValue('');
     };
+    const onPageChanged = (numberPage: number) => {
+        dispatch(getOnePagePacksTC(numberPage));
+    }
 
     return (
         <ProfileWrapper>
@@ -46,7 +50,7 @@ export const AllPacks = () => {
 
             <SearchBlock>
                 <InputWrapper
-                    placeholder={"Search..."}
+                    placeholder={"Add new Packs..."}
                     onChange={(e) => onChangeHandler(e)}
                     value={value}
                     onKeyPress={(e) => onKeyPress(e)}
@@ -60,10 +64,10 @@ export const AllPacks = () => {
             <CardTable itemPack={stateCard.data.cardPacks} isFetching={stateCard.isFetching}/>
 
             <PaginationBlock>
-                <Pagination portionSize={10}
+                <Pagination portionSize={pageCount}
                             totalItemsCount={stateCard.data.cardPacksTotalCount}
                             pageSize={stateCard.data.pageCount}
-                            onPageChanged={()=>{}}
+                            onPageChanged={onPageChanged}
                             currentPage={stateCard.data.page}/>
             </PaginationBlock>
         </ProfileWrapper>
@@ -83,7 +87,7 @@ const InputWrapper = styled.input`
   width: 90%;
   border-radius: 0.3vw;
   margin-right: 2vw;
-  background: url(${SerchImg}) no-repeat scroll 0.6vw 0.6vw;
+  background: url(${SerchImg}) no-repeat scroll 0.4vw 0.4vw;
   background-size: 1vw;
   padding-left: 2vw;
   font-size: 0.9vw;
