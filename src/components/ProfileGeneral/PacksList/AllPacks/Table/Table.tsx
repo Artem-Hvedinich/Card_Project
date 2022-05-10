@@ -6,12 +6,21 @@ import {setFetchingPacksTableAC} from "../../../../../Store-Reducers/Packs-Reduc
 import {useTypedDispatch} from "../../../../../Store-Reducers/Store";
 import {ActiveButtonsTable} from "./ActiveButtonsTable/ActiveButtonsTable";
 import {detelePackTC} from "../../../../../Thunk's/PacksThunk";
+import {isNum} from "react-toastify/dist/utils";
 
 
 type CardTableType = {
     itemPack: OnePacksType[]
     isFetching: boolean
 }
+
+const TableList = [
+    {id: 1, name: "Name"},
+    {id: 2, name: "Cards"},
+    {id: 3, name: "Last Updated"},
+    {id: 4, name: "Created by"},
+    {id: 5, name: "Actions"},
+];
 
 export const CardTable = ({itemPack, isFetching}: CardTableType) => {
 
@@ -26,8 +35,8 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                 key: el._id,
                 name: el.name,
                 cards: el.cardsCount,
-                last_updated: el.updated,
-                created_by: el.created.slice(0, 10),
+                last_updated: el.updated.slice(0, 10),
+                created_by: "Some Long Name",
             }));
             setLocalState(data);
         }
@@ -46,12 +55,34 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
 
     return (
         <PacksBlock>
-            <ActiveButtonsTable  onLearnClick={onLearnClick}
-                                onEditClick={onEditClick}
-                                onDeleteClick={onDeleteClick}/>
+            <div className={s.table}>
+                <div className={s.item_columns}>
+                    <div className={s.item}>
+                        {TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)}
+                    </div>
+                </div>
+                {localState.map(el =>
+                    <div className={s.elements_table_general_block}>
+                        <div key={el.key} className={s.li}>
+                            <span className={s.item}>{el.name}</span>
+                            <span className={s.item}>{el.cards}</span>
+                            <span className={s.item}>{el.last_updated}</span>
+                            <span className={s.item}>{el.created_by}</span>
+                            <span className={s.item}>
+                                <ActiveButtonsTable  onLearnClick={onLearnClick}
+                                                     onEditClick={onEditClick}
+                                                     onDeleteClick={onDeleteClick}/>
+                            </span>
+                        </div>
+                    </div>
+                    )
+                }
+            </div>
         </PacksBlock>
     );
 };
+
+
 
 
 const PacksBlock = styled.div`
