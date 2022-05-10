@@ -19,10 +19,9 @@ export const Header = () => {
 
     const setActive = (navData: any) => ({
         borderBottom: navData.isActive ? `0.15vw solid ${colors.LightBlue}` : '',
+        backgroundColor: navData.isActive ? `${colors.ActiveNavlinkColor}` : '',
         width: '50%',
         height: '100%',
-        backgroundColor: navData.isActive ? `${colors.ActiveNavlinkColor}` : '',
-
     })
 
     return (
