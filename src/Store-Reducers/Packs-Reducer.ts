@@ -9,6 +9,7 @@ export type CardsInitialStateType = {
     filter: FilterCardsType
     isFetching: boolean
 };
+
 const initialCardsState: CardsInitialStateType = {
     data: {
         cardPacks: [],

@@ -37,33 +37,21 @@ export const PacksList = NotAuthRedirect(() => {
                         <Button active={active}
                                 onClick={() => onClickHandler("All")}>All
                         </Button>
-
                     </ButtonWrapper>
                 </ShowPacks>
+
                 <NumberCards>
                     <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                </NumberCards>
-
-                <RangeBlock>
                     <DoubleRange onChangeRange={setValueMin}
                                  onChangeRange2={setValueMax}
                                  valueMin={valueMin}
                                  valueMax={valueMax}/>
-                </RangeBlock>
-
+                </NumberCards>
             </ToolsProfileBlock>
-
             <AllPacks/>
-
         </GeneralProfileWrapper>
     )
 });
-
-
-const RangeBlock = styled.div`
-  width: 80%;
-  margin: 20px auto;
-`;
 
 const ShowPacks = styled.div`
   display: flex;
@@ -71,7 +59,7 @@ const ShowPacks = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  height: 5vw;`
+  height: 7vw;`
 
 const NumberCards = styled.div`
   display: flex;
