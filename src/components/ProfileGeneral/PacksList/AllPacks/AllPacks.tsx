@@ -39,9 +39,7 @@ export const AllPacks = () => {
         dispatch(createPackTC(value));
         setValue('');
     };
-    const onPageChanged = (numberPage: number) => {
-        dispatch(getOnePagePacksTC(numberPage));
-    }
+    const onPageChanged = (numberPage: number) => dispatch(getOnePagePacksTC(numberPage));
 
     return (
         <ProfileWrapper>
