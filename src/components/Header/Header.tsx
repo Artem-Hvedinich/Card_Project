@@ -13,13 +13,12 @@ import {ButtonProfile} from "../StylesComponents/ProfileAndPacksWrapper";
 
 
 export const Header = () => {
-    /*сделал ховер, но как активную кнопку так подкрасить в сталедкомп хоть убей не нашел , если знаешь доделай плиз*/
+
     const dispatch = useDispatch<TypedDispatch>();
 
     const onClickHandler = () => dispatch(LogOutTC());
     return (
         <HeaderWrapper>
-            {/*Не знаю нужен ли редирект по клике на лого, на всякий случай сделал*/}
             <Title>It-incubator</Title>
             <BlockNavigate>
                 <ItemBlockNavigate to={PATH.packsList}>

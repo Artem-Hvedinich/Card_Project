@@ -36,7 +36,7 @@ export const App = () => {
                     {isAuth && <Header/>}
                     <Snackbar/>
                     <Routes>
-                        <Route path={'/'} element={<Navigate to={PATH.packsList}/>}/>
+                        <Route path={'/'} element={<Navigate to={PATH.profile}/>}/>
                         <Route path={PATH.login} element={<Login/>}/>
                         <Route path={PATH.registration} element={<Register/>}/>
                         <Route path={PATH.profile} element={<Profile/>}/>

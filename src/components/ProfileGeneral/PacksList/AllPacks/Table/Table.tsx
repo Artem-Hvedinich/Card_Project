@@ -6,7 +6,8 @@ import {setFetchingPacksTableAC} from "../../../../../Store-Reducers/Packs-Reduc
 import {useTypedDispatch} from "../../../../../Store-Reducers/Store";
 import {ActiveButtonsTable} from "./ActiveButtonsTable/ActiveButtonsTable";
 import {detelePackTC} from "../../../../../Thunk's/PacksThunk";
-import {isNum} from "react-toastify/dist/utils";
+import {Loading} from "../../../../Common/Loading/Loading";
+import {LoadingTable} from "../../../../Common/Loading/LoadingTable";
 
 
 type CardTableType = {
@@ -37,6 +38,7 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                 cards: el.cardsCount,
                 last_updated: el.updated.slice(0, 10),
                 created_by: "Some Long Name",
+                // created_by: el.user_id,
             }));
             setLocalState(data);
         }
@@ -46,38 +48,42 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
     const onDeleteClick = (id: string) => {
         dispatch(detelePackTC(id))
     }
-    const onEditClick = () => {
+    const onEditClick = (id: string) => {
 
     }
-    const onLearnClick = () => {
+    const onLearnClick = (id: string) => {
 
     }
 
     return (
         <PacksBlock>
-            <div className={s.table}>
-                <div className={s.item_columns}>
-                    <div className={s.item}>
-                        {TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)}
+            {isFetching
+            ? <LoadingTable />
+            : <div className={s.table}>
+                    <div className={s.item_columns}>
+                        <div className={s.item}>
+                            {TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)}
+                        </div>
                     </div>
-                </div>
-                {localState.map(el =>
-                    <div className={s.elements_table_general_block}>
-                        <div key={el.key} className={s.li}>
-                            <span className={s.item}>{el.name}</span>
-                            <span className={s.item}>{el.cards}</span>
-                            <span className={s.item}>{el.last_updated}</span>
-                            <span className={s.item}>{el.created_by}</span>
-                            <span className={s.item}>
-                                <ActiveButtonsTable  onLearnClick={onLearnClick}
+                    {localState.map(el =>
+                        <div className={s.elements_table_general_block}>
+                            <div key={el.key} className={s.li}>
+                                <span className={s.item}>{el.name}</span>
+                                <span className={s.item}>{el.cards}</span>
+                                <span className={s.item}>{el.last_updated}</span>
+                                <span className={s.item}>{el.created_by}</span>
+                                <span className={s.item}>
+                                <ActiveButtonsTable  id={el.key}
+                                                     onLearnClick={onLearnClick}
                                                      onEditClick={onEditClick}
                                                      onDeleteClick={onDeleteClick}/>
                             </span>
+                            </div>
                         </div>
-                    </div>
                     )
-                }
-            </div>
+                    }
+                </div>
+            }
         </PacksBlock>
     );
 };

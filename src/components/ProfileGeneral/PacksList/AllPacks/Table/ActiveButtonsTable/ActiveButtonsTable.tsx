@@ -3,22 +3,23 @@ import styled from "styled-components";
 import {PacksType} from "../../../../../../Types/PacksTypes";
 
 type ActiveButtonsTableType = {
+    id: string
     onEditClick: (id: string) => void
     onDeleteClick: (id: string) => void
     onLearnClick: (id: string) => void
 }
 
-export const ActiveButtonsTable = ({onEditClick, onLearnClick, onDeleteClick}:ActiveButtonsTableType) => {
+export const ActiveButtonsTable = ({onEditClick, onLearnClick, onDeleteClick, id}:ActiveButtonsTableType) => {
 
     return (
         <>
-            <DeleteTableButton onClick={(e) => onDeleteClick('')}>
+            <DeleteTableButton onClick={(e) => onDeleteClick(id)}>
                 Delete
             </DeleteTableButton>
-            <TableButton onClick={(e) => onEditClick('')}>
+            <TableButton onClick={(e) => onEditClick(id)}>
                 Edit
             </TableButton>
-            <TableButton onClick={(e) => onLearnClick('')}>
+            <TableButton onClick={(e) => onLearnClick(id)}>
                 Learn
             </TableButton>
         </>
