@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../UtilsFunction/const-enum-path";
 import {TitleAuthWrapper} from "../StylesComponents/AuthCardWrapper";
@@ -15,20 +15,33 @@ import {ButtonProfile} from "../StylesComponents/ProfileAndPacksWrapper";
 export const Header = () => {
 
     const dispatch = useDispatch<TypedDispatch>();
-
     const onClickHandler = () => dispatch(LogOutTC());
+
+    const setActive = (navData: any) => ({
+        borderBottom: navData.isActive ? `0.15vw solid ${colors.LightBlue}` : '',
+        backgroundColor: navData.isActive ? `${colors.ActiveNavlinkColor}` : '',
+        width: '50%',
+        height: '100%',
+    })
+
     return (
         <HeaderWrapper>
             <Title>It-incubator</Title>
             <BlockNavigate>
-                <ItemBlockNavigate to={PATH.packsList}>
-                    <ImgPacksWrapper src={IconPacks} alt={"IconPacks"}/>
-                    Packs list
-                </ItemBlockNavigate>
-                <ItemBlockNavigate to={PATH.profile}>
-                    <ImgProfileWrapper src={IconProfile} alt={"IconProfile"}/>
-                    Profile
-                </ItemBlockNavigate>
+                <NavLink to={PATH.packsList}
+                         style={setActive}>
+                    <IconNameWrapper>
+                        <ImgPacksWrapper src={IconPacks} alt={"IconPacks"}/>
+                        Packs list
+                    </IconNameWrapper>
+                </NavLink>
+                <NavLink to={PATH.profile}
+                         style={setActive}>
+                    <IconNameWrapper>
+                        <ImgProfileWrapper src={IconProfile} alt={"IconProfile"}/>
+                        Profile
+                    </IconNameWrapper>
+                </NavLink>
             </BlockNavigate>
             <ButtonWrapper>
                 <ButtonProfile bgColor={colors.DarkBlue} width={4} height={1.5} color={colors.Lavender}
@@ -67,32 +80,25 @@ const BlockNavigate = styled.div`
   display: flex;
   align-items: center;
   width: 20vw;
-  height: 100%`;
+  height: 100%;`
 
-const ItemBlockNavigate = styled(NavLink)`
+
+const IconNameWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
   height: 100%;
   font-family: SF UI Display, serif;
   font-size: 0.8vw;
   letter-spacing: 0.04vw;
   color: ${colors.TextColor};
   cursor: pointer;
-  transition: 1s background-color, 1s border-bottom-color;
-  border-bottom: 0.15vw solid ${colors.LightPurpure};
+  transition: 0.5s background-color, 0.5s border-bottom-color;
 
   &:hover {
     background-color: ${colors.ActiveNavlinkColor};
-    border-bottom: 0.15vw solid ${colors.LightBlue};
-  }
-
-  &:active {
-    background-color: ${colors.ActiveNavlinkColor};
-    border-bottom: 0.15vw solid ${colors.LightBlue};
-  }
-`;
+  }`
 
 const ButtonWrapper = styled.div`
   display: flex;
