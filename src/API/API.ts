@@ -45,11 +45,34 @@ Password recovery link:
             resetPasswordToken
         })
     },
-    newNameAndAvatar(name: string) {
+    newName(name: string) {
         return instance.put<NewNameAndAvatarType, { data: ResponseUpdateDataType }>(`/auth/me`, {name})
-    },
-};
+    }
+}
 
+export const FileAPI = {
+    postFile(formData: string) {
+        debugger
+        return axios.post('https://dry-forest-56016.herokuapp.com/file', formData)
+    },
+    getFile() {
+        axios.get('https://dry-forest-56016.herokuapp.com/file', {responseType: 'blob'})
+            .then(({data}) => {
+                const blob = new Blob([data], {type: 'image/jpeg'})
+                const downloadUrl = window.URL.createObjectURL(blob)
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                // добавить атрибуты нашему тегу: загрузочный, имя файла
+                link.setAttribute('download', __filename);
+                // добавить тег в документ
+                document.body.appendChild(link);
+                // нажать на ссылку
+                link.click();
+                // удалить тег из документа
+                link.remove();
+            })
+    }
+}
 
 export const CardAPI = {
     getPacks() {
@@ -61,7 +84,7 @@ export const CardAPI = {
     async updateCard() {
         // return await instance.put(`/cards/card`, {card: updatedCard})
     },
-    async createPack(createPack: {namePack?: string, deckCover?: string, private?: boolean }) {
+    async createPack(createPack: { namePack?: string, deckCover?: string, private?: boolean }) {
         return instance.post<CreatePackType, any, any>(`/cards/pack`, {cardPack: createPack})
     },
 }

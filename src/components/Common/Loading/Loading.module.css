@@ -12,22 +12,22 @@
 }
 @keyframes span-1 {
     0% {transform:translate(0);}
-    50%{transform:translate(-50px, 0);border-color:#EE4D68}
+    50%{transform:translate(-50px, 0);border-color:#9A91C8}
     100%{transform:translate(0);}
 }
 @keyframes span-2 {
     0%{transform:translate(0);}
-    50%{transform:translate(50px, 0);border-color:#875678}
+    50%{transform:translate(50px, 0);border-color:#9A91C8}
     100%{transform:translate(0);}
 }
 @keyframes span-3 {
     0%{transform:translate(0);}
-    50%{transform:translate(0, -50px);border-color:#FF9900}
+    50%{transform:translate(0, -50px);border-color:#9A91C8}
     100%{transform:translate(0);}
 }
 @keyframes span-4 {
     0%{transform:translate(0);}
-    50%{transform:translate(0, 50px);border-color:#00E4F6}
+    50%{transform:translate(0, 50px);border-color:#9A91C8}
     100%{transform:translate(0);}
 }
 

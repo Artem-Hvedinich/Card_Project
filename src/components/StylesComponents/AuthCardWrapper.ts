@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CardWrapper = styled.div<{ width: number, height: number }>`
+export const CardWrapper = styled.div<{ width?: number, height?: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,8 +44,6 @@ export const ErrorWrapper = styled.div`
   width: 100%;
   color: red;
   font-size: 0.9rem`;
-
-
 
 export const AppWrapper = styled.div`
   display: flex;

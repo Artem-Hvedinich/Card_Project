@@ -13,7 +13,6 @@ export const GeneralProfileWrapper = styled.div`
   flex-direction: row;
   width: 80%;
 `;
-
 export const ToolsProfileBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,8 +22,6 @@ export const ToolsProfileBlock = styled.div`
   border-radius: 0.4vw 0 0 0.4vw;
   background-color: ${colors.ToolsBackground};
 `
-
-
 export const TitleProfileWrapper = styled.p<{ fontSz?: number }>`
   font-weight: 600;
   font-size: ${({fontSz}) => fontSz}vw;
@@ -45,7 +42,7 @@ export const ButtonProfile = styled.button<{ width?: number, height?: number, bg
   background-color: ${({bgColor}) => bgColor};
   color: ${({color}) => color};
   font-size: 0.7vw;
-  border-radius: 0.6vw;
+  border-radius: 1vw;
   letter-spacing: 0.1vw;
   border: none;
   cursor: pointer;
@@ -57,3 +54,36 @@ export const ButtonProfile = styled.button<{ width?: number, height?: number, bg
   }: disabled {
   opacity: 0.5;
 }`;
+
+export const InputProfileWrapper = styled.input`
+  width: 16vw;
+  height: 1.5vw;
+  font-size: 0.7vw;
+  background: none;
+  color: #2D2E46;
+  border-width: 0;
+  border-color: rgba(36, 37, 74, 0.5);
+  border-style: solid;
+  border-bottom-width: 0.01vw;
+  outline: none
+`
+
+export const CardProfileWrapper = styled.div<{ width?: number, height?: number }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1vw 1.5vw;
+  justify-content: space-around;
+  width: ${({width}) => width}vw;
+  height: ${({height}) => height}vw;
+  background: #F9F9FE;
+  color: #2D2E46;
+  border-radius: 0.6vw`;
+
+export const FormProfileWrapper = styled.form<{ height?: number }>`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: ${({height}) => height}vw`;

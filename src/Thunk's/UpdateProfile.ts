@@ -8,7 +8,7 @@ import {AppThunkType} from "../Store-Reducers/Store";
 export const NewNameAndAvatarTC = (newName: string): AppThunkType => async dispatch => {
     dispatch(setAppStatusAC({status: 'loading'}));
     try {
-        const response = await AuthAPI.newNameAndAvatar(newName);
+        const response = await AuthAPI.newName(newName);
         if (response.data.updatedUser) {
             dispatch(addNewNameAndAvatar(response.data.updatedUser));
             dispatch(setAppStatusAC({status: 'succeeded'}));
@@ -19,5 +19,4 @@ export const NewNameAndAvatarTC = (newName: string): AppThunkType => async dispa
         }
     }
 };
-
 
