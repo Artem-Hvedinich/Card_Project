@@ -35,9 +35,9 @@ const NewAvatarWrapper = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  left: 50.5vw;
-  top: 37vh;
+  position: relative;
+  left: 1.5vw;
+  bottom: 2vw;
   width: 1.8vw;
   height: 1.8vw;
   background-color: ${colors.TextColor};

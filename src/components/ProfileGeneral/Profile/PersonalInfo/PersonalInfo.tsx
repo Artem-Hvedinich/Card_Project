@@ -1,12 +1,9 @@
 import React from 'react';
 import {
     ButtonWrapper,
-    CardWrapper,
     ErrorWrapper,
-    FormWrapper,
 } from "../../../StylesComponents/AuthCardWrapper";
 import styled from "styled-components";
-import {Button, Input} from "../../../StylesComponents/Button";
 import {colors} from "../../../StylesComponents/Colors";
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
 import {useFormik} from "formik";
@@ -15,7 +12,7 @@ import {AddNewAva} from "./AddNewAva/AddNewAva";
 import {NewNameAndAvatarTC} from '../../../../Thunk\'s/UpdateProfile';
 import {Img} from '../Profile';
 import {
-    ButtonProfile, CardProfileWrapper,
+    ButtonProfile, CardProfileWrapper, FormProfileWrapper,
     InputProfileWrapper,
     TextProfileWrapper,
     TitleProfileWrapper
@@ -63,9 +60,9 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
     });
     return (
         <ModalWrapper active={active}>
-            <CardProfileWrapper width={20} height={30}>
+            <CardProfileWrapper width={20} height={28}>
                 <TitleProfileWrapper fontSz={1}>Personal Information</TitleProfileWrapper>
-                <FormWrapper height={400} onSubmit={PersonalInfo.handleSubmit}>
+                <FormProfileWrapper height={20} onSubmit={PersonalInfo.handleSubmit}>
                     <Img src={avatar} alt={'avatar'}/>
 
                     <AddNewAva id='avatar'/>
@@ -98,7 +95,7 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
                         <ButtonProfile width={7} height={2}  color={colors.Lavender} bgColor={colors.Blue}
                                 type={'submit'}>Save</ButtonProfile>
                     </ButtonWrapper>
-                </FormWrapper>
+                </FormProfileWrapper>
             </CardProfileWrapper>
         </ModalWrapper>
     )

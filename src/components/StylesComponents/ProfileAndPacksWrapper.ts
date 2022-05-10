@@ -79,3 +79,11 @@ export const CardProfileWrapper = styled.div<{ width?: number, height?: number }
   background: #F9F9FE;
   color: #2D2E46;
   border-radius: 0.6vw`;
+
+export const FormProfileWrapper = styled.form<{ height?: number }>`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: ${({height}) => height}vw`;
