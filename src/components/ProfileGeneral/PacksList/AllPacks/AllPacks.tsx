@@ -1,13 +1,14 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
 import {CardsInitialStateType} from "../../../../Store-Reducers/Packs-Reducer";
-import {createPackTC, getAllPacksTC, getOnePagePacksTC} from "../../../../Thunk's/PacksThunk";
 import {CardTable} from "./Table/Table";
 import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/ProfileAndPacksWrapper';
 import styled from "styled-components";
 import SerchImg from '../../../../Assets/Union.svg'
 import {colors} from "../../../StylesComponents/Colors";
 import {Pagination} from "./Pagination";
+import {getAllPacksTC, getOnePagePacksTC} from '../../../../Thunk\'s/PacksThunk';
+import {AddPackModal} from "../../../ModalWindow/AddPackModal/AddPackModal";
 
 
 export const AllPacks = () => {
@@ -16,7 +17,7 @@ export const AllPacks = () => {
     const dispatch = useTypedDispatch();
     const [value, setValue] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
-    const [show, setShow] = useState<boolean>(false);
+    const [showAddModal, setShowAddModal] = useState<boolean>(false);
 
     useEffect(() => {
         dispatch(getAllPacksTC());
@@ -27,41 +28,43 @@ export const AllPacks = () => {
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (error && error.trim() !== '') setError(null)
         if (e.ctrlKey || e.key === "Enter") {
-            onClickHandler && onClickHandler()
         } else {
             setError('Error value')
         }
-    }
-    const onChangeHandler = (text: ChangeEvent<HTMLInputElement>) => {
+    };
+
+    const onChangeSearchHandler = (text: ChangeEvent<HTMLInputElement>) => {
         setError(null)
         setValue(text.currentTarget.value);
     }
-    const onClickHandler = () => {
-        setShow(true);
-        dispatch(createPackTC(value));
-        setValue('');
-    };
+    const addPackHandler = () => setShowAddModal(true);
+    const editPackHandler = (id: string) => {};
+    const learnPackHandler = (id: string) => {};
+
     const onPageChanged = (numberPage: number) => dispatch(getOnePagePacksTC(numberPage));
 
     return (
         <ProfileWrapper>
-
+            {showAddModal
+                ? <AddPackModal setShow={setShowAddModal}/>
+                : <></>
+            }
             <TitleProfileWrapper fontSz={1.5}>Packs List</TitleProfileWrapper>
 
             <SearchBlock>
-                <InputWrapper error={error === ''}
+                <InputWrapper
                     placeholder={"Search..."}
-                    onChange={(e) => onChangeHandler(e)}
+                    onChange={(e) => onChangeSearchHandler(e)}
                     value={value}
                     onKeyPress={(e) => onKeyPress(e)}
                 />
-                {error}
-                <ButtonAddNewPack onClick={onClickHandler}>
-                    Add new pack
-                </ButtonAddNewPack>
+                <ButtonAddNewPack onClick={addPackHandler}>Add new pack</ButtonAddNewPack>
             </SearchBlock>
 
-            <CardTable itemPack={stateCard.data.cardPacks} isFetching={stateCard.isFetching}/>
+            <CardTable itemPack={stateCard.data.cardPacks}
+                       onEditClick={editPackHandler}
+                       onLearnClick={learnPackHandler}
+                       isFetching={stateCard.isFetching}/>
 
             <PaginationBlock>
                 <Pagination portionSize={pageCount}
@@ -82,16 +85,16 @@ const PaginationBlock = styled.div`
 const SearchBlock = styled.div`
   display: flex;
 `
-const InputWrapper = styled.input<{error: boolean}>`
+const InputWrapper = styled.input`
   height: 4vh;
   width: 90%;
   border-radius: 0.3vw;
   margin-right: 2vw;
-  background: url(${SerchImg}) no-repeat scroll 0.4vw 0.4vw;
+  background: url(${SerchImg}) no-repeat scroll 0.5vw 0.5vw;
   background-size: 1vw;
   padding-left: 2vw;
   font-size: 0.9vw;
-  border: 1px solid ${(error => error ? '#D9D9F1' : 'red')};
+  border: 1px solid #D9D9F1;
   opacity: 0.7;
 
   :nth-child(1) {

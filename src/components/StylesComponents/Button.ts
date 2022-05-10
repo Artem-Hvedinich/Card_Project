@@ -16,7 +16,8 @@ export const Button = styled.button<{ width?: number, height?: number, bgColor?:
     opacity: 1;
   }: disabled {
   opacity: 0.5;
-}`;
+}
+`;
 
 export const Input = styled.input`
   width: 347px;

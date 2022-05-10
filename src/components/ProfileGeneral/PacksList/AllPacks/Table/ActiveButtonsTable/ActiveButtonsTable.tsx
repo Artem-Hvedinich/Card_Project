@@ -1,19 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import {PacksType} from "../../../../../../Types/PacksTypes";
+import {detelePackTC} from "../../../../../../Thunk's/PacksThunk";
+import {DeletePackModal} from "../../../../../ModalWindow/DeletePackModal/DeletePackModal";
+import {useTypedDispatch} from "../../../../../../Store-Reducers/Store";
 
 type ActiveButtonsTableType = {
     id: string
     onEditClick: (id: string) => void
-    onDeleteClick: (id: string) => void
     onLearnClick: (id: string) => void
 }
 
-export const ActiveButtonsTable = ({onEditClick, onLearnClick, onDeleteClick, id}:ActiveButtonsTableType) => {
+export const ActiveButtonsTable = ({onEditClick, onLearnClick, id}:ActiveButtonsTableType) => {
+
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+
+    const deletePackHandler = (id: string) => setShowDeleteModal(true);
 
     return (
         <>
-            <DeleteTableButton onClick={(e) => onDeleteClick(id)}>
+            {showDeleteModal
+                ? <DeletePackModal id={id} setShow={setShowDeleteModal}/>
+                : <></>
+            }
+            <DeleteTableButton onClick={(e) => deletePackHandler(id)}>
                 Delete
             </DeleteTableButton>
             <TableButton onClick={(e) => onEditClick(id)}>

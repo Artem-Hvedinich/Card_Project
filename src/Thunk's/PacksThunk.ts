@@ -1,10 +1,5 @@
 import {AppThunkType} from "../Store-Reducers/Store";
-import {
-    setPacksDataAC,
-    createPackAC,
-    setFetchingPacksTableAC,
-    detelePackAC
-} from "../Store-Reducers/Packs-Reducer";
+import {setPacksDataAC, createPackAC, setFetchingPacksTableAC, detelePackAC} from "../Store-Reducers/Packs-Reducer";
 import axios from "axios";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {CardAPI} from "../API/API";
