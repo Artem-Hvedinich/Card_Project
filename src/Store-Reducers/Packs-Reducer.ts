@@ -36,23 +36,6 @@ const CardsSlice = createSlice({
         setFetchingPacksTableAC(state, action: PayloadAction<{ isFetching: boolean }>) {
             state.isFetching = action.payload.isFetching
         },
-        detelePackAC(state, action: PayloadAction<{ pack: string }>) {
-            state.data.cardPacks = state.data.cardPacks.filter(el => el._id !== action.payload.pack)
-        },
-        createPackAC(state, action: PayloadAction<{ createPack: {name: string, private?: boolean, deckCover?: string} }>) {
-            let date = new Date().toLocaleDateString();
-            state.data.cardPacks = [{
-                name: action.payload.createPack.name,
-                cardsCount: 0,
-                created: date,
-                user_id: `${5*123}`,
-                _id: `${5*1223}`,
-                updated: '',
-            }, ...state.data.cardPacks]
-        },
-        // learnPackAC(state, action: PayloadAction<{ isFetching: boolean }>) {
-        //     state.isFetching = action.payload.isFetching
-        // },
     },
 });
 
@@ -60,4 +43,4 @@ const CardsSlice = createSlice({
 export const PacksReducer = CardsSlice.reducer;
 
 
-export const {detelePackAC, setFetchingPacksTableAC, setChangeFilteredPageAC, setPacksDataAC, createPackAC} = CardsSlice.actions;
+export const {setFetchingPacksTableAC, setChangeFilteredPageAC, setPacksDataAC} = CardsSlice.actions;

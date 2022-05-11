@@ -19,9 +19,6 @@ export const AuthMeTC = (): AppThunkType => async dispatch => {
         }
     } catch (error) {
         dispatch(setAppStatusAC({status: 'failed'}))
-        // if (axios.isAxiosError(error) && error.response) {
-        //     handleServerNetworkError(error.response.data.error, dispatch);
-        // }
     }
 };
 

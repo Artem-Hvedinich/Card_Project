@@ -16,6 +16,7 @@ import {DoubleRange} from "../../../UtilsFunction/DoubleRange";
 export const PacksList = NotAuthRedirect(() => {
     const dispatch = useTypedDispatch();
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
+
     const onClickHandler = (valueFilter: FilterCardsType) => {
         dispatch(setChangeFilteredPageAC({valueFilter}))
     };

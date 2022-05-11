@@ -1,12 +1,13 @@
 import {AppThunkType} from "../Store-Reducers/Store";
-import {setPacksDataAC, createPackAC, setFetchingPacksTableAC, detelePackAC} from "../Store-Reducers/Packs-Reducer";
+import {setPacksDataAC, setFetchingPacksTableAC} from "../Store-Reducers/Packs-Reducer";
 import axios from "axios";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {CardAPI} from "../API/API";
+import {setAppSuccessMessageAC} from "../Store-Reducers/App-Reducer";
 
 
 export const SearchPackTC = (namePack: string): AppThunkType => async dispatch => {
-    dispatch(createPackAC({createPack: {name: namePack}}));
+
 }
 
 export const detelePackTC = (id: string): AppThunkType => async dispatch => {
@@ -14,9 +15,9 @@ export const detelePackTC = (id: string): AppThunkType => async dispatch => {
     try {
         const response = await CardAPI.deletePack(id);
         if (response) {
-            dispatch(detelePackAC({pack: id}));
             dispatch(getAllPacksTC());
             dispatch(setFetchingPacksTableAC({isFetching: false}));
+            dispatch(setAppSuccessMessageAC({success: "Pack is deleted"}));
         }
     }
     catch (error) {
@@ -27,14 +28,14 @@ export const detelePackTC = (id: string): AppThunkType => async dispatch => {
     }
 };
 
-export const createPackTC = (namePack: string): AppThunkType => async dispatch => {
+export const createPackTC = (name: string): AppThunkType => async dispatch => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
     try {
-        const response = await CardAPI.createPack({namePack});
+        const response = await CardAPI.createPack({name});
         if (response) {
-            dispatch(createPackTC(namePack));
             dispatch(getAllPacksTC());
             dispatch(setFetchingPacksTableAC({isFetching: false}));
+            dispatch(setAppSuccessMessageAC({success: "Pack is added"}));
         }
     }
     catch (error) {

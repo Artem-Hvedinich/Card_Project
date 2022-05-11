@@ -84,7 +84,7 @@ export const CardAPI = {
     async updateCard() {
         // return await instance.put(`/cards/card`, {card: updatedCard})
     },
-    async createPack(createPack: { namePack?: string, deckCover?: string, private?: boolean }) {
-        return instance.post<CreatePackType, any, any>(`/cards/pack`, {cardPack: createPack})
+    async createPack(cadsPack: { name?: string, deckCover?: string, private?: boolean }) {
+        return instance.post<CreatePackType, any, any>(`/cards/pack`, {cardsPack: cadsPack})
     },
 }

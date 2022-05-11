@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {
     ButtonCancel,
     ButtonSave,
@@ -14,6 +14,8 @@ import {
 } from "../../StylesComponents/ModalWrappers";
 import {colors} from "../../StylesComponents/Colors";
 import {TextAuthWrapper} from "../../StylesComponents/AuthCardWrapper";
+import {createPackTC} from "../../../Thunk's/PacksThunk";
+import {useTypedDispatch} from "../../../Store-Reducers/Store";
 
 type AddPackModalType = {
     setShow: (show: boolean) => void
@@ -21,12 +23,29 @@ type AddPackModalType = {
 
 export const AddPackModal = ({setShow}: AddPackModalType) => {
 
-    const [packName, setPackName] = useState<string | null>(null);
+    const [value, setValue] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
+    const dispatch = useTypedDispatch();
+
+
+    const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (error && error.trim() !== '') setError(null)
+        if (e.ctrlKey || e.key === "Enter") {
+        } else {
+            setError('Error value')
+        }
+    };
+
+    const onChangeNewName = (e: ChangeEvent<HTMLInputElement>) => {
+        setError(null);
+        setValue(e.currentTarget.value);
+    }
 
     const closeModalClick = () => {
         setShow(false);
     }
     const saveClickHandler = () => {
+        dispatch(createPackTC(value));
         setShow(false);
     }
 
@@ -42,7 +61,7 @@ export const AddPackModal = ({setShow}: AddPackModalType) => {
 
                         <InputWrapper>
                             <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Name pack</TextAuthWrapper>
-                            <Input />
+                            <Input value={value} onKeyPress={onKeyPress} onChange={onChangeNewName}/>
                         </InputWrapper>
 
                         <ButtonsBlock>
