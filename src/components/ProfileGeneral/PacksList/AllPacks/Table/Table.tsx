@@ -1,17 +1,14 @@
 import React from 'react';
 import s from "./Table.module.css";
 import {OnePacksType} from "../../../../../Types/PacksTypes";
-import styled from "styled-components";
-import {ActiveButtonsTable} from "./ActiveButtonsTable/ActiveButtonsTable";
 import {LoadingTable} from "../../../../Common/Loading/LoadingTable";
-import {Input} from "../../../../Common/Input/Input";
 import {TableElemets} from "./TableElements/TableElemets";
+import { PacksBlock } from '../../../../StylesComponents/CardsWrapper';
 
 type CardTableType = {
     showEditModal: string
     setShowEditModal: (id: string) => void
     onEditClick: (id: string) => void
-    onLearnClick: (id: string) => void
     itemPack: OnePacksType[]
     isFetching: boolean
 };
@@ -23,8 +20,7 @@ const TableList = [
     {id: 5, name: "Actions"},
 ];
 
-export const CardTable = ({itemPack, isFetching, onEditClick, onLearnClick, showEditModal, setShowEditModal}: CardTableType) => {
-
+export const CardTable = ({itemPack, isFetching, onEditClick, showEditModal, setShowEditModal}: CardTableType) => {
     return (
         <PacksBlock>
             {isFetching
@@ -37,7 +33,6 @@ export const CardTable = ({itemPack, isFetching, onEditClick, onLearnClick, show
                     </div>
                     {itemPack.map(el => <TableElemets el={el}
                                                       setShowEditModal={setShowEditModal}
-                                                      onLearnClick={onLearnClick}
                                                       onEditClick={onEditClick}
                                                       showEditModal={showEditModal}
                     />)}
@@ -46,14 +41,3 @@ export const CardTable = ({itemPack, isFetching, onEditClick, onLearnClick, show
         </PacksBlock>
     );
 };
-
-
-const PacksBlock = styled.div`
-  height: auto;
-  overflow: hidden;
-  min-height: 70%;
-  max-height: 70%;
-  width: 100%;
-  margin-top: 2vw;
-  box-shadow: -0.1vw -0.1vw 0.5vw #cbcbcb,
-  0.1vw 0.1vw 0.5vw 0.1vw #cbcbcb;`

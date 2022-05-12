@@ -7,5 +7,5 @@ export const PATH = {
     forgotPassword: '/recPas',
     newPassword: '/set-new-password',
     checkEmail: '/checkEmail',
-    cardsPack: '/cardsPack',
+    cardsPack: '/cardsPage',
 };

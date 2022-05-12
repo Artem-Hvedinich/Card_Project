@@ -11,10 +11,9 @@ type TableElementsType = {
     showEditModal: string
     setShowEditModal: (id: string) => void
     onEditClick: (id: string) => void
-    onLearnClick: (id: string) => void
 }
 
-export const TableElemets = ({el, showEditModal, onEditClick, onLearnClick, setShowEditModal}: TableElementsType) => {
+export const TableElemets = ({el, showEditModal, onEditClick, setShowEditModal}: TableElementsType) => {
 
     const stateAuth = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
 
@@ -32,7 +31,6 @@ export const TableElemets = ({el, showEditModal, onEditClick, onLearnClick, setS
                                 <ActiveButtonsTable id={el._id}
                                                     myId={stateAuth._id}
                                                     userId={el.user_id}
-                                                    onLearnClick={onLearnClick}
                                                     onEditClick={onEditClick}
                                 />
                             </span>

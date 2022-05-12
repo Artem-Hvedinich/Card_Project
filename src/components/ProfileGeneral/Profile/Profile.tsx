@@ -11,11 +11,11 @@ import {
     TitleProfileWrapper, ToolsProfileBlock
 } from '../../StylesComponents/ProfileAndPacksWrapper';
 import {AllPacks} from "../PacksList/AllPacks/AllPacks";
-import {CardsInitialStateType} from "../../../Store-Reducers/Packs-Reducer";
+import {PacksInitialStateType} from "../../../Store-Reducers/Packs-Reducer";
 
 export const Profile = NotAuthRedirect(() => {
     const meAuth = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
-    const statePack = useAppSelector<CardsInitialStateType>(state => state.PacksReducer);
+    const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const [editMode, setEditMode] = useState<boolean>(false)
     const avatar = meAuth.avatar ? meAuth.avatar : 'https://static.thenounproject.com/png/801390-200.png'
 

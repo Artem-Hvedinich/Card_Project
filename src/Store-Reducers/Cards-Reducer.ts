@@ -1,13 +1,20 @@
-import { createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {CardsResponseType} from "../Types/CardTypes";
 
 export type CardsInitialStateType = {
-    data: any
+    data: CardsResponseType
     isFetching: boolean
 };
 
 const initialCardsState: CardsInitialStateType = {
     data: {
-
+        cards: [],
+        cardsTotalCount: 0,
+        maxGrade: 0,
+        minGrade: 0,
+        page: 0,
+        pageCount: 0,
+        packUserId: '',
     },
     isFetching: false,
 };
@@ -16,9 +23,9 @@ const CardsSlice = createSlice({
     name: "CardsSlice",
     initialState: initialCardsState,
     reducers: {
-        // setPacksDataAC(state, action: PayloadAction<ResponsePacksType>) {
-        //     state.data = action.payload
-        // },
+        setCardsDataAC(state, action: PayloadAction<CardsResponseType>) {
+            state.data = action.payload
+        },
         // setChangeFilteredPageAC(state, action: PayloadAction<{ valueFilter: FilterCardsType }>) {
         //     state.filter = action.payload.valueFilter
         // },
@@ -32,4 +39,4 @@ const CardsSlice = createSlice({
 export const CardsReducer = CardsSlice.reducer;
 
 
-export const {} = CardsSlice.actions;
+export const {setCardsDataAC} = CardsSlice.actions;

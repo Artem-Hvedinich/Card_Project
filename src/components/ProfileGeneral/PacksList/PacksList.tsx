@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {CardsInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
+import {PacksInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
 import {FilterCardsType} from "../../../Types/PacksTypes";
 import {
@@ -15,7 +15,7 @@ import {DoubleRange} from "../../../UtilsFunction/DoubleRange";
 
 export const PacksList = NotAuthRedirect(() => {
 
-    const statePack = useAppSelector<CardsInitialStateType>(state => state.PacksReducer);
+    const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const [valueMin, setValueMin] = useState(0);
     const [valueMax, setValueMax] = useState(50);
     const dispatch = useTypedDispatch();

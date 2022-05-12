@@ -1,22 +1,23 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import {DeletePackModal} from "../../../../../ModalWindow/DeletePackModal/DeletePackModal";
-import {useAppSelector} from "../../../../../../Store-Reducers/Store";
-import {initialStateAuthorizationType} from "../../../../../../Store-Reducers/Auth-Reducer";
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../../../../../../UtilsFunction/const-enum-path";
 
 type ActiveButtonsTableType = {
     myId: string | null
     userId: string
     id: string
     onEditClick: (id: string) => void
-    onLearnClick: (id: string) => void
 }
 
-export const ActiveButtonsTable = ({myId, onEditClick, onLearnClick, id, userId}: ActiveButtonsTableType) => {
+export const ActiveButtonsTable = ({myId, onEditClick, id, userId}: ActiveButtonsTableType) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const deletePackHandler = (id: string) => setShowDeleteModal(true);
+    const onLearnClick = (id: string) => navigate(PATH.cardsPack);
 
     return (
         <>

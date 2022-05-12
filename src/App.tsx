@@ -46,7 +46,7 @@ export const App = () => {
                         <Route path={PATH.forgotPassword} element={<ForgotPassword/>}/>
                         <Route path={PATH.newPassword + "/:token"} element={<NewPassword/>}/>
                         <Route path={PATH.checkEmail} element={<CheckEmail/>}/>
-                        <Route path={PATH.cardsPack + `/:packId`} element={<CardsPage/>}/>
+                        <Route path={PATH.cardsPack} element={<CardsPage packName={"PackName"}/>}/>
                     </Routes>
                 </>
             }

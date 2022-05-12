@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {FilterCardsType, ResponsePacksType} from "../Types/PacksTypes";
 
-export type CardsInitialStateType = {
+export type PacksInitialStateType = {
     data: ResponsePacksType
     searchPack?: string
     filter: FilterCardsType
     isFetching: boolean
 };
 
-const initialPacksState: CardsInitialStateType = {
+const initialPacksState: PacksInitialStateType = {
     data: {
         cardPacks: [],
         cardPacksTotalCount: 0,
