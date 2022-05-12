@@ -88,3 +88,11 @@ export const PackAPI = {
         return instance.post<CreatePackType, any, any>(`/cards/pack`, {cardsPack})
     },
 }
+
+
+
+export const CardsAPI = {
+    getCards(packId: string) {
+      return instance.get<any>(`cards/cards?cardsPack_id=${packId}`);
+    },
+}
