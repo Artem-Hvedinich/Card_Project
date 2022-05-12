@@ -5,6 +5,14 @@
     justify-content: center;
     align-items: center;
     margin-top: 200px;
+    margin-bottom: 355px;
+}
+
+@media (max-width: 1550px) {
+    .main_loader_div {
+        margin-top: 200px;
+        margin-bottom: 105px;
+    }
 }
 
 .loader {

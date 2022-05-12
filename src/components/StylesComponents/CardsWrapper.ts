@@ -2,8 +2,13 @@ import styled from "styled-components";
 import SerchImg from "../../Assets/Union.svg";
 
 export const Table = styled.div`
-  height: 100%;
+  height: 630px;
   width: 100%;
+  transition: 1s all;
+  
+  @media (max-width: 1550px) {
+    height: 380px;
+  }
 `;
 
 export const SearchBlock = styled.div`
@@ -77,3 +82,8 @@ export const CardsPageWrapper = styled.div`
 export const CardsWrapper = styled.div`
   padding: 24px;
 `;
+
+export const PaginationBlock = styled.div`
+  position: relative;
+  width: 100%;
+`

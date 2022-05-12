@@ -19,3 +19,15 @@ export type OneCardType = {
     updated: string
     _id: string
 }
+
+
+export type RequestCardsType = {
+    cardAnswer?: string
+    cardQuestion?: string
+    cardsPack_id: string
+    min?: number
+    max?: number
+    sortCards?: string
+    page?: number
+    pageCount?: number
+}

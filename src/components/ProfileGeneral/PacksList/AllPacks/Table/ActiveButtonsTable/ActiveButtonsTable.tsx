@@ -16,8 +16,8 @@ export const ActiveButtonsTable = ({myId, onEditClick, id, userId}: ActiveButton
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const deletePackHandler = (id: string) => setShowDeleteModal(true);
-    const onLearnClick = (id: string) => navigate(PATH.cardsPack);
+    const deletePackHandler = () => setShowDeleteModal(true);
+    const onLearnClick = (id: string) => navigate(PATH.cardsPack + `/:${id}`);
 
     return (
         <>
@@ -27,7 +27,7 @@ export const ActiveButtonsTable = ({myId, onEditClick, id, userId}: ActiveButton
             }
             {myId === userId
                 ? <>
-                    <DeleteTableButton onClick={(e) => deletePackHandler(id)}>
+                    <DeleteTableButton onClick={deletePackHandler}>
                         Delete
                     </DeleteTableButton>
                     <TableButton onClick={(e) => onEditClick(id)}>

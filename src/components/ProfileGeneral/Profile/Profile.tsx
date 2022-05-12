@@ -33,7 +33,10 @@ export const Profile = NotAuthRedirect(() => {
                     </PersonBlock>
                 </ToolsProfileBlock>
 
-                    <AllPacks packsArray={statePack.data.cardPacks.filter(el => el.user_id === meAuth._id )} namePage={"My packs list"} />
+                    <AllPacks myId={meAuth._id ? meAuth._id : ''}
+                              packsArray={statePack.data.cardPacks.filter(el => el.user_id === meAuth._id )}
+                              namePage={"My packs list"}
+                    />
 
             </GeneralProfileWrapper>
         </>

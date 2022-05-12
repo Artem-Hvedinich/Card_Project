@@ -18,7 +18,7 @@ export const TableElemets = ({el, showEditModal, onEditClick, setShowEditModal}:
     const stateAuth = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
 
     return (
-        <div className={s.elements_table_general_block} key={el._id}>
+        <div className={s.elements_table_general_block}>
             <div className={s.li}>
                 {el._id === showEditModal
                     ? <Input _id={el._id} setShowEditModal={setShowEditModal}/>

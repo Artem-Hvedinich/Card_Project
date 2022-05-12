@@ -26,12 +26,9 @@ const CardsSlice = createSlice({
         setCardsDataAC(state, action: PayloadAction<CardsResponseType>) {
             state.data = action.payload
         },
-        // setChangeFilteredPageAC(state, action: PayloadAction<{ valueFilter: FilterCardsType }>) {
-        //     state.filter = action.payload.valueFilter
-        // },
-        // setFetchingPacksTableAC(state, action: PayloadAction<{ isFetching: boolean }>) {
-        //     state.isFetching = action.payload.isFetching
-        // },
+        setFetchingCardsTableAC(state, action: PayloadAction<{ isFetching: boolean }>) {
+            state.isFetching = action.payload.isFetching
+        },
     },
 });
 
@@ -39,4 +36,4 @@ const CardsSlice = createSlice({
 export const CardsReducer = CardsSlice.reducer;
 
 
-export const {setCardsDataAC} = CardsSlice.actions;
+export const {setCardsDataAC, setFetchingCardsTableAC} = CardsSlice.actions;

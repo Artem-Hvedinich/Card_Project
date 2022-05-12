@@ -9,6 +9,7 @@ import {
     NewPasswordDataType, NewNameAndAvatarType, ResponseUpdateDataType
 } from "../Types/AuthTypes";
 import {CreatePackType, PacksReqestType, ResponsePacksType} from "../Types/PacksTypes";
+import {CardsResponseType, RequestCardsType} from "../Types/CardTypes";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || 'https://neko-back.herokuapp.com/2.0',
@@ -75,8 +76,8 @@ export const FileAPI = {
 }
 
 export const PackAPI = {
-    getPacks(pageCount?: number, page?: number) {
-        return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {params: {pageCount: pageCount, page: page}});
+    getPacks(pageCount?: number, page?: number, id?: string) {
+        return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {params: {pageCount: pageCount, page: page, user_id: id}});
     },
     deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`);
@@ -92,7 +93,7 @@ export const PackAPI = {
 
 
 export const CardsAPI = {
-    getCards(packId: string) {
-      return instance.get<any>(`cards/cards?cardsPack_id=${packId}`);
+    getCards(cardsPack_id: string, pageCount?: number, page?: number) {
+      return instance.get<RequestCardsType, {data: CardsResponseType}>(`/cards/card`, {params: {cardsPack_id, pageCount, page}});
     },
 }

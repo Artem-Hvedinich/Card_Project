@@ -66,12 +66,13 @@ export const createPackTC = (name: string): AppThunkType => async dispatch => {
 }
 
 
-export const getAllPacksTC = (): AppThunkType => async dispatch => {
+export const getAllPacksTC = (id?: string): AppThunkType => async dispatch => {
 
         dispatch(setFetchingPacksTableAC({isFetching: true}));
+
     try {
         let pageCount = 10;
-        const response = await PackAPI.getPacks(pageCount);
+        const response = await PackAPI.getPacks(pageCount, 1, id);
         if (response.data) {
             dispatch(setPacksDataAC(response.data));
             dispatch(setFetchingPacksTableAC({isFetching: false}));

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {colors} from "../../../StylesComponents/Colors";
-import {Arrow} from "../../../../UtilsFunction/Arrow";
+import {colors} from "../StylesComponents/Colors";
+import {Arrow} from "../../UtilsFunction/Arrow";
 
 
 export const Pagination = ({totalItemsCount, pageSize, onPageChanged, portionSize, currentPage}: {
@@ -25,8 +25,10 @@ export const Pagination = ({totalItemsCount, pageSize, onPageChanged, portionSiz
             {portionNumber > 1 && <Arrow rotate={'135'} onClick={() => setPortionNumber(portionNumber - 1)}/>}
 
             {pages.filter(p => p >= leftPositionPageNumber && p <= rightPositionPageNumber)
-                .map((p) => <PageWrap onClick={() => onPageChanged(p)}
-                                      active={currentPage === p}>{p}</PageWrap>)}
+                .map((p) => <PageWrap key={p}
+                                      onClick={() => onPageChanged(p)}
+                                      active={currentPage === p}>{p}</PageWrap>
+                )}
             {portionCount > portionNumber &&
                 <Arrow rotate={'-45'} onClick={() => setPortionNumber(portionNumber + 1)}/>}
         </NumbersWrapper>
@@ -52,6 +54,7 @@ const PageWrap = styled.span<{ active: boolean }>`
   cursor: pointer;
   font-size: ${({active}) => active ? 0.9 : 0.8}vw;
   transition: all 0.3s;
+
   :hover {
     background: ${colors.LightPink};
     border-radius: 10%;

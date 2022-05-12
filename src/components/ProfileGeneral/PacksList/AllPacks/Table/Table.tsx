@@ -3,7 +3,7 @@ import s from "./Table.module.css";
 import {OnePacksType} from "../../../../../Types/PacksTypes";
 import {LoadingTable} from "../../../../Common/Loading/LoadingTable";
 import {TableElemets} from "./TableElements/TableElemets";
-import { PacksBlock } from '../../../../StylesComponents/CardsWrapper';
+import {PacksBlock} from '../../../../StylesComponents/CardsWrapper';
 
 type CardTableType = {
     showEditModal: string
@@ -31,7 +31,8 @@ export const CardTable = ({itemPack, isFetching, onEditClick, showEditModal, set
                             {TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)}
                         </div>
                     </div>
-                    {itemPack.map(el => <TableElemets el={el}
+                    {itemPack.map(el => <TableElemets key={el._id}
+                                                      el={el}
                                                       setShowEditModal={setShowEditModal}
                                                       onEditClick={onEditClick}
                                                       showEditModal={showEditModal}

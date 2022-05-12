@@ -5,18 +5,19 @@ import {CardTable} from "./Table/Table";
 import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/ProfileAndPacksWrapper';
 import styled from "styled-components";
 import {colors} from "../../../StylesComponents/Colors";
-import {Pagination} from "./Pagination";
+import {Pagination} from "../../../Common/Pagination";
 import {getAllPacksTC, getOnePagePacksTC} from '../../../../Thunk\'s/PacksThunk';
 import {AddPackModal} from "../../../ModalWindow/AddPackModal/AddPackModal";
 import {OnePacksType} from "../../../../Types/PacksTypes";
-import { InputWrapper, SearchBlock } from '../../../StylesComponents/CardsWrapper';
+import { InputWrapper, PaginationBlock, SearchBlock } from '../../../StylesComponents/CardsWrapper';
 
 type AllPacksType = {
+    myId?: string
     packsArray: OnePacksType[];
     namePage: string
 }
 
-export const AllPacks = ({namePage, packsArray}: AllPacksType) => {
+export const AllPacks = ({namePage, packsArray, myId}: AllPacksType) => {
 
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const [value, setValue] = useState<string>("");
@@ -26,7 +27,7 @@ export const AllPacks = ({namePage, packsArray}: AllPacksType) => {
     const dispatch = useTypedDispatch();
 
     useEffect(() => {
-        dispatch(getAllPacksTC());
+        dispatch(getAllPacksTC(myId));
     }, []);
 
     let pageCount = 10;
@@ -90,10 +91,6 @@ export const AllPacks = ({namePage, packsArray}: AllPacksType) => {
 };
 
 
-const PaginationBlock = styled.div`
-  position: relative;
-  width: 100%;
-`
 const ButtonAddNewPack = styled.button`
   width: 20%;
   height: 2vw;

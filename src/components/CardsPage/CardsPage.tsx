@@ -5,19 +5,25 @@ import {
     InputWrapper,
     Item,
     PacksBlock,
+    PaginationBlock,
     SearchBlock,
     Table,
     TableItem
 } from '../StylesComponents/CardsWrapper';
-import s from "../ProfileGeneral/PacksList/AllPacks/Table/Table.module.css";
-import {TableElemets} from "../ProfileGeneral/PacksList/AllPacks/Table/TableElements/TableElemets";
+import s from "./CardsTable.module.css";
 import {useAppSelector, useTypedDispatch} from "../../Store-Reducers/Store";
 import {CardsInitialStateType} from "../../Store-Reducers/Cards-Reducer";
 import {TitleProfileWrapper} from "../StylesComponents/ProfileAndPacksWrapper";
 import ImgArrow from "../../Assets/Vector1.png";
-import styled from "styled-components";
-import {NavLink} from "react-router-dom";
-import {PATH} from "../../UtilsFunction/const-enum-path";
+import {useNavigate} from "react-router-dom";
+import {getCardsTC, getOnePageCardsTC} from "../../Thunk's/CardsThunk";
+import {NotAuthRedirect} from "../../UtilsFunction/RedirectFunction";
+import {Input} from "../Common/Input/Input";
+import {ActiveButtonsTable} from "../ProfileGeneral/PacksList/AllPacks/Table/ActiveButtonsTable/ActiveButtonsTable";
+import styled from 'styled-components';
+import {Pagination} from "../Common/Pagination";
+import {getOnePagePacksTC} from "../../Thunk's/PacksThunk";
+import {LoadingTable} from "../Common/Loading/LoadingTable";
 
 const TableList = [
     {id: 1, name: "Question"},
@@ -30,16 +36,18 @@ type CardsPageType = {
     packName: string
 };
 
-export const CardsPage = ({packName}: CardsPageType) => {
+export const CardsPage = NotAuthRedirect(({packName}: CardsPageType) => {
 
     const [value, setValue] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
-    const {data} = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
+    const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
     const dispatch = useTypedDispatch();
+    const navigate = useNavigate();
+    const packId = document.location.hash.slice(13);
 
-    // useEffect(() => {
-    //     dispatch(getCardsTC(packId));
-    // },[packId]);
+    useEffect(() => {
+        dispatch(getCardsTC(packId.toString()));
+    }, [packId]);
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (error && error.trim() !== '') setError(null);
@@ -53,9 +61,8 @@ export const CardsPage = ({packName}: CardsPageType) => {
         setError(null);
         setValue(text.currentTarget.value);
     }
-    const onArrowClick = () => {
-        return (PATH.packsList);
-    };
+    const onArrowClick = () => navigate(-1);
+    const onPageChanged = (numberPage: number) => dispatch(getOnePageCardsTC(packId, numberPage));
 
     return (
         <CardsPageWrapper>
@@ -76,26 +83,43 @@ export const CardsPage = ({packName}: CardsPageType) => {
                 </SearchBlock>
 
                 <PacksBlock>
-                    <Table>
-                        <TableItem>
-                            <Item>
-                                {TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)}
-                            </Item>
-                        </TableItem>
+                    {stateCards.isFetching
+                        ? <LoadingTable/>
+                        : <Table>
+                            <TableItem>
+                                <Item>
+                                    {TableList.map(el => <span className={s.name_column_one}
+                                                               key={el.id}>{el.name}</span>)}
+                                </Item>
+                            </TableItem>
 
-                        {data.cards.map((el: any) => <TableElemets el={el}
-                                                                   setShowEditModal={() => {
-                                                                   }}
-                                                                   onEditClick={() => {
-                                                                   }}
-                                                                   showEditModal={''}
-                        />)}
-                    </Table>
+                            {stateCards.data.cards.map(el => (
+                                <div className={s.elements_table_general_block} key={el._id}>
+                                    <div className={s.li}>
+                                        <span className={s.item}>{el.question}</span>
+                                        <span className={s.item}>{el.answer}</span>
+                                        <span
+                                            className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
+                                        <span className={s.item}>{el.grade}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </Table>
+                    }
                 </PacksBlock>
+
+                <PaginationBlock>
+                    <Pagination portionSize={stateCards.data.pageCount}
+                                totalItemsCount={stateCards.data.cardsTotalCount}
+                                pageSize={stateCards.data.pageCount}
+                                onPageChanged={onPageChanged}
+                                currentPage={stateCards.data.page}/>
+                </PaginationBlock>
+
             </CardsWrapper>
         </CardsPageWrapper>
     );
-};
+});
 
 
 const NamePackBlock = styled.div`
@@ -114,7 +138,8 @@ const Arrow = styled.div`
   margin-bottom: 10px;
   margin-right: 20px;
   transition: 1s all;
-  
+  border: 1px dashed #ffffff;
+
   &:hover {
     border-radius: 5px;
     border: 1px dashed #21268F;
