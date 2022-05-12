@@ -9,14 +9,16 @@ import {colors} from "../../../StylesComponents/Colors";
 import {Pagination} from "./Pagination";
 import {getAllPacksTC, getOnePagePacksTC} from '../../../../Thunk\'s/PacksThunk';
 import {AddPackModal} from "../../../ModalWindow/AddPackModal/AddPackModal";
+import {OnePacksType} from "../../../../Types/PacksTypes";
 
 type AllPacksType = {
+    packsArray: OnePacksType[];
     namePage: string
 }
 
-export const AllPacks = ({namePage}: AllPacksType) => {
+export const AllPacks = ({namePage, packsArray}: AllPacksType) => {
 
-    const stateCard = useAppSelector<CardsInitialStateType>(state => state.PacksReducer);
+    const statePack = useAppSelector<CardsInitialStateType>(state => state.PacksReducer);
     const dispatch = useTypedDispatch();
     const [value, setValue] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
@@ -71,19 +73,19 @@ export const AllPacks = ({namePage}: AllPacksType) => {
                 <ButtonAddNewPack onClick={addPackHandler}>Add new pack</ButtonAddNewPack>
             </SearchBlock>
 
-            <CardTable itemPack={stateCard.data.cardPacks}
+            <CardTable itemPack={packsArray}
                        showEditModal={showEditModal}
                        setShowEditModal={setShowEditModal}
                        onEditClick={editPackHandler}
                        onLearnClick={learnPackHandler}
-                       isFetching={stateCard.isFetching}/>
+                       isFetching={statePack.isFetching}/>
 
             <PaginationBlock>
                 <Pagination portionSize={pageCount}
-                            totalItemsCount={stateCard.data.cardPacksTotalCount}
-                            pageSize={stateCard.data.pageCount}
+                            totalItemsCount={statePack.data.cardPacksTotalCount}
+                            pageSize={statePack.data.pageCount}
                             onPageChanged={onPageChanged}
-                            currentPage={stateCard.data.page}/>
+                            currentPage={statePack.data.page}/>
             </PaginationBlock>
         </ProfileWrapper>
     );

@@ -7,14 +7,15 @@ import {initialStateAuthorizationType} from '../../../Store-Reducers/Auth-Reduce
 import {colors} from '../../StylesComponents/Colors';
 import {
     GeneralProfileWrapper,
-    ProfileWrapper,
     TextProfileWrapper,
     TitleProfileWrapper, ToolsProfileBlock
 } from '../../StylesComponents/ProfileAndPacksWrapper';
 import {AllPacks} from "../PacksList/AllPacks/AllPacks";
+import {CardsInitialStateType} from "../../../Store-Reducers/Packs-Reducer";
 
 export const Profile = NotAuthRedirect(() => {
-    const meAuth = useAppSelector<initialStateAuthorizationType>(s => s.AuthorizationReducer)
+    const meAuth = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
+    const statePack = useAppSelector<CardsInitialStateType>(state => state.PacksReducer);
     const [editMode, setEditMode] = useState<boolean>(false)
     const avatar = meAuth.avatar ? meAuth.avatar : 'https://static.thenounproject.com/png/801390-200.png'
 
@@ -32,7 +33,7 @@ export const Profile = NotAuthRedirect(() => {
                     </PersonBlock>
                 </ToolsProfileBlock>
 
-                    <AllPacks namePage={"My packs list"} />
+                    <AllPacks packsArray={statePack.data.cardPacks.filter(el => el.user_id === meAuth._id )} namePage={"My packs list"} />
 
             </GeneralProfileWrapper>
         </>

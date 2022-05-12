@@ -14,18 +14,17 @@ import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
 import {DoubleRange} from "../../../UtilsFunction/DoubleRange";
 
 export const PacksList = NotAuthRedirect(() => {
+
+    const statePack = useAppSelector<CardsInitialStateType>(state => state.PacksReducer);
+    const [valueMin, setValueMin] = useState(0);
+    const [valueMax, setValueMax] = useState(50);
     const dispatch = useTypedDispatch();
-    const stateCards = useAppSelector<CardsInitialStateType>(state => state.PacksReducer);
 
     const onClickHandler = (valueFilter: FilterCardsType) => {
         dispatch(setChangeFilteredPageAC({valueFilter}))
     };
 
-
-    const active = stateCards.filter === "All";
-
-    const [valueMin, setValueMin] = useState(0)
-    const [valueMax, setValueMax] = useState(50)
+    const active = statePack.filter === "All";
 
     return (
         <GeneralProfileWrapper>
@@ -51,7 +50,9 @@ export const PacksList = NotAuthRedirect(() => {
                                  valueMax={valueMax}/>
                 </NumberCards>
             </ToolsProfileBlock>
-            <AllPacks namePage={"Packs List"}/>
+
+            <AllPacks packsArray={statePack.data.cardPacks} namePage={"Packs List"}/>
+
         </GeneralProfileWrapper>
     )
 });
