@@ -5,13 +5,13 @@
     justify-content: center;
     align-items: center;
     margin-top: 20vh;
-    margin-bottom: 35.5vh;
+    margin-bottom: 33.3vh;
 }
 
 @media (max-width: 1550px) {
     .main_loader_div {
         margin-top: 20vh;
-        margin-bottom: 10.5vh;
+        margin-bottom: 23.8vh;
     }
 }
 
