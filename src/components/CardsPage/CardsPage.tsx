@@ -16,7 +16,7 @@ import {CardsInitialStateType} from "../../Store-Reducers/Cards-Reducer";
 import {TitleProfileWrapper} from "../StylesComponents/ProfileAndPacksWrapper";
 import ImgArrow from "../../Assets/Vector1.png";
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {PATH} from "../../UtilsFunction/const-enum-path";
 
 const TableList = [
@@ -28,7 +28,7 @@ const TableList = [
 
 type CardsPageType = {
     packName: string
-}
+};
 
 export const CardsPage = ({packName}: CardsPageType) => {
 
@@ -36,7 +36,6 @@ export const CardsPage = ({packName}: CardsPageType) => {
     const [error, setError] = useState<string | null>(null);
     const {data} = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
     const dispatch = useTypedDispatch();
-    const navigation = useNavigate();
 
     // useEffect(() => {
     //     dispatch(getCardsTC(packId));
@@ -54,13 +53,15 @@ export const CardsPage = ({packName}: CardsPageType) => {
         setError(null);
         setValue(text.currentTarget.value);
     }
-    const onArrowClick = () => navigation(PATH.packsList);
+    const onArrowClick = () => {
+        return (PATH.packsList);
+    };
 
     return (
         <CardsPageWrapper>
             <CardsWrapper>
                 <NamePackBlock>
-                    <Img onClick={onArrowClick}/>
+                    <Arrow onClick={onArrowClick}/>
                     <TitleProfileWrapper fontSz={1.5}>{packName}</TitleProfileWrapper>
                 </NamePackBlock>
 
@@ -99,12 +100,12 @@ export const CardsPage = ({packName}: CardsPageType) => {
 
 const NamePackBlock = styled.div`
   display: flex;
-  width: 15%;
+  width: 16%;
   align-items: center;
   justify-content: flex-end;
 `;
 
-const Img = styled.div`
+const Arrow = styled.div`
   cursor: pointer;
   position: relative;
   background: url(${ImgArrow}) no-repeat;
