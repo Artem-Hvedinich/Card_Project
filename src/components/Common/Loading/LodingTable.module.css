@@ -4,14 +4,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 200px;
-    margin-bottom: 355px;
+    margin-top: 20vh;
+    margin-bottom: 35.5vh;
 }
 
 @media (max-width: 1550px) {
     .main_loader_div {
-        margin-top: 200px;
-        margin-bottom: 105px;
+        margin-top: 20vh;
+        margin-bottom: 10.5vh;
     }
 }
 

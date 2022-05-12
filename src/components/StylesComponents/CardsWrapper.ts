@@ -2,7 +2,7 @@ import styled from "styled-components";
 import SerchImg from "../../Assets/Union.svg";
 
 export const Table = styled.div`
-  height: 630px;
+  height: 60.5vh;
   width: 100%;
   transition: 1s all;
   
