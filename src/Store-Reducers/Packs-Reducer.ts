@@ -8,7 +8,7 @@ export type CardsInitialStateType = {
     isFetching: boolean
 };
 
-const initialCardsState: CardsInitialStateType = {
+const initialPacksState: CardsInitialStateType = {
     data: {
         cardPacks: [],
         cardPacksTotalCount: 0,
@@ -23,9 +23,9 @@ const initialCardsState: CardsInitialStateType = {
     isFetching: false,
 };
 
-const CardsSlice = createSlice({
-    name: "CardsSlice",
-    initialState: initialCardsState,
+const PacksSlice = createSlice({
+    name: "PacksSlice",
+    initialState: initialPacksState,
     reducers: {
         setPacksDataAC(state, action: PayloadAction<ResponsePacksType>) {
             state.data = action.payload
@@ -40,7 +40,7 @@ const CardsSlice = createSlice({
 });
 
 
-export const PacksReducer = CardsSlice.reducer;
+export const PacksReducer = PacksSlice.reducer;
 
 
-export const {setFetchingPacksTableAC, setChangeFilteredPageAC, setPacksDataAC} = CardsSlice.actions;
+export const {setFetchingPacksTableAC, setChangeFilteredPageAC, setPacksDataAC} = PacksSlice.actions;

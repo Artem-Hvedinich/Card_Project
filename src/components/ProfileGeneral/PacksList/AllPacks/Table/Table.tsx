@@ -4,8 +4,12 @@ import {OnePacksType} from "../../../../../Types/PacksTypes";
 import styled from "styled-components";
 import {ActiveButtonsTable} from "./ActiveButtonsTable/ActiveButtonsTable";
 import {LoadingTable} from "../../../../Common/Loading/LoadingTable";
+import {Input} from "../../../../Common/Input/Input";
+import {TableElemets} from "./TableElements/TableElemets";
 
 type CardTableType = {
+    showEditModal: string
+    setShowEditModal: (id: string) => void
     onEditClick: (id: string) => void
     onLearnClick: (id: string) => void
     itemPack: OnePacksType[]
@@ -19,7 +23,7 @@ const TableList = [
     {id: 5, name: "Actions"},
 ];
 
-export const CardTable = ({itemPack, isFetching, onEditClick, onLearnClick}: CardTableType) => {
+export const CardTable = ({itemPack, isFetching, onEditClick, onLearnClick, showEditModal, setShowEditModal}: CardTableType) => {
 
     return (
         <PacksBlock>
@@ -31,24 +35,12 @@ export const CardTable = ({itemPack, isFetching, onEditClick, onLearnClick}: Car
                             {TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)}
                         </div>
                     </div>
-                    {itemPack.map(el =>
-                        <div className={s.elements_table_general_block}>
-                            <div key={el._id} className={s.li}>
-                                <span className={s.item}>{el.name}</span>
-                                <span className={s.item}>{el.cardsCount}</span>
-                                <span className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
-                                <span className={s.item}>Some Long Name</span>
-                                <span className={s.item}>
-                                <ActiveButtonsTable id={el._id}
-                                                    userId={el.user_id}
-                                                    onLearnClick={onLearnClick}
-                                                    onEditClick={onEditClick}
-                                />
-                            </span>
-                            </div>
-                        </div>
-                    )
-                    }
+                    {itemPack.map(el => <TableElemets el={el}
+                                                      setShowEditModal={setShowEditModal}
+                                                      onLearnClick={onLearnClick}
+                                                      onEditClick={onEditClick}
+                                                      showEditModal={showEditModal}
+                    />)}
                 </div>
             }
         </PacksBlock>

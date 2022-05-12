@@ -11,6 +11,7 @@ import {
     TextProfileWrapper,
     TitleProfileWrapper, ToolsProfileBlock
 } from '../../StylesComponents/ProfileAndPacksWrapper';
+import {AllPacks} from "../PacksList/AllPacks/AllPacks";
 
 export const Profile = NotAuthRedirect(() => {
     const meAuth = useAppSelector<initialStateAuthorizationType>(s => s.AuthorizationReducer)
@@ -30,9 +31,9 @@ export const Profile = NotAuthRedirect(() => {
                         {editMode && <PersonalInfo active={editMode} avatar={avatar} setEditMode={setEditMode}/>}
                     </PersonBlock>
                 </ToolsProfileBlock>
-                <ProfileWrapper>
 
-                </ProfileWrapper>
+                    <AllPacks namePage={"My packs list"} />
+
             </GeneralProfileWrapper>
         </>
     )

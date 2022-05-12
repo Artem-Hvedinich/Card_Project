@@ -5,15 +5,15 @@ import {useAppSelector} from "../../../../../../Store-Reducers/Store";
 import {initialStateAuthorizationType} from "../../../../../../Store-Reducers/Auth-Reducer";
 
 type ActiveButtonsTableType = {
+    myId: string | null
     userId: string
     id: string
     onEditClick: (id: string) => void
     onLearnClick: (id: string) => void
 }
 
-export const ActiveButtonsTable = ({onEditClick, onLearnClick, id, userId}: ActiveButtonsTableType) => {
+export const ActiveButtonsTable = ({myId, onEditClick, onLearnClick, id, userId}: ActiveButtonsTableType) => {
 
-    const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
     const deletePackHandler = (id: string) => setShowDeleteModal(true);
@@ -24,7 +24,7 @@ export const ActiveButtonsTable = ({onEditClick, onLearnClick, id, userId}: Acti
                 ? <DeletePackModal id={id} setShow={setShowDeleteModal}/>
                 : <></>
             }
-            {_id === userId
+            {myId === userId
                 ? <>
                     <DeleteTableButton onClick={(e) => deletePackHandler(id)}>
                         Delete

@@ -16,7 +16,7 @@
 .item {
     align-items: center;
     width: 90%;
-    height: 2.2vw;
+    height: 2.7vw;
     padding: 0 24px;
     display: flex;
 }
@@ -28,7 +28,7 @@
 }
 
 .item:nth-child(1) {
-    min-width: 19%;
+    min-width: 25%;
 }
 .item:nth-child(2) {
     display: flex;
@@ -59,7 +59,7 @@
 }
 .name_column_one:nth-child(2) {
     min-width: 12%;
-    margin: 0 15px 0 7px;
+    margin: 0 15px 0 20px;
 }
 .name_column_one:nth-child(3) {
     min-width: 23%;
@@ -84,7 +84,7 @@
 
 @media (max-width: 1550px) {
     .item:nth-child(1) {
-        min-width: 5%;
+        min-width: 7%;
     }
     .item:nth-child(2) {
         min-width: 14%;

@@ -74,17 +74,17 @@ export const FileAPI = {
     }
 }
 
-export const CardAPI = {
+export const PackAPI = {
     getPacks(pageCount?: number, page?: number) {
         return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {params: {pageCount: pageCount, page: page}});
     },
     deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`);
     },
-    async updateCard() {
-        // return await instance.put(`/cards/card`, {card: updatedCard})
+    updatePack(cardsPack: {_id: string, name: string}) {
+        return instance.put(`/cards/pack`, {cardsPack})
     },
-    async createPack(cadsPack: { name?: string, deckCover?: string, private?: boolean }) {
-        return instance.post<CreatePackType, any, any>(`/cards/pack`, {cardsPack: cadsPack})
+    createPack(cardsPack: { name?: string, deckCover?: string, private?: boolean }) {
+        return instance.post<CreatePackType, any, any>(`/cards/pack`, {cardsPack})
     },
 }

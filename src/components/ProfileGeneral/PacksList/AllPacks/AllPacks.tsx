@@ -10,14 +10,18 @@ import {Pagination} from "./Pagination";
 import {getAllPacksTC, getOnePagePacksTC} from '../../../../Thunk\'s/PacksThunk';
 import {AddPackModal} from "../../../ModalWindow/AddPackModal/AddPackModal";
 
+type AllPacksType = {
+    namePage: string
+}
 
-export const AllPacks = () => {
+export const AllPacks = ({namePage}: AllPacksType) => {
 
-    const stateCard = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
+    const stateCard = useAppSelector<CardsInitialStateType>(state => state.PacksReducer);
     const dispatch = useTypedDispatch();
     const [value, setValue] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
+    const [showEditModal, setShowEditModal] = useState<string>('');
 
     useEffect(() => {
         dispatch(getAllPacksTC());
@@ -38,7 +42,13 @@ export const AllPacks = () => {
         setValue(text.currentTarget.value);
     }
     const addPackHandler = () => setShowAddModal(true);
-    const editPackHandler = (id: string) => {};
+    const editPackHandler = (id: string) => {
+        if (showEditModal.length === 0 ) {
+            setShowEditModal(id);
+        } else {
+            setShowEditModal('');
+        }
+    }
     const learnPackHandler = (id: string) => {};
 
     const onPageChanged = (numberPage: number) => dispatch(getOnePagePacksTC(numberPage));
@@ -49,7 +59,7 @@ export const AllPacks = () => {
                 ? <AddPackModal setShow={setShowAddModal}/>
                 : <></>
             }
-            <TitleProfileWrapper fontSz={1.5}>Packs List</TitleProfileWrapper>
+            <TitleProfileWrapper fontSz={1.5}>{namePage}</TitleProfileWrapper>
 
             <SearchBlock>
                 <InputWrapper
@@ -62,6 +72,8 @@ export const AllPacks = () => {
             </SearchBlock>
 
             <CardTable itemPack={stateCard.data.cardPacks}
+                       showEditModal={showEditModal}
+                       setShowEditModal={setShowEditModal}
                        onEditClick={editPackHandler}
                        onLearnClick={learnPackHandler}
                        isFetching={stateCard.isFetching}/>
@@ -111,7 +123,7 @@ const InputWrapper = styled.input`
   }`
 const ButtonAddNewPack = styled.button`
   width: 20%;
-  height: 2.4vw;
+  height: 2vw;
   font-size: 0.8vw;
   background-color: ${colors.Blue};
   color: ${colors.WhiteColor};

@@ -27,6 +27,7 @@ export const AddPackModal = ({setShow}: AddPackModalType) => {
     const [error, setError] = useState<string | null>(null);
     const dispatch = useTypedDispatch();
 
+    const maxLengthInput = 30;
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (error && error.trim() !== '') setError(null)
@@ -61,7 +62,7 @@ export const AddPackModal = ({setShow}: AddPackModalType) => {
 
                         <InputWrapper>
                             <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Name pack</TextAuthWrapper>
-                            <Input value={value} onKeyPress={onKeyPress} onChange={onChangeNewName}/>
+                            <Input maxLength={maxLengthInput} value={value} onKeyPress={onKeyPress} onChange={onChangeNewName}/>
                         </InputWrapper>
 
                         <ButtonsBlock>
