@@ -40,6 +40,7 @@ export const CardTable = ({itemPack, isFetching, onEditClick, onLearnClick}: Car
                                 <span className={s.item}>Some Long Name</span>
                                 <span className={s.item}>
                                 <ActiveButtonsTable id={el._id}
+                                                    userId={el.user_id}
                                                     onLearnClick={onLearnClick}
                                                     onEditClick={onEditClick}
                                 />
