@@ -13,6 +13,7 @@ export const Table = styled.div`
 
 export const SearchBlock = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
 
 export const InputWrapper = styled.input<{width?: string, margin?: string}>`

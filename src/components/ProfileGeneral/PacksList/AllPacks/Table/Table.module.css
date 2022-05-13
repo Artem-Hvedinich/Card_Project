@@ -29,6 +29,7 @@
 
 .item:nth-child(1) {
     min-width: 25%;
+    cursor: pointer;
 }
 .item:nth-child(2) {
     display: flex;

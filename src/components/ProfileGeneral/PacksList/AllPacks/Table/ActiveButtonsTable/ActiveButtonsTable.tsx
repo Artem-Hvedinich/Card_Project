@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import {DeletePackModal} from "../../../../../ModalWindow/DeletePackModal/DeletePackModal";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../../../../../UtilsFunction/const-enum-path";
 
 type ActiveButtonsTableType = {
     myId: string | null
@@ -14,10 +12,9 @@ type ActiveButtonsTableType = {
 export const ActiveButtonsTable = ({myId, onEditClick, id, userId}: ActiveButtonsTableType) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-    const navigate = useNavigate();
 
     const deletePackHandler = () => setShowDeleteModal(true);
-    const onLearnClick = (id: string) => navigate(PATH.cardsPack + `/:${id}`);
+    const onLearnClick = (id: string) => {};
 
     return (
         <>
@@ -30,14 +27,14 @@ export const ActiveButtonsTable = ({myId, onEditClick, id, userId}: ActiveButton
                     <DeleteTableButton onClick={deletePackHandler}>
                         Delete
                     </DeleteTableButton>
-                    <TableButton onClick={(e) => onEditClick(id)}>
+                    <TableButton onClick={() => onEditClick(id)}>
                         Edit
                     </TableButton>
-                    <TableButton onClick={(e) => onLearnClick(id)}>
+                    <TableButton onClick={() => onLearnClick(id)}>
                         Learn
                     </TableButton>
                 </>
-                : <TableButton onClick={(e) => onLearnClick(id)}>
+                : <TableButton onClick={() => onLearnClick(id)}>
                     Learn
                 </TableButton>
             }
