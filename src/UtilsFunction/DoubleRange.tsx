@@ -1,25 +1,45 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import styled from "styled-components";
 import {colors} from "../components/StylesComponents/Colors";
+import {CardsMinMaxFilterTC} from "../Thunk's/PacksThunk";
+import {useAppSelector, useTypedDispatch} from "../Store-Reducers/Store";
+import {ResponsePacksType} from "../Types/PacksTypes";
+import useDebounce from "./Hook/useDebounce";
 
-type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+export const DoubleRange = () => {
 
+    const data = useAppSelector<ResponsePacksType>(state => state.PacksReducer.data);
 
-type SuperDoubleRangePropsType = DefaultInputPropsType & {
-    onChangeRangeMin?: (value: number) => void
-    onChangeRangeMax?: (value: number) => void
-    valueMin: number
-    valueMax: number
+    const [valueMin, setValueMin] = useState(data.minCardsCount);
+    const [valueMax, setValueMax] = useState(data.maxCardsCount);
 
-}
+    const valueMinDeb = useDebounce(valueMin, 1500)
+    const valueMaxDeb = useDebounce(valueMax, 1500)
 
-export const DoubleRange = ({onChangeRangeMin, onChangeRangeMax, valueMin, valueMax,}: SuperDoubleRangePropsType) => {
+    useEffect(() => {
+        console.log('Effect')
+        if (valueMinDeb) {
+            valueMin < valueMax ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax))
+                : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
+        }
+        if (valueMaxDeb) {
+            valueMin < valueMax ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax))
+                : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
+        }
+    }, [valueMinDeb,valueMaxDeb])
+
+    useEffect(() => {
+        setValueMin(data.minCardsCount)
+        setValueMax(data.maxCardsCount)
+    }, [data.minCardsCount, data.maxCardsCount])
+
+    const dispatch = useTypedDispatch();
 
     const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => {
-        onChangeRangeMin && onChangeRangeMin(+e.currentTarget.value)
+        setValueMin(+e.currentTarget.value)
     }
     const onChangeCallbackMax = (e: ChangeEvent<HTMLInputElement>) => {
-        onChangeRangeMax && onChangeRangeMax(+e.currentTarget.value)
+        setValueMax(+e.currentTarget.value)
     }
 
     return (
@@ -40,14 +60,14 @@ export const DoubleRange = ({onChangeRangeMin, onChangeRangeMax, valueMin, value
                        id={'valueMax'}
                        onChange={onChangeCallbackMax}
                        value={valueMax}
-                       min={'0'} max={'50'}
+                       min={'0'} max={valueMax}
                 />
                 <Input index={valueMin > valueMax ? 1 : 2}
                        bgCol={valueMin > valueMax ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
                        id={'valueMin'}
                        type={'range'}
                        onChange={onChangeCallbackMin}
-                       min={'0'} max={'50'}
+                       min={'0'} max={valueMax}
                        value={valueMin}
                 />
             </RangeInput>

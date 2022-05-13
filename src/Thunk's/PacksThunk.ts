@@ -15,8 +15,7 @@ export const ChangePackTC = (packId: string, namePack: string): AppThunkType => 
     dispatch(setFetchingPacksTableAC({isFetching: true}));
 
     try {
-        let cardsPack = {_id: packId, name: namePack};
-        const response = await PackAPI.updatePack(cardsPack);
+        const response = await PackAPI.updatePack({_id: packId, name: namePack});
         if (response) {
             FilterAllMyFunction(dispatch, getState)
             dispatch(setFetchingPacksTableAC({isFetching: false}));
@@ -64,7 +63,7 @@ export const createPackTC = (name: string): AppThunkType => async (dispatch, get
     }
 }
 
-export const CardsMinMaxFilterTC = (min: number, max: number): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
+export const CardsMinMaxFilterTC = (min?: number, max?: number): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
     try {
         const response = await PackAPI.getPacks(undefined, undefined, undefined, min, max);
@@ -82,7 +81,6 @@ export const CardsMinMaxFilterTC = (min: number, max: number): AppThunkType => a
 
 export const getAllPacksTC = (id?: string | null): AppThunkType => async dispatch => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
-
     try {
         let pageCount = 10;
         const response = await PackAPI.getPacks(pageCount, 1, id);
@@ -97,7 +95,6 @@ export const getAllPacksTC = (id?: string | null): AppThunkType => async dispatc
         }
     }
 };
-
 
 export const getOnePagePacksTC = (numberPage: number): AppThunkType => async dispatch => {
 

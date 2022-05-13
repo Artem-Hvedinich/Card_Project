@@ -38,6 +38,7 @@ export const CardsPage = NotAuthRedirect(() => {
     const [errorAnswer, setErrorAnswer] = useState<string | null>(null);
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
     const statePacks = useAppSelector<ResponsePacksType>(state => state.PacksReducer.data);
+
     const dispatch = useTypedDispatch();
     const navigate = useNavigate();
     const packId = document.location.hash.slice(13);
