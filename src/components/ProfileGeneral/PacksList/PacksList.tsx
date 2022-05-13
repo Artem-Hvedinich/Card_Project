@@ -22,7 +22,7 @@ export const PacksList = NotAuthRedirect(() => {
         const [valueMax, setValueMax] = useState(50);
 
         useEffect(() => {
-            valueMin < valueMax ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax)) : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
+            // valueMin < valueMax ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax)) : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
         }, [valueMin, valueMax])
 
         const dispatch = useTypedDispatch();
