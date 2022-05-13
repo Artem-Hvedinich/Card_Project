@@ -32,8 +32,10 @@ const TableList = [
 
 export const CardsPage = NotAuthRedirect(() => {
 
-    const [value, setValue] = useState<string>('');
-    const [error, setError] = useState<string | null>(null);
+    const [valueQuestions, setValueQuestions] = useState<string>('');
+    const [errorQuestions, setErrorQuestions] = useState<string | null>(null);
+    const [valueAnswer, setValueAnswer] = useState<string>('');
+    const [errorAnswer, setErrorAnswer] = useState<string | null>(null);
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
     const statePacks = useAppSelector<ResponsePacksType>(state => state.PacksReducer.data);
     const dispatch = useTypedDispatch();
@@ -44,18 +46,29 @@ export const CardsPage = NotAuthRedirect(() => {
         dispatch(getCardsTC(packId.toString()));
     }, [packId]);
 
-    const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (error && error.trim() !== '') setError(null);
+    const onKeyPressQuestions = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (errorQuestions && errorQuestions.trim() !== '') setErrorQuestions(null);
         if (e.ctrlKey || e.key === "Enter") {
         } else {
-            setError('Error value');
+            setErrorQuestions('Error value');
+        }
+    };
+    const onKeyPressAnswer = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (errorAnswer && errorAnswer.trim() !== '') setErrorAnswer(null);
+        if (e.ctrlKey || e.key === "Enter") {
+        } else {
+            setErrorAnswer('Error value');
         }
     };
 
-    const onChangeSearchHandler = (text: ChangeEvent<HTMLInputElement>) => {
-        setError(null);
-        setValue(text.currentTarget.value);
-    }
+    const onChangeSearchQuestionsHandler = (text: ChangeEvent<HTMLInputElement>) => {
+        setErrorQuestions(null);
+        setValueQuestions(text.currentTarget.value);
+    };
+    const onChangeSearchAnswerHandler = (text: ChangeEvent<HTMLInputElement>) => {
+        setErrorAnswer(null);
+        setValueAnswer(text.currentTarget.value);
+    };
     const onArrowClick = () => navigate(-1);
     const onPageChanged = (numberPage: number) => dispatch(getOnePageCardsTC(packId, numberPage));
 
@@ -64,16 +77,24 @@ export const CardsPage = NotAuthRedirect(() => {
             <CardsWrapper>
                 <NamePackBlock>
                     <Arrow onClick={onArrowClick}/>
-                    <TitleProfileWrapper fontSz={1.5}>{statePacks.cardPacks.filter(el => el._id === packId ? el : null )[0].name}</TitleProfileWrapper>
+                    <TitleProfileWrapper
+                        fontSz={1.5}>{statePacks.cardPacks.filter(el => el._id === packId ? el : null)[0].name}</TitleProfileWrapper>
                 </NamePackBlock>
 
                 <SearchBlock>
-                    <InputWrapper placeholder={"Search..."}
+                    <InputWrapper placeholder={"Search Questions..."}
                                   margin={"0"}
-                                  width={'100%'}
-                                  onChange={(e) => onChangeSearchHandler(e)}
-                                  value={value}
-                                  onKeyPress={(e) => onKeyPress(e)}
+                                  width={'49%'}
+                                  onChange={(e) => onChangeSearchQuestionsHandler(e)}
+                                  value={valueQuestions}
+                                  onKeyPress={(e) => onKeyPressQuestions(e)}
+                    />
+                    <InputWrapper placeholder={"Search Answer..."}
+                                  margin={"0"}
+                                  width={'49%'}
+                                  onChange={(e) => onChangeSearchAnswerHandler(e)}
+                                  value={valueAnswer}
+                                  onKeyPress={(e) => onKeyPressAnswer(e)}
                     />
                 </SearchBlock>
 
