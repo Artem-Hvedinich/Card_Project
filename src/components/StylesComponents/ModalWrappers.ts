@@ -49,10 +49,11 @@ export const Modal = styled.div`
   padding: 24px;
   width: 100%;
   height: 100%;
-  background-color: white
+  background-color: white;
+  border-radius: 8px;
 `;
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled.div<{back?: string}>`
   position: absolute;
   top: 0;
   left: 0;
@@ -64,6 +65,14 @@ export const ModalWrapper = styled.div`
   -webkit-transition: opacity 400ms ease-in;
   -moz-transition: opacity 400ms ease-in;
   transition: opacity 400ms ease-in;
+`;
+
+export const ModalWrapperClear = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ModalWindow = styled.div`
@@ -116,8 +125,8 @@ export const ButtonsBlock = styled.div`
   }
 `;
 
-export const ButtonSave = styled.button`
-  width: 150px;
+export const ButtonSave = styled.button<{width?: string}>`
+  width: ${({width}) => width ? width: "150px"};
   height: 40px;
   background-color: #21268F;
   color: #ECECF9;

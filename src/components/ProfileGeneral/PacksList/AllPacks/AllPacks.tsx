@@ -6,7 +6,7 @@ import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/Pro
 import styled from "styled-components";
 import {colors} from "../../../StylesComponents/Colors";
 import {Pagination} from "../../../Common/Pagination";
-import {getAllPacksTC, getOnePagePacksTC} from '../../../../Thunk\'s/PacksThunk';
+import {getAllPacksTC, getOnePagePacksTC, SearchPackTC} from '../../../../Thunk\'s/PacksThunk';
 import {AddPackModal} from "../../../ModalWindow/AddPackModal/AddPackModal";
 import {OnePacksType} from "../../../../Types/PacksTypes";
 import { InputWrapper, PaginationBlock, SearchBlock } from '../../../StylesComponents/CardsWrapper';
@@ -35,6 +35,7 @@ export const AllPacks = ({namePage, packsArray, myId}: AllPacksType) => {
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (error && error.trim() !== '') setError(null)
         if (e.ctrlKey || e.key === "Enter") {
+            dispatch(SearchPackTC(value));
         } else {
             setError('Error value')
         }

@@ -1,5 +1,5 @@
 import {AppRootStateType, AppThunkType} from "../Store-Reducers/Store";
-import {setPacksDataAC, setFetchingPacksTableAC} from "../Store-Reducers/Packs-Reducer";
+import {setPacksDataAC, setFetchingPacksTableAC, searchPacksTableAC} from "../Store-Reducers/Packs-Reducer";
 import axios from "axios";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {PackAPI} from "../API/API";
@@ -7,12 +7,28 @@ import {setAppSuccessMessageAC} from "../Store-Reducers/App-Reducer";
 import {FilterAllMyFunction} from "../UtilsFunction/FilterAllMyFunction";
 
 
-export const SearchPackTC = (namePack: string): AppThunkType => async dispatch => {
+export const SearchPackTC = (packName: string): AppThunkType => async dispatch => {
+    dispatch(setFetchingPacksTableAC({isFetching: true}));
 
-}
+    try {
+        let pageCount = 10;
+        const response = await PackAPI.getPacks(pageCount, 1, null,undefined,undefined,null, packName);
+        if (response.data) {
+            dispatch(searchPacksTableAC({searchPack: packName}));
+            dispatch(setPacksDataAC(response.data));
+            dispatch(setFetchingPacksTableAC({isFetching: false}));
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            handleServerNetworkError(error.response.data.error, dispatch);
+            dispatch(setFetchingPacksTableAC({isFetching: false}));
+        }
+    }
+};
 
 export const ChangePackTC = (packId: string, namePack: string): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
+
     try {
         let cardsPack = {_id: packId, name: namePack};
         const response = await PackAPI.updatePack(cardsPack);
@@ -79,11 +95,14 @@ export const CardsMinMaxFilterTC = (min: number, max: number): AppThunkType => a
     }
 }
 
-export const getAllPacksTC = (id?: string | null): AppThunkType => async dispatch => {
+export const getAllPacksTC = (id?: string | null): AppThunkType =>
+    async (dispatch, getState: () => AppRootStateType) => {
+
     dispatch(setFetchingPacksTableAC({isFetching: true}));
 
     try {
         let pageCount = 10;
+        let search
         const response = await PackAPI.getPacks(pageCount, 1, id);
         if (response.data) {
             dispatch(setPacksDataAC(response.data));

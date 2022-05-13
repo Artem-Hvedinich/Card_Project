@@ -49,6 +49,7 @@ export const CardsPage = NotAuthRedirect(() => {
     const onKeyPressQuestions = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (errorQuestions && errorQuestions.trim() !== '') setErrorQuestions(null);
         if (e.ctrlKey || e.key === "Enter") {
+
         } else {
             setErrorQuestions('Error value');
         }
@@ -56,6 +57,7 @@ export const CardsPage = NotAuthRedirect(() => {
     const onKeyPressAnswer = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (errorAnswer && errorAnswer.trim() !== '') setErrorAnswer(null);
         if (e.ctrlKey || e.key === "Enter") {
+
         } else {
             setErrorAnswer('Error value');
         }

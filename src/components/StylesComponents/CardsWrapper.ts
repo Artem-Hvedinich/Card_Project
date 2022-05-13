@@ -31,6 +31,9 @@ export const InputWrapper = styled.input<{width?: string, margin?: string}>`
   :nth-child(1) {
     background-color: #ECECF9;
   }
+  :nth-child(2) {
+    background-color: #ECECF9;
+  }
 
   :hover {
     border: 1px solid #635D80;

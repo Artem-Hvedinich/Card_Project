@@ -36,6 +36,9 @@ const PacksSlice = createSlice({
         setFetchingPacksTableAC(state, action: PayloadAction<{ isFetching: boolean }>) {
             state.isFetching = action.payload.isFetching
         },
+        searchPacksTableAC(state, action: PayloadAction<{ searchPack: string }>) {
+            state.searchPack = action.payload.searchPack
+        },
     },
 });
 
@@ -43,4 +46,4 @@ const PacksSlice = createSlice({
 export const PacksReducer = PacksSlice.reducer;
 
 
-export const {setFetchingPacksTableAC, setChangeFilteredPageAC, setPacksDataAC} = PacksSlice.actions;
+export const {setFetchingPacksTableAC, setChangeFilteredPageAC, setPacksDataAC, searchPacksTableAC} = PacksSlice.actions;
