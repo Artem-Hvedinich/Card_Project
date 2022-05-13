@@ -18,12 +18,10 @@ import ImgArrow from "../../Assets/Vector1.png";
 import {useNavigate} from "react-router-dom";
 import {getCardsTC, getOnePageCardsTC} from "../../Thunk's/CardsThunk";
 import {NotAuthRedirect} from "../../UtilsFunction/RedirectFunction";
-import {Input} from "../Common/Input/Input";
-import {ActiveButtonsTable} from "../ProfileGeneral/PacksList/AllPacks/Table/ActiveButtonsTable/ActiveButtonsTable";
 import styled from 'styled-components';
 import {Pagination} from "../Common/Pagination";
-import {getOnePagePacksTC} from "../../Thunk's/PacksThunk";
 import {LoadingTable} from "../Common/Loading/LoadingTable";
+import {ResponsePacksType} from "../../Types/PacksTypes";
 
 const TableList = [
     {id: 1, name: "Question"},
@@ -32,15 +30,12 @@ const TableList = [
     {id: 4, name: "Grade"},
 ];
 
-type CardsPageType = {
-    packName: string
-};
-
-export const CardsPage = NotAuthRedirect(({packName}: CardsPageType) => {
+export const CardsPage = NotAuthRedirect(() => {
 
     const [value, setValue] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
+    const statePacks = useAppSelector<ResponsePacksType>(state => state.PacksReducer.data);
     const dispatch = useTypedDispatch();
     const navigate = useNavigate();
     const packId = document.location.hash.slice(13);
@@ -69,7 +64,7 @@ export const CardsPage = NotAuthRedirect(({packName}: CardsPageType) => {
             <CardsWrapper>
                 <NamePackBlock>
                     <Arrow onClick={onArrowClick}/>
-                    <TitleProfileWrapper fontSz={1.5}>{packName}</TitleProfileWrapper>
+                    <TitleProfileWrapper fontSz={1.5}>{statePacks.cardPacks.filter(el => el._id === packId ? el : null )[0].name}</TitleProfileWrapper>
                 </NamePackBlock>
 
                 <SearchBlock>
@@ -124,9 +119,9 @@ export const CardsPage = NotAuthRedirect(({packName}: CardsPageType) => {
 
 const NamePackBlock = styled.div`
   display: flex;
-  width: 16%;
+  width: 30%;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 `;
 
 const Arrow = styled.div`
