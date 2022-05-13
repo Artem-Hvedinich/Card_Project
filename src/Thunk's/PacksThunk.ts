@@ -30,10 +30,9 @@ export const ChangePackTC = (packId: string, namePack: string): AppThunkType => 
     dispatch(setFetchingPacksTableAC({isFetching: true}));
 
     try {
-        let cardsPack = {_id: packId, name: namePack};
-        const response = await PackAPI.updatePack(cardsPack);
+        const response = await PackAPI.updatePack({_id: packId, name: namePack});
         if (response) {
-            FilterAllMyFunction(dispatch,getState)
+            FilterAllMyFunction(dispatch, getState)
             dispatch(setFetchingPacksTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Packs name is changed"}));
         }
@@ -50,7 +49,7 @@ export const detelePackTC = (id: string): AppThunkType => async (dispatch, getSt
     try {
         const response = await PackAPI.deletePack(id);
         if (response) {
-            FilterAllMyFunction(dispatch,getState)
+            FilterAllMyFunction(dispatch, getState)
             dispatch(setFetchingPacksTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Pack is deleted"}));
         }
@@ -67,7 +66,7 @@ export const createPackTC = (name: string): AppThunkType => async (dispatch, get
     try {
         const response = await PackAPI.createPack({name});
         if (response) {
-            FilterAllMyFunction(dispatch,getState)
+            FilterAllMyFunction(dispatch, getState)
             dispatch(setFetchingPacksTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Pack is added"}));
         }
@@ -79,12 +78,12 @@ export const createPackTC = (name: string): AppThunkType => async (dispatch, get
     }
 }
 
-export const CardsMinMaxFilterTC = (min: number, max: number): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
+export const CardsMinMaxFilterTC = (min?: number, max?: number): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
     try {
         const response = await PackAPI.getPacks(undefined, undefined, undefined, min, max);
         if (response) {
-            FilterAllMyFunction(dispatch,getState)
+            FilterAllMyFunction(dispatch, getState)
             dispatch(setFetchingPacksTableAC({isFetching: false}));
         }
     } catch (error) {
@@ -99,7 +98,6 @@ export const getAllPacksTC = (id?: string | null): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
     dispatch(setFetchingPacksTableAC({isFetching: true}));
-
     try {
         let pageCount = 10;
         let search
@@ -115,7 +113,6 @@ export const getAllPacksTC = (id?: string | null): AppThunkType =>
         }
     }
 };
-
 
 export const getOnePagePacksTC = (numberPage: number): AppThunkType => async dispatch => {
 

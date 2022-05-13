@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {PacksInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
@@ -12,24 +12,17 @@ import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
 import {DoubleRange} from "../../../UtilsFunction/DoubleRange";
-import {CardsMinMaxFilterTC, getAllPacksTC} from "../../../Thunk's/PacksThunk";
+import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 
 export const PacksList = NotAuthRedirect(() => {
 
         const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
         const myId = useAppSelector<string | null>(state => state.AuthorizationReducer._id);
-        const [valueMin, setValueMin] = useState(0);
-        const [valueMax, setValueMax] = useState(50);
 
-        useEffect(() => {
-
-            valueMin < valueMax
-                ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax))
-                : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
-
-        }, [valueMin, valueMax])
 
         const dispatch = useTypedDispatch();
+
+
         const onClickHandler = (valueFilter: FilterCardsType) => {
             if (valueFilter === 'My') {
                 dispatch(setChangeFilteredPageAC({valueFilter}))
@@ -60,10 +53,7 @@ export const PacksList = NotAuthRedirect(() => {
 
                     <NumberCards>
                         <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                        <DoubleRange onChangeRangeMin={setValueMin}
-                                     onChangeRangeMax={setValueMax}
-                                     valueMin={valueMin}
-                                     valueMax={valueMax}/>
+                        <DoubleRange/>
                     </NumberCards>
                 </ToolsProfileBlock>
 
