@@ -4,22 +4,21 @@ import axios from "axios";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {PackAPI} from "../API/API";
 import {setAppSuccessMessageAC} from "../Store-Reducers/App-Reducer";
+import {FilterAllMyFunction} from "../UtilsFunction/FilterAllMyFunction";
 
 
 export const SearchPackTC = (namePack: string): AppThunkType => async dispatch => {
 
 }
 
-export const ChangePackTC = (packId: string, namePack: string): AppThunkType =>
-    async (dispatch, getState: () => AppRootStateType) => {
-
+export const ChangePackTC = (packId: string, namePack: string): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
 
     try {
         let cardsPack = {_id: packId, name: namePack};
         const response = await PackAPI.updatePack(cardsPack);
         if (response) {
-            dispatch(getAllPacksTC());
+            FilterAllMyFunction(dispatch,getState)
             dispatch(setFetchingPacksTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Packs name is changed"}));
         }
@@ -31,12 +30,12 @@ export const ChangePackTC = (packId: string, namePack: string): AppThunkType =>
     }
 }
 
-export const detelePackTC = (id: string): AppThunkType => async dispatch => {
+export const detelePackTC = (id: string): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
     try {
         const response = await PackAPI.deletePack(id);
         if (response) {
-            dispatch(getAllPacksTC());
+            FilterAllMyFunction(dispatch,getState)
             dispatch(setFetchingPacksTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Pack is deleted"}));
         }
@@ -48,12 +47,12 @@ export const detelePackTC = (id: string): AppThunkType => async dispatch => {
     }
 };
 
-export const createPackTC = (name: string): AppThunkType => async dispatch => {
+export const createPackTC = (name: string): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
     try {
         const response = await PackAPI.createPack({name});
         if (response) {
-            dispatch(getAllPacksTC());
+            FilterAllMyFunction(dispatch,getState)
             dispatch(setFetchingPacksTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Pack is added"}));
         }
@@ -65,12 +64,12 @@ export const createPackTC = (name: string): AppThunkType => async dispatch => {
     }
 }
 
-export const CardsMinMaxFilterTC = (min: number, max: number): AppThunkType => async dispatch => {
+export const CardsMinMaxFilterTC = (min: number, max: number): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
     try {
         const response = await PackAPI.getPacks(undefined, undefined, undefined, min, max);
         if (response) {
-            dispatch(getAllPacksTC());
+            FilterAllMyFunction(dispatch,getState)
             dispatch(setFetchingPacksTableAC({isFetching: false}));
         }
     } catch (error) {
@@ -81,8 +80,7 @@ export const CardsMinMaxFilterTC = (min: number, max: number): AppThunkType => a
     }
 }
 
-export const getAllPacksTC = (id?: string): AppThunkType => async dispatch => {
-
+export const getAllPacksTC = (id?: string | null): AppThunkType => async dispatch => {
     dispatch(setFetchingPacksTableAC({isFetching: true}));
 
     try {
