@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {
     ButtonCancel, ButtonSave, ButtonsBlock, Modal,
-    ModalTextWrapper, ModalWindow, ModalWrapper, WrapperText, WrapperTextAndClose
+    ModalTextWrapper, ModalWindow, ModalWrapper, ModalWrapperClear, WrapperText, WrapperTextAndClose
 } from '../../StylesComponents/ModalWrappers';
 import {useAppSelector} from "../../../Store-Reducers/Store";
 import {useNavigate} from "react-router-dom";
@@ -22,7 +22,7 @@ export const LearnPackModal = () => {
     let namePack = findPack && findPack.name;
 
     return (
-        <ModalWrapper>
+        <ModalWrapperClear>
             <ModalWindow>
                 <Modal>
                     <WrapperTextAndClose style={{display: "flex", justifyContent: "center"}}>
@@ -40,6 +40,6 @@ export const LearnPackModal = () => {
                     </ButtonsBlock>
                 </Modal>
             </ModalWindow>
-        </ModalWrapper>
+        </ModalWrapperClear>
     );
 };

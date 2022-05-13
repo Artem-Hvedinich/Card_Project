@@ -76,9 +76,9 @@ export const FileAPI = {
 }
 
 export const PackAPI = {
-    getPacks(pageCount?: number, page?: number, id?: string|null, min?: number, max?: number, sortPacks?: any,) {
+    getPacks(pageCount?: number, page?: number, id?: string|null, min?: number, max?: number, sortPacks?: any, packName?: string) {
         return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {
-            params: {min, max, sortPacks, page, pageCount, user_id: id,}
+            params: {min, max, sortPacks, page, pageCount, user_id: id, packName}
         });
     },
     deletePack(id: string) {
@@ -95,12 +95,6 @@ export const PackAPI = {
 
 export const CardsAPI = {
     getCards(cardsPack_id: string, pageCount?: number, page?: number) {
-        return instance.get<RequestCardsType, { data: CardsResponseType }>(`/cards/card`, {
-            params: {
-                cardsPack_id,
-                pageCount,
-                page
-            }
-        });
+        return instance.get<RequestCardsType, { data: CardsResponseType }>(`/cards/card`, {params: {cardsPack_id, pageCount, page}});
     },
 }

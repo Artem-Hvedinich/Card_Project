@@ -53,7 +53,7 @@ export const Modal = styled.div`
   border-radius: 8px;
 `;
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled.div<{back?: string}>`
   position: absolute;
   top: 0;
   left: 0;
@@ -65,6 +65,14 @@ export const ModalWrapper = styled.div`
   -webkit-transition: opacity 400ms ease-in;
   -moz-transition: opacity 400ms ease-in;
   transition: opacity 400ms ease-in;
+`;
+
+export const ModalWrapperClear = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ModalWindow = styled.div`
