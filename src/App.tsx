@@ -18,6 +18,7 @@ import { Header } from './components/Header/Header';
 import {PacksList} from "./components/ProfileGeneral/PacksList/PacksList";
 import { Profile } from './components/ProfileGeneral/Profile/Profile';
 import {CardsPage} from "./components/CardsPage/CardsPage";
+import {LearnPackModal} from "./components/ModalWindow/LearnPackModal/LearnPackModal";
 
 export const App = () => {
 
@@ -47,6 +48,7 @@ export const App = () => {
                         <Route path={PATH.newPassword + "/:token"} element={<NewPassword/>}/>
                         <Route path={PATH.checkEmail} element={<CheckEmail/>}/>
                         <Route path={PATH.cardsPack + `/:packId`} element={<CardsPage/>}/>
+                        <Route path={PATH.learnPack + `/:packId`} element={<LearnPackModal />}/>
                     </Routes>
                 </>
             }

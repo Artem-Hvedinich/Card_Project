@@ -1,4 +1,4 @@
-import {AppThunkType} from "../Store-Reducers/Store";
+import {AppRootStateType, AppThunkType} from "../Store-Reducers/Store";
 import {setPacksDataAC, setFetchingPacksTableAC} from "../Store-Reducers/Packs-Reducer";
 import axios from "axios";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
@@ -10,8 +10,11 @@ export const SearchPackTC = (namePack: string): AppThunkType => async dispatch =
 
 }
 
-export const ChangePackTC = (packId: string, namePack: string): AppThunkType => async dispatch => {
+export const ChangePackTC = (packId: string, namePack: string): AppThunkType =>
+    async (dispatch, getState: () => AppRootStateType) => {
+
     dispatch(setFetchingPacksTableAC({isFetching: true}));
+
     try {
         let cardsPack = {_id: packId, name: namePack};
         const response = await PackAPI.updatePack(cardsPack);

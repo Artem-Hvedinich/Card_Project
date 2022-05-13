@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import {DeletePackModal} from "../../../../../ModalWindow/DeletePackModal/DeletePackModal";
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../../../../../../UtilsFunction/const-enum-path";
 
 type ActiveButtonsTableType = {
     myId: string | null
@@ -12,9 +14,10 @@ type ActiveButtonsTableType = {
 export const ActiveButtonsTable = ({myId, onEditClick, id, userId}: ActiveButtonsTableType) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const deletePackHandler = () => setShowDeleteModal(true);
-    const onLearnClick = (id: string) => {};
+    const onLearnClick = (id: string) => navigate(PATH.learnPack + `/:${id}`);
 
     return (
         <>

@@ -8,4 +8,5 @@ export const PATH = {
     newPassword: '/set-new-password',
     checkEmail: '/checkEmail',
     cardsPack: '/cardsPage',
+    learnPack: '/learnPack',
 };

@@ -10,7 +10,8 @@ import {
     WrapperTextAndClose
 } from '../../StylesComponents/ModalWrappers';
 import {detelePackTC} from "../../../Thunk's/PacksThunk";
-import {useTypedDispatch} from "../../../Store-Reducers/Store";
+import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
+import {OnePacksType} from "../../../Types/PacksTypes";
 
 type DeletePackModalType = {
     id: string
@@ -19,6 +20,7 @@ type DeletePackModalType = {
 
 export const DeletePackModal = ({setShow, id}: DeletePackModalType) => {
 
+    const statePack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.data.cardPacks)
     const dispatch = useTypedDispatch();
 
     const closeModalClick = () => setShow(false);
@@ -26,6 +28,8 @@ export const DeletePackModal = ({setShow, id}: DeletePackModalType) => {
         setShow(false);
         dispatch(detelePackTC(id));
     };
+    let findName = statePack.find(el => el._id === id);
+    let name = findName && findName.name;
 
     return (
         <ModalWrapper>
@@ -37,7 +41,7 @@ export const DeletePackModal = ({setShow, id}: DeletePackModalType) => {
                     </WrapperTextAndClose>
 
                     <WrapperText>
-                        {`Do you really want to remove Pack Name - Name Pack?
+                        {`Do you really want to remove `}<b>{name}</b>{`?
                             All cards will be excluded from this course.`}
                     </WrapperText>
 
