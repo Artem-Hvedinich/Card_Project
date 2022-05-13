@@ -76,7 +76,7 @@ export const FileAPI = {
 }
 
 export const PackAPI = {
-    getPacks(pageCount?: number, page?: number, id?: string, min?: number, max?: number, sortPacks?: any,) {
+    getPacks(pageCount?: number, page?: number, id?: string|null, min?: number, max?: number, sortPacks?: any,) {
         return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {
             params: {min, max, sortPacks, page, pageCount, user_id: id,}
         });

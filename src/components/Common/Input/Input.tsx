@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import styled from "styled-components";
-import {useTypedDispatch} from "../../../Store-Reducers/Store";
+import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {ChangePackTC} from "../../../Thunk's/PacksThunk";
 
 type InputType = {
@@ -13,6 +13,7 @@ export const Input = ({setShowEditModal, _id}: InputType) => {
     const [value, setValue] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const dispatch = useTypedDispatch();
+    const myId = useAppSelector<string | null>(state => state.AuthorizationReducer._id);
 
     const maxLengthInput = 30;
 

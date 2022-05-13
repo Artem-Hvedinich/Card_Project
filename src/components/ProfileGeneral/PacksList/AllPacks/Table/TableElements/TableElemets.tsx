@@ -21,7 +21,7 @@ export const TableElemets = ({el, showEditModal, onEditClick, setShowEditModal}:
         <div className={s.elements_table_general_block}>
             <div className={s.li}>
                 {el._id === showEditModal
-                    ? <Input _id={el._id} setShowEditModal={setShowEditModal}/>
+                    ? <Input _id={el._id} setShowEditModal={setShowEditModal} />
                     : <span className={s.item}>{el.name}</span>
                 }
                 <span className={s.item}>{el.cardsCount}</span>
