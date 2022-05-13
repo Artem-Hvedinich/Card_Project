@@ -15,11 +15,9 @@ type SuperDoubleRangePropsType = DefaultInputPropsType & {
 
 export const DoubleRange = ({onChangeRangeMin, onChangeRangeMax, valueMin, valueMax,}: SuperDoubleRangePropsType) => {
 
-
     const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => {
         onChangeRangeMin && onChangeRangeMin(+e.currentTarget.value)
     }
-
     const onChangeCallbackMax = (e: ChangeEvent<HTMLInputElement>) => {
         onChangeRangeMax && onChangeRangeMax(+e.currentTarget.value)
     }
@@ -113,8 +111,9 @@ const Input = styled.input<{ value: number, bgCol: string, index: number }>`
   ::-webkit-slider-thumb {
     height: 0.7vw;
     width: 0.7vw;
+    border: 0.25vw solid ${colors.Blue};
     border-radius: 50%;
-    background: ${colors.DarkBlue};
+    background: ${colors.WhiteColor};
     pointer-events: auto;
     -webkit-appearance: none;
   }
