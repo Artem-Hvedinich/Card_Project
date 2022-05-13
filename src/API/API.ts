@@ -76,13 +76,15 @@ export const FileAPI = {
 }
 
 export const PackAPI = {
-    getPacks(pageCount?: number, page?: number, id?: string) {
-        return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {params: {pageCount: pageCount, page: page, user_id: id}});
+    getPacks(pageCount?: number, page?: number, id?: string, min?: number, max?: number, sortPacks?: any,) {
+        return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {
+            params: {min, max, sortPacks, page, pageCount, user_id: id,}
+        });
     },
     deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`);
     },
-    updatePack(cardsPack: {_id: string, name: string}) {
+    updatePack(cardsPack: { _id: string, name: string }) {
         return instance.put(`/cards/pack`, {cardsPack})
     },
     createPack(cardsPack: { name?: string, deckCover?: string, private?: boolean }) {
@@ -91,9 +93,14 @@ export const PackAPI = {
 }
 
 
-
 export const CardsAPI = {
     getCards(cardsPack_id: string, pageCount?: number, page?: number) {
-      return instance.get<RequestCardsType, {data: CardsResponseType}>(`/cards/card`, {params: {cardsPack_id, pageCount, page}});
+        return instance.get<RequestCardsType, { data: CardsResponseType }>(`/cards/card`, {
+            params: {
+                cardsPack_id,
+                pageCount,
+                page
+            }
+        });
     },
 }

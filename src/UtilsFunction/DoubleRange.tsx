@@ -6,21 +6,22 @@ type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElem
 
 
 type SuperDoubleRangePropsType = DefaultInputPropsType & {
-    onChangeRange?: (value: number) => void
-    onChangeRange2?: (value: number) => void
+    onChangeRangeMin?: (value: number) => void
+    onChangeRangeMax?: (value: number) => void
     valueMin: number
     valueMax: number
 
 }
 
-export const DoubleRange = ({onChangeRange, onChangeRange2, valueMin, valueMax,}: SuperDoubleRangePropsType) => {
+export const DoubleRange = ({onChangeRangeMin, onChangeRangeMax, valueMin, valueMax,}: SuperDoubleRangePropsType) => {
 
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        onChangeRange && onChangeRange(+e.currentTarget.value)
+
+    const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => {
+        onChangeRangeMin && onChangeRangeMin(+e.currentTarget.value)
     }
 
-    const onChangeCallback2 = (e: ChangeEvent<HTMLInputElement>) => {
-        onChangeRange2 && onChangeRange2(+e.currentTarget.value)
+    const onChangeCallbackMax = (e: ChangeEvent<HTMLInputElement>) => {
+        onChangeRangeMax && onChangeRangeMax(+e.currentTarget.value)
     }
 
     return (
@@ -39,7 +40,7 @@ export const DoubleRange = ({onChangeRange, onChangeRange2, valueMin, valueMax,}
                        bgCol={valueMin < valueMax ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
                        type={'range'}
                        id={'valueMax'}
-                       onChange={onChangeCallback2}
+                       onChange={onChangeCallbackMax}
                        value={valueMax}
                        min={'0'} max={'50'}
                 />
@@ -47,7 +48,7 @@ export const DoubleRange = ({onChangeRange, onChangeRange2, valueMin, valueMax,}
                        bgCol={valueMin > valueMax ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
                        id={'valueMin'}
                        type={'range'}
-                       onChange={onChangeCallback}
+                       onChange={onChangeCallbackMin}
                        min={'0'} max={'50'}
                        value={valueMin}
                 />

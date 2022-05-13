@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {PacksInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
@@ -12,50 +12,63 @@ import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
 import {DoubleRange} from "../../../UtilsFunction/DoubleRange";
+import {CardsMinMaxFilterTC, getAllPacksTC} from "../../../Thunk's/PacksThunk";
 
 export const PacksList = NotAuthRedirect(() => {
 
-    const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
-    const [valueMin, setValueMin] = useState(0);
-    const [valueMax, setValueMax] = useState(50);
-    const dispatch = useTypedDispatch();
+        const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
+        const myId = useAppSelector<string | null>(state => state.AuthorizationReducer._id);
+        const [valueMin, setValueMin] = useState(0);
+        const [valueMax, setValueMax] = useState(50);
 
-    const onClickHandler = (valueFilter: FilterCardsType) => {
-        dispatch(setChangeFilteredPageAC({valueFilter}))
-    };
+        useEffect(() => {
+            valueMin < valueMax ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax)) : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
+        }, [valueMin, valueMax])
 
-    const active = statePack.filter === "All";
+        const dispatch = useTypedDispatch();
+        const onClickHandler = (valueFilter: FilterCardsType) => {
+            if (valueFilter === 'My') {
+                dispatch(setChangeFilteredPageAC({valueFilter}))
+                myId && dispatch(getAllPacksTC(myId))
+            } else {
+                dispatch(setChangeFilteredPageAC({valueFilter}))
+                dispatch(getAllPacksTC())
+            }
+        };
 
-    return (
-        <GeneralProfileWrapper>
-            <ToolsProfileBlock>
-                <ShowPacks>
-                    <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
-                    <ButtonWrapper>
-                        <Button active={!active}
-                                onClick={() => onClickHandler("My")}>My
-                        </Button>
+        const active = statePack.filter === "All";
 
-                        <Button active={active}
-                                onClick={() => onClickHandler("All")}>All
-                        </Button>
-                    </ButtonWrapper>
-                </ShowPacks>
+        return (
+            <GeneralProfileWrapper>
+                <ToolsProfileBlock>
+                    <ShowPacks>
+                        <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
+                        <ButtonWrapper>
+                            <Button active={!active}
+                                    onClick={() => onClickHandler("My")}>My
+                            </Button>
 
-                <NumberCards>
-                    <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                    <DoubleRange onChangeRange={setValueMin}
-                                 onChangeRange2={setValueMax}
-                                 valueMin={valueMin}
-                                 valueMax={valueMax}/>
-                </NumberCards>
-            </ToolsProfileBlock>
+                            <Button active={active}
+                                    onClick={() => onClickHandler("All")}>All
+                            </Button>
+                        </ButtonWrapper>
+                    </ShowPacks>
 
-            <AllPacks packsArray={statePack.data.cardPacks} namePage={"Packs List"}/>
+                    <NumberCards>
+                        <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
+                        <DoubleRange onChangeRangeMin={setValueMin}
+                                     onChangeRangeMax={setValueMax}
+                                     valueMin={valueMin}
+                                     valueMax={valueMax}/>
+                    </NumberCards>
+                </ToolsProfileBlock>
 
-        </GeneralProfileWrapper>
-    )
-});
+                <AllPacks packsArray={statePack.data.cardPacks} namePage={"Packs List"}/>
+
+            </GeneralProfileWrapper>
+        )
+    })
+;
 
 const ShowPacks = styled.div`
   display: flex;

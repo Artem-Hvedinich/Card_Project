@@ -20,8 +20,7 @@ export const ChangePackTC = (packId: string, namePack: string): AppThunkType => 
             dispatch(setFetchingPacksTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Packs name is changed"}));
         }
-    }
-    catch (error) {
+    } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
             dispatch(setFetchingPacksTableAC({isFetching: false}));
@@ -38,8 +37,7 @@ export const detelePackTC = (id: string): AppThunkType => async dispatch => {
             dispatch(setFetchingPacksTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Pack is deleted"}));
         }
-    }
-    catch (error) {
+    } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
             dispatch(setFetchingPacksTableAC({isFetching: false}));
@@ -56,8 +54,7 @@ export const createPackTC = (name: string): AppThunkType => async dispatch => {
             dispatch(setFetchingPacksTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Pack is added"}));
         }
-    }
-    catch (error) {
+    } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
             dispatch(setFetchingPacksTableAC({isFetching: false}));
@@ -65,10 +62,25 @@ export const createPackTC = (name: string): AppThunkType => async dispatch => {
     }
 }
 
+export const CardsMinMaxFilterTC = (min: number, max: number): AppThunkType => async dispatch => {
+    dispatch(setFetchingPacksTableAC({isFetching: true}));
+    try {
+        const response = await PackAPI.getPacks(undefined, undefined, undefined, min, max);
+        if (response) {
+            dispatch(getAllPacksTC());
+            dispatch(setFetchingPacksTableAC({isFetching: false}));
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            handleServerNetworkError(error.response.data.error, dispatch);
+            dispatch(setFetchingPacksTableAC({isFetching: false}));
+        }
+    }
+}
 
 export const getAllPacksTC = (id?: string): AppThunkType => async dispatch => {
 
-        dispatch(setFetchingPacksTableAC({isFetching: true}));
+    dispatch(setFetchingPacksTableAC({isFetching: true}));
 
     try {
         let pageCount = 10;
@@ -88,7 +100,7 @@ export const getAllPacksTC = (id?: string): AppThunkType => async dispatch => {
 
 export const getOnePagePacksTC = (numberPage: number): AppThunkType => async dispatch => {
 
-        dispatch(setFetchingPacksTableAC({isFetching: true}));
+    dispatch(setFetchingPacksTableAC({isFetching: true}));
     try {
         let pageCount = 10;
         const response = await PackAPI.getPacks(pageCount, numberPage);
