@@ -53,7 +53,7 @@ export const PacksList = NotAuthRedirect(() => {
 
                     <NumberCards>
                         <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                        <DoubleRange/>
+                        {/*<DoubleRange/>*/}
                     </NumberCards>
                 </ToolsProfileBlock>
 
