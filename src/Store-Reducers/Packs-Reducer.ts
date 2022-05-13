@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {FilterCardsType, ResponsePacksType} from "../Types/PacksTypes";
+import {FilterCardsType, OnePacksType, ResponsePacksType} from "../Types/PacksTypes";
 
 export type PacksInitialStateType = {
     data: ResponsePacksType
@@ -10,7 +10,7 @@ export type PacksInitialStateType = {
 
 const initialPacksState: PacksInitialStateType = {
     data: {
-        cardPacks: [],
+        cardPacks: [] as OnePacksType[],
         cardPacksTotalCount: 0,
         maxCardsCount: 0,
         minCardsCount: 0,

@@ -31,7 +31,7 @@ export const TableElemets = ({el, showEditModal, onEditClick, setShowEditModal}:
                 }
                 <span className={s.item}>{el.cardsCount}</span>
                 <span className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
-                <span className={s.item}>Some Long Name</span>
+                <span className={s.item}>{el.user_name}</span>
                 <span className={s.item}>
                                 <ActiveButtonsTable id={el._id}
                                                     myId={stateAuth._id}

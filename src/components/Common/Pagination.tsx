@@ -33,7 +33,7 @@ export const Pagination = ({totalItemsCount, pageSize, onPageChanged, portionSiz
                 <Arrow rotate={'-45'} onClick={() => setPortionNumber(portionNumber + 1)}/>}
         </NumbersWrapper>
     )
-}
+};
 
 const NumbersWrapper = styled.div`
   display: flex;
