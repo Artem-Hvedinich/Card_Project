@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
 import {DoubleRange} from "../../../UtilsFunction/DoubleRange";
-import {CardsMinMaxFilterTC, getAllPacksTC} from "../../../Thunk's/PacksThunk";
+import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 
 export const PacksList = NotAuthRedirect(() => {
 

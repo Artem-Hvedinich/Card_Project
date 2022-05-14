@@ -33,6 +33,15 @@ export type OnePacksType = {
     cardsCount: number
     created: string
     updated: string
+    grade: number
+    more_id: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    user_name: string
+    __v: number
 }
 
 type ResponseCardsType = {
