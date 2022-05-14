@@ -1,14 +1,21 @@
-export type FilterCardsType = "All" | "My";
+import {isNum} from "react-toastify/dist/utils";
 
-export type PacksReqestType = {
+export type FilterPacksType = "All" | "My";
+
+export type ParamsPacksType = {
     packName: string
     min: number
     max: number
-    sortPacks : string
+    sortPacks: '0updated' | '1updated',
     page: number
     pageCount: number
-    user_id: string
-}
+    user_id: string,
+};
+
+export type UpdatePackType = {
+    namePack: string
+    private: boolean
+};
 
 export type PacksType = {
     key: string,

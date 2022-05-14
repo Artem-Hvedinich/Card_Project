@@ -1,7 +1,14 @@
 import React, {useState} from 'react';
 import {
-    ButtonCancel, ButtonSave, ButtonsBlock, Modal,
-    ModalTextWrapper, ModalWindow, ModalWrapper, ModalWrapperClear, WrapperText, WrapperTextAndClose
+    ButtonCancel,
+    ButtonSave,
+    ButtonsBlock,
+    Modal,
+    ModalTextWrapper,
+    ModalWindow,
+    ModalWrapperClear,
+    WrapperText,
+    WrapperTextAndClose
 } from '../../StylesComponents/ModalWrappers';
 import {useAppSelector} from "../../../Store-Reducers/Store";
 import {useNavigate} from "react-router-dom";
@@ -11,7 +18,7 @@ import {OnePacksType} from "../../../Types/PacksTypes";
 export const LearnPackModal = () => {
 
     const [showAnswer, setShowAnswer] = useState<boolean>(false);
-    const pack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.data.cardPacks);
+    const pack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs);
     const packId = document.location.hash.slice(13);
     const navigate = useNavigate();
 
@@ -27,7 +34,6 @@ export const LearnPackModal = () => {
                 <Modal>
                     <WrapperTextAndClose style={{display: "flex", justifyContent: "center"}}>
                         <ModalTextWrapper>Learn "{`${namePack}`}"</ModalTextWrapper>
-                        {/*<Close onClick={closeModalClick}/>*/}
                     </WrapperTextAndClose>
 
                     <WrapperText>

@@ -3,11 +3,15 @@ import styled from "styled-components";
 import {colors} from "../StylesComponents/Colors";
 import {Arrow} from "../../UtilsFunction/Arrow";
 
-
-export const Pagination = ({totalItemsCount, pageSize, onPageChanged, portionSize, currentPage}: {
-    totalItemsCount: number, pageSize: number, portionSize: number, currentPage: number
+type PaginationType = {
+    totalItemsCount: number
+    pageSize: number
+    portionSize: number
+    currentPage: number
     onPageChanged: (pageNumber: number) => void
-}) => {
+};
+
+export const Pagination = ({totalItemsCount, pageSize, onPageChanged, portionSize, currentPage}: PaginationType) => {
 
     const pagesCount = Math.ceil(totalItemsCount / pageSize)
     const pages = []

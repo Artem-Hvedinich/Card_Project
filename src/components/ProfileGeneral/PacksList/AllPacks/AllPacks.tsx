@@ -1,60 +1,42 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
-import {PacksInitialStateType} from "../../../../Store-Reducers/Packs-Reducer";
 import {CardTable} from "./Table/Table";
 import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/ProfileAndPacksWrapper';
 import styled from "styled-components";
 import {colors} from "../../../StylesComponents/Colors";
 import {Pagination} from "../../../Common/Pagination";
-import {getAllPacksTC, getOnePagePacksTC, SearchPackTC} from '../../../../Thunk\'s/PacksThunk';
 import {AddPackModal} from "../../../ModalWindow/AddPackModal/AddPackModal";
-import {OnePacksType} from "../../../../Types/PacksTypes";
-import { InputWrapper, PaginationBlock, SearchBlock } from '../../../StylesComponents/CardsWrapper';
+import {InputWrapper, PaginationBlock, SearchBlock} from '../../../StylesComponents/CardsWrapper';
+import {
+    getOnePagePacksAC,
+    searchPacksTableAC,
+    PacksInitialStateType
+} from "../../../../Store-Reducers/Packs-Reducer";
+import {getAllPacksTC} from "../../../../Thunk's/PacksThunk";
 
 type AllPacksType = {
-    myId?: string
-    packsArray: OnePacksType[];
     namePage: string
 }
 
-export const AllPacks = ({namePage, packsArray, myId}: AllPacksType) => {
+export const AllPacks = ({namePage}: AllPacksType) => {
 
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const [value, setValue] = useState<string>("");
-    const [error, setError] = useState<string | null>(null);
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
-    const [showEditModal, setShowEditModal] = useState<string>('');
     const dispatch = useTypedDispatch();
 
-    useEffect(() => {
-        dispatch(getAllPacksTC(myId));
-    }, []);
-
-    let pageCount = 10;
-
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (error && error.trim() !== '') setError(null)
         if (e.ctrlKey || e.key === "Enter") {
-            dispatch(SearchPackTC(value));
-        } else {
-            setError('Error value')
+            dispatch(searchPacksTableAC({packName: value}));
         }
     };
 
-    const onChangeSearchHandler = (text: ChangeEvent<HTMLInputElement>) => {
-        setError(null)
-        setValue(text.currentTarget.value);
-    }
+    const onChangeSearchHandler = (text: ChangeEvent<HTMLInputElement>) => setValue(text.currentTarget.value);
     const addPackHandler = () => setShowAddModal(true);
-    const editPackHandler = (id: string) => {
-        if (showEditModal.length === 0 ) {
-            setShowEditModal(id);
-        } else {
-            setShowEditModal('');
-        }
-    }
-
-    const onPageChanged = (numberPage: number) => dispatch(getOnePagePacksTC(numberPage));
+    const onPageChanged = (page: number) => {
+        dispatch(getOnePagePacksAC({page}));
+        dispatch(getAllPacksTC());
+    };
 
     return (
         <ProfileWrapper>
@@ -74,18 +56,14 @@ export const AllPacks = ({namePage, packsArray, myId}: AllPacksType) => {
                 <ButtonAddNewPack onClick={addPackHandler}>Add new pack</ButtonAddNewPack>
             </SearchBlock>
 
-            <CardTable itemPack={packsArray}
-                       showEditModal={showEditModal}
-                       setShowEditModal={setShowEditModal}
-                       onEditClick={editPackHandler}
-                       isFetching={statePack.isFetching}/>
+            <CardTable itemPack={statePack.packs} isFetching={statePack.isFetching}/>
 
             <PaginationBlock>
-                <Pagination portionSize={pageCount}
-                            totalItemsCount={statePack.data.cardPacksTotalCount}
-                            pageSize={statePack.data.pageCount}
+                <Pagination portionSize={10}
+                            totalItemsCount={statePack.cardPacksTotalCount}
+                            pageSize={statePack.params.pageCount}
                             onPageChanged={onPageChanged}
-                            currentPage={statePack.data.page}/>
+                            currentPage={statePack.params.page}/>
             </PaginationBlock>
         </ProfileWrapper>
     );

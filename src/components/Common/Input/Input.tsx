@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import styled from "styled-components";
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {ChangePackTC} from "../../../Thunk's/PacksThunk";
+import {updatePackTC} from "../../../Thunk's/PacksThunk";
 
 type InputType = {
     _id: string
@@ -21,7 +21,7 @@ export const Input = ({setShowEditModal, _id}: InputType) => {
         if (error && error.trim() !== '') setError(null)
         if (e.ctrlKey || e.key === "Enter") {
             setShowEditModal('');
-            dispatch(ChangePackTC(_id, value));
+            dispatch(updatePackTC(_id, value));
         } else {
             setError('Error value')
         }

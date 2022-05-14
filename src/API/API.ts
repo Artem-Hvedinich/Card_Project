@@ -8,7 +8,7 @@ import {
     ForgotPasswordDataType,
     NewPasswordDataType, NewNameAndAvatarType, ResponseUpdateDataType
 } from "../Types/AuthTypes";
-import {CreatePackType, PacksReqestType, ResponsePacksType} from "../Types/PacksTypes";
+import {CreatePackType, ParamsPacksType, ResponsePacksType} from "../Types/PacksTypes";
 import {CardsResponseType, RequestCardsType} from "../Types/CardTypes";
 
 export const instance = axios.create({
@@ -76,15 +76,13 @@ export const FileAPI = {
 }
 
 export const PackAPI = {
-    getPacks(pageCount?: number, page?: number, id?: string|null, min?: number, max?: number, sortPacks?: any, packName?: string) {
-        return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {
-            params: {min, max, sortPacks, page, pageCount, user_id: id, packName}
-        });
+    getPacks(params: ParamsPacksType) {
+        return instance.get<ResponsePacksType>('/cards/pack', {params});
     },
     deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`);
     },
-    updatePack(cardsPack: { _id: string, name: string }) {
+    updatePack(cardsPack: { _id: string, name: string}) {
         return instance.put(`/cards/pack`, {cardsPack})
     },
     createPack(cardsPack: { name?: string, deckCover?: string, private?: boolean }) {
