@@ -56,10 +56,7 @@ export const PacksList = NotAuthRedirect(() => {
 
                     <NumberCards>
                         <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                        <DoubleRange onChangeRangeMin={setValueMin}
-                                     onChangeRangeMax={setValueMax}
-                                     valueMin={valueMin}
-                                     valueMax={valueMax}/>
+                        <DoubleRange />
                     </NumberCards>
                 </ToolsProfileBlock>
 
