@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {PacksInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
@@ -18,11 +18,14 @@ export const PacksList = NotAuthRedirect(() => {
 
         const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
         const myId = useAppSelector<string | null>(state => state.AuthorizationReducer._id);
+        const [valueMin, setValueMin] = useState(0);
+        const [valueMax, setValueMax] = useState(50);
 
+        useEffect(() => {
+            // valueMin < valueMax ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax)) : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
+        }, [valueMin, valueMax])
 
         const dispatch = useTypedDispatch();
-
-
         const onClickHandler = (valueFilter: FilterCardsType) => {
             if (valueFilter === 'My') {
                 dispatch(setChangeFilteredPageAC({valueFilter}))
@@ -53,7 +56,7 @@ export const PacksList = NotAuthRedirect(() => {
 
                     <NumberCards>
                         <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                        {/*<DoubleRange/>*/}
+                        <DoubleRange />
                     </NumberCards>
                 </ToolsProfileBlock>
 
