@@ -89,3 +89,8 @@ export type RequestUpdatePackType = {
     name: string
     private: boolean
 }
+
+export type FormikErrorType = {
+    namePack?: string;
+    private?: boolean
+};

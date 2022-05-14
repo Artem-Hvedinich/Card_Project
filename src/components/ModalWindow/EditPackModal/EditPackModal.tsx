@@ -4,22 +4,18 @@ import {
     ModalTextWrapper, ModalWindow, ModalWrapper, WrapperTextAndClose
 } from '../../StylesComponents/ModalWrappers';
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
-import {OnePacksType} from "../../../Types/PacksTypes";
+import {FormikErrorType, OnePacksType} from "../../../Types/PacksTypes";
 import {FormWrapper, RememberMeWrapper, TextAuthWrapper} from "../../StylesComponents/AuthCardWrapper";
 import {colors} from "../../StylesComponents/Colors";
 import {StyledCheckBox} from '../../LoginAndRegistration/Login/Login';
 import {useFormik} from "formik";
 import {updatePackTC} from "../../../Thunk's/PacksThunk";
+import styled from "styled-components";
 
 type EditPackModalType = {
     el: OnePacksType
     setShow: (show: boolean) => void
 }
-
-type FormikErrorType = {
-    namePack?: string;
-    private?: boolean
-};
 
 export const EditPackModal = ({el, setShow}: EditPackModalType) => {
 
@@ -38,49 +34,49 @@ export const EditPackModal = ({el, setShow}: EditPackModalType) => {
             return errors;
         },
         onSubmit: (values) => {
-            loginForm.resetForm();
-            dispatch(updatePackTC(el._id, values ));
+            dispatch(updatePackTC(el._id, values));
             setShow(false);
         },
     });
 
     useEffect(() => {
         loginForm.setFieldValue('namePack', el.name);
-    },[]);
+    }, []);
 
     return (
         <ModalWrapper>
             <ModalWindow>
                 <FormWrapper onSubmit={loginForm.handleSubmit}>
                     <Modal>
-                        <WrapperTextAndClose style={{display: "flex", justifyContent: "center"}}>
+                        <WrapperTextAndClose>
                             <ModalTextWrapper>Edit pack</ModalTextWrapper>
                             <Close onClick={closeModalClick}/>
                         </WrapperTextAndClose>
 
                         <InputWrapper>
-                            <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>New pack
-                                name</TextAuthWrapper>
                             <Input maxLength={maxLengthInput}
                                    type="text"
                                    id="namePack"
                                    placeholder={"New pack name"}
                                    {...loginForm.getFieldProps("namePack")}
                             />
-                            <RememberMeWrapper>
-                                <StyledCheckBox type={"checkbox"}
-                                                id="private"
-                                                {...loginForm.getFieldProps("private")}
-                                />
-                                <TextAuthWrapper fontSz={13} opacity={1} color={colors.DarkBlue}> Remember me</TextAuthWrapper>
-                            </RememberMeWrapper>
                         </InputWrapper>
+                        <RememberMeWrapper margin={20}>
+                            <StyledCheckBox width={30} height={30}
+                                            type={"checkbox"}
+                                            id="private"
+                                            {...loginForm.getFieldProps("private")}
+                            />
+                            <TextAuthWrapper fontSz={17} opacity={1}
+                                             color={colors.DarkBlue}>Private</TextAuthWrapper>
+                        </RememberMeWrapper>
 
                         <ButtonsBlock>
                             <ButtonCancel onClick={closeModalClick}>
                                 Cancel
                             </ButtonCancel>
-                            <ButtonSave type="submit" disabled={!(loginForm.isValid && loginForm.dirty) || el.name === loginForm.values.namePack}>
+                            <ButtonSave type="submit"
+                                        disabled={!(loginForm.isValid && loginForm.dirty) || el.name === loginForm.values.namePack}>
                                 Save change
                             </ButtonSave>
                         </ButtonsBlock>

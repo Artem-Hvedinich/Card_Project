@@ -24,7 +24,7 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                 ? <LoadingTable/>
                 : <div className={s.table}>
                     <div className={s.item_columns}>
-                        <div className={s.item}>
+                        <div className={s.item_col_bg}>
                             {TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)}
                         </div>
                     </div>

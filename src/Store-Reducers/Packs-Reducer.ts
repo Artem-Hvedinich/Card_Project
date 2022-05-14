@@ -15,7 +15,7 @@ const initialPacksState: PacksInitialStateType = {
     packs: [] as OnePacksType[],
     minCardsCount: 0,
     maxCardsCount: 103,
-    packsType: 'All' as FilterPacksType,
+    packsType: 'My' as FilterPacksType,
     params: {
         packName: '',
         min: 0,

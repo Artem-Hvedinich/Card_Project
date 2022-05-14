@@ -68,13 +68,14 @@ export const detelePackTC = (id: string): AppThunkType =>
         }
     };
 
-export const createPackTC = (name: string): AppThunkType =>
+export const createPackTC = (values: {namePack: string, private: boolean}): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
         dispatch(setFetchingPacksTableAC({isFetching: true}));
 
         try {
-            const response = await PackAPI.createPack({name});
+            let cardsPack = {name: values.namePack, private: values.private};
+            const response = await PackAPI.createPack(cardsPack);
             if (response) {
                 FilterAllMyFunction(dispatch, getState);
                 dispatch(setFetchingPacksTableAC({isFetching: false}));
