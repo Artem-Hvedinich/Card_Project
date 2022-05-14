@@ -21,7 +21,7 @@ import {NotAuthRedirect} from "../../UtilsFunction/RedirectFunction";
 import styled from 'styled-components';
 import {Pagination} from "../Common/Pagination";
 import {LoadingTable} from "../Common/Loading/LoadingTable";
-import {ResponsePacksType} from "../../Types/PacksTypes";
+import {PacksInitialStateType} from "../../Store-Reducers/Packs-Reducer";
 
 const TableList = [
     {id: 1, name: "Question"},
@@ -37,7 +37,7 @@ export const CardsPage = NotAuthRedirect(() => {
     const [valueAnswer, setValueAnswer] = useState<string>('');
     const [errorAnswer, setErrorAnswer] = useState<string | null>(null);
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
-    const statePacks = useAppSelector<ResponsePacksType>(state => state.PacksReducer.data);
+    const {packs} = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
 
     const dispatch = useTypedDispatch();
     const navigate = useNavigate();
@@ -81,7 +81,7 @@ export const CardsPage = NotAuthRedirect(() => {
                 <NamePackBlock>
                     <Arrow onClick={onArrowClick}/>
                     <TitleProfileWrapper
-                        fontSz={1.5}>{statePacks.cardPacks.filter(el => el._id === packId ? el : null)[0].name}</TitleProfileWrapper>
+                        fontSz={1.5}>{packs.filter(el => el._id === packId ? el : null)[0].name}</TitleProfileWrapper>
                 </NamePackBlock>
 
                 <SearchBlock>

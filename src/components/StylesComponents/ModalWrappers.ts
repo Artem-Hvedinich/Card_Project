@@ -137,6 +137,7 @@ export const ButtonSave = styled.button<{width?: string}>`
   transition: all 1s;
 
   &:disabled {
+    cursor: no-drop;
     opacity: 0.5;
   }
 

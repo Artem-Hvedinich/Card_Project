@@ -1,74 +1,71 @@
 import React, {ChangeEvent, useEffect, useState} from 'react'
 import styled from "styled-components";
-import {colors} from "../components/StylesComponents/Colors";
-import {CardsMinMaxFilterTC} from "../Thunk's/PacksThunk";
-import {useAppSelector, useTypedDispatch} from "../Store-Reducers/Store";
-import {ResponsePacksType} from "../Types/PacksTypes";
-import useDebounce from "./Hook/useDebounce";
+import {colors} from "../StylesComponents/Colors";
+import {useAppSelector, useTypedDispatch} from "../../Store-Reducers/Store";
+import useDebounce from "../../UtilsFunction/Hook/useDebounce";
+import {PacksInitialStateType, setMinCardsFilterAC} from "../../Store-Reducers/Packs-Reducer";
 
 export const DoubleRange = () => {
 
-    const data = useAppSelector<ResponsePacksType>(state => state.PacksReducer.data);
+    const state = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
 
-    const [valueMin, setValueMin] = useState(data.minCardsCount);
-    const [valueMax, setValueMax] = useState(data.maxCardsCount);
+    const [min, setMin] = useState(state.minCardsCount);
+    const [max, setMax] = useState(state.maxCardsCount);
+    const dispatch = useTypedDispatch();
 
-    const valueMinDeb = useDebounce(valueMin, 1500)
-    const valueMaxDeb = useDebounce(valueMax, 1500)
+    const valueMinDeb = useDebounce(min, 1500);
+    const valueMaxDeb = useDebounce(max, 1500);
 
     useEffect(() => {
         console.log('Effect')
         if (valueMinDeb) {
-            valueMin < valueMax ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax))
-                : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
+            min < max
+                ? dispatch(setMinCardsFilterAC({min, max}))
+                : dispatch(setMinCardsFilterAC({max, min}))
         }
         if (valueMaxDeb) {
-            valueMin < valueMax ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax))
-                : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
+            min < max
+                ? dispatch(setMinCardsFilterAC({min, max}))
+                : dispatch(setMinCardsFilterAC({max, min}))
         }
     }, [valueMinDeb,valueMaxDeb])
 
     useEffect(() => {
-        setValueMin(data.minCardsCount)
-        setValueMax(data.maxCardsCount)
-    }, [data.minCardsCount, data.maxCardsCount])
+        setMin(state.minCardsCount)
+        setMax(state.maxCardsCount)
+    }, [state.minCardsCount, state.maxCardsCount]);
 
-    const dispatch = useTypedDispatch();
+    const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => setMin(+e.currentTarget.value);
+    const onChangeCallbackMax = (e: ChangeEvent<HTMLInputElement>) => setMax(+e.currentTarget.value);
 
-    const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => {
-        setValueMin(+e.currentTarget.value)
-    }
-    const onChangeCallbackMax = (e: ChangeEvent<HTMLInputElement>) => {
-        setValueMax(+e.currentTarget.value)
-    }
 
     return (
         <DoubleRangeWrapper>
             <NumberValue>
-                <ValueWrapper value={valueMin} count={-2}>
-                    <Value>{valueMin}</Value>
+                <ValueWrapper value={min} count={-2}>
+                    <Value>{min}</Value>
                 </ValueWrapper>
-                <ValueWrapper value={valueMax} count={-7}>
-                    <Value>{valueMax}</Value>
+                <ValueWrapper value={max} count={-7}>
+                    <Value>{max}</Value>
                 </ValueWrapper>
             </NumberValue>
             <Slider/>
             <RangeInput>
-                <Input index={valueMin < valueMax ? 1 : 2}
-                       bgCol={valueMin < valueMax ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
+                <Input index={min < max ? 1 : 2}
+                       bgCol={min < max ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
                        type={'range'}
                        id={'valueMax'}
                        onChange={onChangeCallbackMax}
-                       value={valueMax}
-                       min={'0'} max={valueMax}
+                       value={max}
+                       min={'0'} max={max}
                 />
-                <Input index={valueMin > valueMax ? 1 : 2}
-                       bgCol={valueMin > valueMax ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
+                <Input index={min > max ? 1 : 2}
+                       bgCol={min > max ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
                        id={'valueMin'}
                        type={'range'}
                        onChange={onChangeCallbackMin}
-                       min={'0'} max={valueMax}
-                       value={valueMin}
+                       min={'0'} max={max}
+                       value={min}
                 />
             </RangeInput>
         </DoubleRangeWrapper>

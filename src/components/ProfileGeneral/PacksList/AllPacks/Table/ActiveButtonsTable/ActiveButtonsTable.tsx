@@ -3,41 +3,47 @@ import styled from "styled-components";
 import {DeletePackModal} from "../../../../../ModalWindow/DeletePackModal/DeletePackModal";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../../../../../UtilsFunction/const-enum-path";
+import { EditPackModal } from '../../../../../ModalWindow/EditPackModal/EditPackModal';
+import {OnePacksType} from "../../../../../../Types/PacksTypes";
 
 type ActiveButtonsTableType = {
+    el: OnePacksType
     myId: string | null
-    userId: string
-    id: string
-    onEditClick: (id: string) => void
 }
 
-export const ActiveButtonsTable = ({myId, onEditClick, id, userId}: ActiveButtonsTableType) => {
+export const ActiveButtonsTable = ({myId, el}: ActiveButtonsTableType) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const deletePackHandler = () => setShowDeleteModal(true);
+    const editPackHandler = () => setShowEditModal(true);
     const onLearnClick = (id: string) => navigate(PATH.learnPack + `/:${id}`);
 
     return (
         <>
             {showDeleteModal
-                ? <DeletePackModal id={id} setShow={setShowDeleteModal}/>
+                ? <DeletePackModal id={el._id} setShow={setShowDeleteModal}/>
                 : <></>
             }
-            {myId === userId
+            {showEditModal
+                ? <EditPackModal el={el} setShow={setShowEditModal}/>
+                : <></>
+            }
+            {myId === el.user_id
                 ? <>
                     <DeleteTableButton onClick={deletePackHandler}>
                         Delete
                     </DeleteTableButton>
-                    <TableButton onClick={() => onEditClick(id)}>
+                    <TableButton onClick={editPackHandler}>
                         Edit
                     </TableButton>
-                    <TableButton onClick={() => onLearnClick(id)}>
+                    <TableButton onClick={() => onLearnClick(el._id)}>
                         Learn
                     </TableButton>
                 </>
-                : <TableButton onClick={() => onLearnClick(id)}>
+                : <TableButton onClick={() => onLearnClick(el._id)}>
                     Learn
                 </TableButton>
             }

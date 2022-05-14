@@ -20,7 +20,7 @@ type DeletePackModalType = {
 
 export const DeletePackModal = ({setShow, id}: DeletePackModalType) => {
 
-    const statePack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.data.cardPacks)
+    const statePack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs)
     const dispatch = useTypedDispatch();
 
     const closeModalClick = () => setShow(false);
