@@ -66,8 +66,7 @@ export const PacksList = NotAuthRedirect(() => {
 
             </GeneralProfileWrapper>
         )
-    })
-;
+    });
 
 const ShowPacks = styled.div`
   display: flex;
