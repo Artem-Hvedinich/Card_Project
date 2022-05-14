@@ -23,6 +23,7 @@ export const PacksList = NotAuthRedirect(() => {
 
         useEffect(() => {
             dispatch(setUserIdAC({userId: ""}));
+            dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
             dispatch(getAllPacksTC());
         }, []);
 

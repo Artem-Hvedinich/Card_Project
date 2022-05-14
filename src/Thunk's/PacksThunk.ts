@@ -27,13 +27,14 @@ export const getAllPacksTC = (): AppThunkType =>
         }
     };
 
-export const updatePackTC = (packId: string, namePack: string): AppThunkType =>
+export const updatePackTC = (packId: string, values: {namePack: string, private: boolean}): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
         dispatch(setFetchingPacksTableAC({isFetching: true}));
 
         try {
-            const {data} = await PackAPI.updatePack({_id: packId, name: namePack});
+            let cardsPack = {_id: packId, name: values.namePack, private: values.private};
+            const {data} = await PackAPI.updatePack(cardsPack);
             if (data) {
                 FilterAllMyFunction(dispatch, getState);
                 dispatch(setFetchingPacksTableAC({isFetching: false}));
@@ -67,13 +68,14 @@ export const detelePackTC = (id: string): AppThunkType =>
         }
     };
 
-export const createPackTC = (name: string): AppThunkType =>
+export const createPackTC = (values: {namePack: string, private: boolean}): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
         dispatch(setFetchingPacksTableAC({isFetching: true}));
 
         try {
-            const response = await PackAPI.createPack({name});
+            let cardsPack = {name: values.namePack, private: values.private};
+            const response = await PackAPI.createPack(cardsPack);
             if (response) {
                 FilterAllMyFunction(dispatch, getState);
                 dispatch(setFetchingPacksTableAC({isFetching: false}));

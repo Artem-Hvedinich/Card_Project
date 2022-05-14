@@ -83,3 +83,14 @@ export type ResponsePacksType = {
     token: string
     tokenDeathTime: number
 }
+
+export type RequestUpdatePackType = {
+    _id: string
+    name: string
+    private: boolean
+}
+
+export type FormikErrorType = {
+    namePack?: string;
+    private?: boolean
+};
