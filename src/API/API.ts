@@ -82,7 +82,7 @@ export const PackAPI = {
     deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`);
     },
-    updatePack(cardsPack: { _id: string, name: string}) {
+    updatePack(cardsPack: { _id: string, name: string, private: boolean}) {
         return instance.put(`/cards/pack`, {cardsPack})
     },
     createPack(cardsPack: { name?: string, deckCover?: string, private?: boolean }) {

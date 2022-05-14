@@ -17,35 +17,35 @@ type EditPackModalType = {
 }
 
 type FormikErrorType = {
-    name?: string;
+    namePack?: string;
     private?: boolean
 };
 
 export const EditPackModal = ({el, setShow}: EditPackModalType) => {
 
     const dispatch = useTypedDispatch();
-
     const maxLengthInput = 30;
+
     const closeModalClick = () => setShow(false);
 
     const loginForm = useFormik({
-        initialValues: {name: '', private: false},
+        initialValues: {namePack: '', private: false},
         validate: (values: FormikErrorType) => {
             const errors: FormikErrorType = {};
-            if (!values.name) {
-                errors.name = "Field is required";
+            if (!values.namePack) {
+                errors.namePack = "Field is required";
             }
             return errors;
         },
-        onSubmit: ({name}) => {
+        onSubmit: (values) => {
             loginForm.resetForm();
-            dispatch(updatePackTC(el._id, name));
+            dispatch(updatePackTC(el._id, values ));
             setShow(false);
         },
     });
 
     useEffect(() => {
-        loginForm.setFieldValue('name', el.name);
+        loginForm.setFieldValue('namePack', el.name);
     },[]);
 
     return (
@@ -63,9 +63,9 @@ export const EditPackModal = ({el, setShow}: EditPackModalType) => {
                                 name</TextAuthWrapper>
                             <Input maxLength={maxLengthInput}
                                    type="text"
-                                   id="name"
+                                   id="namePack"
                                    placeholder={"New pack name"}
-                                   {...loginForm.getFieldProps("name")}
+                                   {...loginForm.getFieldProps("namePack")}
                             />
                             <RememberMeWrapper>
                                 <StyledCheckBox type={"checkbox"}
@@ -80,7 +80,7 @@ export const EditPackModal = ({el, setShow}: EditPackModalType) => {
                             <ButtonCancel onClick={closeModalClick}>
                                 Cancel
                             </ButtonCancel>
-                            <ButtonSave type="submit" disabled={!(loginForm.isValid && loginForm.dirty)}>
+                            <ButtonSave type="submit" disabled={!(loginForm.isValid && loginForm.dirty) || el.name === loginForm.values.namePack}>
                                 Save change
                             </ButtonSave>
                         </ButtonsBlock>

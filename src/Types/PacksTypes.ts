@@ -83,3 +83,9 @@ export type ResponsePacksType = {
     token: string
     tokenDeathTime: number
 }
+
+export type RequestUpdatePackType = {
+    _id: string
+    name: string
+    private: boolean
+}
