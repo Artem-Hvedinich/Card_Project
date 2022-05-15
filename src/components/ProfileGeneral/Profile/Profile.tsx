@@ -24,9 +24,9 @@ export const Profile = NotAuthRedirect(() => {
     useEffect(() => {
         if (meAuth._id) {
             dispatch(setUserIdAC({userId: meAuth._id}));
-            dispatch(getAllPacksTC());
         }
-    }, [])
+        dispatch(getAllPacksTC());
+    }, []);
 
     return (
         <>

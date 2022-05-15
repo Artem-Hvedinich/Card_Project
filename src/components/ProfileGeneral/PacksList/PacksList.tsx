@@ -24,17 +24,17 @@ export const PacksList = NotAuthRedirect(() => {
         useEffect(() => {
             dispatch(setUserIdAC({userId: ""}));
             dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
-            dispatch(getAllPacksTC());
         }, []);
+        useEffect(() => {
+            dispatch(getAllPacksTC());
+        }, [statePack.params.user_id, statePack.packsType]);
 
         const onClickHandler = (valueFilter: FilterPacksType) => {
             dispatch(setChangeFilteredPageAC({valueFilter}));
             if (valueFilter === 'My' && _id) {
                 dispatch(setUserIdAC({userId: _id}));
-                dispatch(getAllPacksTC());
             } else {
                 dispatch(setUserIdAC({userId: ""}));
-                dispatch(getAllPacksTC());
             }
         };
 
