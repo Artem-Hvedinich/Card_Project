@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
 import {CardTable} from "./Table/Table";
 import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/ProfileAndPacksWrapper';
@@ -10,9 +10,11 @@ import {InputWrapper, PaginationBlock, SearchBlock} from '../../../StylesCompone
 import {
     getOnePagePacksAC,
     searchPacksTableAC,
-    PacksInitialStateType
+    PacksInitialStateType, setTitleForSearchAC
 } from "../../../../Store-Reducers/Packs-Reducer";
 import {getAllPacksTC} from "../../../../Thunk's/PacksThunk";
+import useDebounce from "../../../../UtilsFunction/Hook/useDebounce";
+import {SearchField} from "../../../StylesComponents/SearchInput";
 
 type AllPacksType = {
     namePage: string
@@ -21,20 +23,18 @@ type AllPacksType = {
 export const AllPacks = ({namePage}: AllPacksType) => {
 
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
-    const [value, setValue] = useState<string>("");
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
     const dispatch = useTypedDispatch();
 
-    const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.ctrlKey || e.key === "Enter") {
-            dispatch(searchPacksTableAC({packName: value}));
-        }
-    };
-
-    const onChangeSearchHandler = (text: ChangeEvent<HTMLInputElement>) => setValue(text.currentTarget.value);
     const addPackHandler = () => setShowAddModal(true);
     const onPageChanged = (page: number) => {
         dispatch(getOnePagePacksAC({page}));
+        dispatch(getAllPacksTC());
+    };
+
+    const onChangeDebounceRequest = (title: string) => {
+        dispatch(getOnePagePacksAC({page: 1}));
+        dispatch(setTitleForSearchAC({title}));
         dispatch(getAllPacksTC());
     };
 
@@ -47,11 +47,9 @@ export const AllPacks = ({namePage}: AllPacksType) => {
             <TitleProfileWrapper fontSz={1.5}>{namePage}</TitleProfileWrapper>
 
             <SearchBlock>
-                <InputWrapper
-                    placeholder={"Search..."}
-                    onChange={(e) => onChangeSearchHandler(e)}
-                    value={value}
-                    onKeyPress={(e) => onKeyPress(e)}
+                <SearchField stateValue={statePack.params.packName}
+                             placeholder={"Search pack..."}
+                             onChangeWithDebounce={onChangeDebounceRequest}
                 />
                 <ButtonAddNewPack onClick={addPackHandler}>Add new pack</ButtonAddNewPack>
             </SearchBlock>

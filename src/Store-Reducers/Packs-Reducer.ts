@@ -58,6 +58,9 @@ const PacksSlice = createSlice({
             state.params.min = action.payload.min;
             state.params.max = action.payload.max;
         },
+        setTitleForSearchAC(state, action: PayloadAction<{ title: string }>) {
+            state.params.packName = action.payload.title;
+        },
     },
 });
 
@@ -65,5 +68,5 @@ const PacksSlice = createSlice({
 export const PacksReducer = PacksSlice.reducer;
 
 
-export const {setFetchingPacksTableAC, setPacksDataAC, setUserIdAC, setMinCardsFilterAC,
+export const {setFetchingPacksTableAC, setTitleForSearchAC, setPacksDataAC, setUserIdAC, setMinCardsFilterAC,
     searchPacksTableAC, setChangeFilteredPageAC, getOnePagePacksAC} = PacksSlice.actions;
