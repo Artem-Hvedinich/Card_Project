@@ -17,7 +17,6 @@ export const DoubleRange = () => {
     const valueMaxDeb = useDebounce(max, 1500);
 
     useEffect(() => {
-        console.log('Effect')
         if (valueMinDeb) {
             min < max
                 ? dispatch(setMinCardsFilterAC({min, max}))

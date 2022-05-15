@@ -92,7 +92,7 @@ export const PackAPI = {
 
 
 export const CardsAPI = {
-    getCards(cardsPack_id: string, pageCount?: number, page?: number) {
-        return instance.get<RequestCardsType, { data: CardsResponseType }>(`/cards/card`, {params: {cardsPack_id, pageCount, page}});
+    getCards(params: RequestCardsType) {
+        return instance.get<RequestCardsType, { data: CardsResponseType }>(`/cards/card`, {params});
     },
 }

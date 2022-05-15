@@ -1,8 +1,7 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
     CardsPageWrapper,
     CardsWrapper,
-    InputWrapper,
     Item,
     PacksBlock,
     PaginationBlock,
@@ -12,16 +11,22 @@ import {
 } from '../StylesComponents/CardsWrapper';
 import s from "./CardsTable.module.css";
 import {useAppSelector, useTypedDispatch} from "../../Store-Reducers/Store";
-import {CardsInitialStateType} from "../../Store-Reducers/Cards-Reducer";
+import {
+    CardsInitialStateType,
+    getOnePageCardsAC,
+    setCardsAnswerSearch,
+    setCardsQuestionSearch
+} from "../../Store-Reducers/Cards-Reducer";
 import {TitleProfileWrapper} from "../StylesComponents/ProfileAndPacksWrapper";
 import ImgArrow from "../../Assets/Vector1.png";
 import {useNavigate} from "react-router-dom";
-import {getCardsTC, getOnePageCardsTC} from "../../Thunk's/CardsThunk";
+import {getCardsTC} from "../../Thunk's/CardsThunk";
 import {NotAuthRedirect} from "../../UtilsFunction/RedirectFunction";
 import styled from 'styled-components';
 import {Pagination} from "../Common/Pagination";
 import {LoadingTable} from "../Common/Loading/LoadingTable";
-import {PacksInitialStateType} from "../../Store-Reducers/Packs-Reducer";
+import {getOnePagePacksAC, PacksInitialStateType} from "../../Store-Reducers/Packs-Reducer";
+import {SearchField} from "../StylesComponents/SearchInput";
 
 const TableList = [
     {id: 1, name: "Question"},
@@ -32,72 +37,50 @@ const TableList = [
 
 export const CardsPage = NotAuthRedirect(() => {
 
-    const [valueQuestions, setValueQuestions] = useState<string>('');
-    const [errorQuestions, setErrorQuestions] = useState<string | null>(null);
-    const [valueAnswer, setValueAnswer] = useState<string>('');
-    const [errorAnswer, setErrorAnswer] = useState<string | null>(null);
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
     const {packs} = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
-
     const dispatch = useTypedDispatch();
     const navigate = useNavigate();
-    const packId = document.location.hash.slice(13);
 
     useEffect(() => {
-        dispatch(getCardsTC(packId.toString()));
-    }, [packId]);
+        dispatch(getCardsTC(stateCards.params.cardsPack_id));
+    }, [dispatch, stateCards.params.cardsPack_id]);
 
-    const onKeyPressQuestions = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (errorQuestions && errorQuestions.trim() !== '') setErrorQuestions(null);
-        if (e.ctrlKey || e.key === "Enter") {
-
-        } else {
-            setErrorQuestions('Error value');
-        }
-    };
-    const onKeyPressAnswer = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (errorAnswer && errorAnswer.trim() !== '') setErrorAnswer(null);
-        if (e.ctrlKey || e.key === "Enter") {
-
-        } else {
-            setErrorAnswer('Error value');
-        }
-    };
-
-    const onChangeSearchQuestionsHandler = (text: ChangeEvent<HTMLInputElement>) => {
-        setErrorQuestions(null);
-        setValueQuestions(text.currentTarget.value);
-    };
-    const onChangeSearchAnswerHandler = (text: ChangeEvent<HTMLInputElement>) => {
-        setErrorAnswer(null);
-        setValueAnswer(text.currentTarget.value);
-    };
     const onArrowClick = () => navigate(-1);
-    const onPageChanged = (numberPage: number) => dispatch(getOnePageCardsTC(packId, numberPage));
+    const onPageChanged = (page: number) => dispatch(getOnePageCardsAC({page}));
+    const onChangeWillDebounceQuestions = (title: string) => {
+        dispatch(getOnePagePacksAC({page: 1}));
+        dispatch(setCardsQuestionSearch({title}));
+        dispatch(getCardsTC(stateCards.params.cardsPack_id));
+    };
+    const onChangeWillDebounceAnswers = (title: string) => {
+        dispatch(getOnePagePacksAC({page: 1}));
+        dispatch(setCardsAnswerSearch({title}));
+        dispatch(getCardsTC(stateCards.params.cardsPack_id));
+    };
 
     return (
         <CardsPageWrapper>
             <CardsWrapper>
                 <NamePackBlock>
                     <Arrow onClick={onArrowClick}/>
-                    <TitleProfileWrapper
-                        fontSz={1.5}>{packs.filter(el => el._id === packId ? el : null)[0].name}</TitleProfileWrapper>
+                    <TitleProfileWrapper fontSz={1.5}>
+                        {packs.find(el => el._id === stateCards.params.cardsPack_id)?.name}
+                    </TitleProfileWrapper>
                 </NamePackBlock>
 
                 <SearchBlock>
-                    <InputWrapper placeholder={"Search Questions..."}
-                                  margin={"0"}
-                                  width={'49%'}
-                                  onChange={(e) => onChangeSearchQuestionsHandler(e)}
-                                  value={valueQuestions}
-                                  onKeyPress={(e) => onKeyPressQuestions(e)}
+                    <SearchField margin={"0"}
+                                 width={'49%'}
+                                 stateValue={stateCards.params.cardQuestion}
+                                 onChangeWithDebounce={onChangeWillDebounceQuestions}
+                                 placeholder={"Search Questions..."}
                     />
-                    <InputWrapper placeholder={"Search Answer..."}
-                                  margin={"0"}
-                                  width={'49%'}
-                                  onChange={(e) => onChangeSearchAnswerHandler(e)}
-                                  value={valueAnswer}
-                                  onKeyPress={(e) => onKeyPressAnswer(e)}
+                    <SearchField margin={"0"}
+                                 width={'49%'}
+                                 stateValue={stateCards.params.cardAnswer}
+                                 onChangeWithDebounce={onChangeWillDebounceAnswers}
+                                 placeholder={"Search Answer..."}
                     />
                 </SearchBlock>
 
@@ -112,13 +95,12 @@ export const CardsPage = NotAuthRedirect(() => {
                                 </Item>
                             </TableItem>
 
-                            {stateCards.data.cards.map(el => (
+                            {stateCards.cards.map(el => (
                                 <div className={s.elements_table_general_block} key={el._id}>
                                     <div className={s.li}>
                                         <span className={s.item}>{el.question}</span>
                                         <span className={s.item}>{el.answer}</span>
-                                        <span
-                                            className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
+                                        <span className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
                                         <span className={s.item}>{el.grade}</span>
                                     </div>
                                 </div>
@@ -128,11 +110,11 @@ export const CardsPage = NotAuthRedirect(() => {
                 </PacksBlock>
 
                 <PaginationBlock>
-                    <Pagination portionSize={stateCards.data.pageCount}
-                                totalItemsCount={stateCards.data.cardsTotalCount}
-                                pageSize={stateCards.data.pageCount}
+                    <Pagination portionSize={stateCards.params.pageCount}
+                                totalItemsCount={stateCards.cardsTotalCount}
+                                pageSize={stateCards.params.pageCount}
                                 onPageChanged={onPageChanged}
-                                currentPage={stateCards.data.page}/>
+                                currentPage={stateCards.params.page}/>
                 </PaginationBlock>
 
             </CardsWrapper>

@@ -1,11 +1,19 @@
 export type CardsResponseType = {
     cards: OneCardType[]
     cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
+    params: ParamsCardsType
+    isFetching: boolean
+}
+
+export type ParamsCardsType = {
+    cardAnswer: string
+    cardQuestion: string
+    cardsPack_id: string
+    min: number
+    max: number
+    sortCards: '0grade' | '1grade'
     page: number
     pageCount: number
-    packUserId: string
 }
 
 export type OneCardType = {
@@ -18,6 +26,15 @@ export type OneCardType = {
     created: string
     updated: string
     _id: string
+    answerImg: string
+    answerVideo: string
+    comments: string
+    more_id: string
+    questionImg: string
+    questionVideo: string
+    rating: number
+    type: string
+    __v: number
 }
 
 

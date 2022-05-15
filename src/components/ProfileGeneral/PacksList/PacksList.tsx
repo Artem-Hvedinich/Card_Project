@@ -28,12 +28,11 @@ export const PacksList = NotAuthRedirect(() => {
         }, []);
 
         const onClickHandler = (valueFilter: FilterPacksType) => {
+            dispatch(setChangeFilteredPageAC({valueFilter}));
             if (valueFilter === 'My' && _id) {
-                dispatch(setChangeFilteredPageAC({valueFilter}));
                 dispatch(setUserIdAC({userId: _id}));
                 dispatch(getAllPacksTC());
             } else {
-                dispatch(setChangeFilteredPageAC({valueFilter}));
                 dispatch(setUserIdAC({userId: ""}));
                 dispatch(getAllPacksTC());
             }

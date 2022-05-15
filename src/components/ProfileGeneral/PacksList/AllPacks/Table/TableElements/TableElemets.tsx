@@ -2,10 +2,11 @@ import React from 'react';
 import s from "../Table.module.css";
 import {ActiveButtonsTable} from "../ActiveButtonsTable/ActiveButtonsTable";
 import {OnePacksType} from "../../../../../../Types/PacksTypes";
-import {useAppSelector} from "../../../../../../Store-Reducers/Store";
+import {useAppSelector, useTypedDispatch} from "../../../../../../Store-Reducers/Store";
 import {initialStateAuthorizationType} from "../../../../../../Store-Reducers/Auth-Reducer";
 import {PATH} from "../../../../../../UtilsFunction/const-enum-path";
 import {useNavigate} from "react-router-dom";
+import {setCardsPackId} from "../../../../../../Store-Reducers/Cards-Reducer";
 
 type TableElementsType = {
     el: OnePacksType
@@ -15,8 +16,12 @@ export const TableElemets = ({el}: TableElementsType) => {
 
     const stateAuth = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const navigate = useNavigate();
+    const dispatch = useTypedDispatch();
 
-    const onPackClick = (id: string) => navigate(PATH.cardsPack + `/:${id}`);
+    const onPackClick = (id: string) => {
+        dispatch(setCardsPackId({cardsPack_id: id}));
+        navigate(PATH.cardsPack + `/:${id}`);
+    };
 
     return (
         <div className={s.elements_table_general_block}>
