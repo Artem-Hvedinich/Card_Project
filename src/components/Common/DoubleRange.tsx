@@ -4,13 +4,14 @@ import {colors} from "../StylesComponents/Colors";
 import {useAppSelector, useTypedDispatch} from "../../Store-Reducers/Store";
 import useDebounce from "../../UtilsFunction/Hook/useDebounce";
 import {PacksInitialStateType, setMinCardsFilterAC} from "../../Store-Reducers/Packs-Reducer";
+import {getAllPacksTC} from "../../Thunk's/PacksThunk";
 
 export const DoubleRange = () => {
 
     const state = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
 
-    const [min, setMin] = useState(state.minCardsCount);
-    const [max, setMax] = useState(state.maxCardsCount);
+    const [min, setMin] = useState(state.params.min);
+    const [max, setMax] = useState(state.params.max);
     const dispatch = useTypedDispatch();
 
     const valueMinDeb = useDebounce(min, 1500);
@@ -20,14 +21,14 @@ export const DoubleRange = () => {
         if (valueMinDeb) {
             min < max
                 ? dispatch(setMinCardsFilterAC({min, max}))
-                : dispatch(setMinCardsFilterAC({max, min}))
+                : dispatch(setMinCardsFilterAC({min: max, max: min}))
         }
         if (valueMaxDeb) {
             min < max
                 ? dispatch(setMinCardsFilterAC({min, max}))
-                : dispatch(setMinCardsFilterAC({max, min}))
+                : dispatch(setMinCardsFilterAC({min: max, max: min}))
         }
-    }, [valueMinDeb,valueMaxDeb])
+    }, [valueMinDeb, valueMaxDeb, setMinCardsFilterAC])
 
     useEffect(() => {
         setMin(state.minCardsCount)
