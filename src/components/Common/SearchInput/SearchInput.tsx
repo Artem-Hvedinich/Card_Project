@@ -1,6 +1,5 @@
 import React, {ChangeEvent, memo, useCallback, useState} from 'react';
-import {InputWrapper} from "./CardsWrapper";
-import {debug} from "util";
+import {InputWrapper} from "../../StylesComponents/CardsWrapper";
 
 type SearchFieldPropsType = {
     width?: string

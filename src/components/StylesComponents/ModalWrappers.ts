@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const WrapperTextAndClose = styled.div`
+export const WrapperTextAndClose = styled.div<{c?: string}>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({c}) => c ? c : 'space-between'};
 `;
 
 export const ModalTextWrapper = styled.div`
@@ -95,6 +95,14 @@ export const InputWrapper = styled.div`
   @media (max-width: 1600px) {
     padding: 10% 0 0 0;
   }
+`;
+
+export const AddCardInputWrapper = styled.div`
+  padding: 10% 0 10% 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
 `;
 
 
