@@ -8,8 +8,8 @@ import {
     ForgotPasswordDataType,
     NewPasswordDataType, NewNameAndAvatarType, ResponseUpdateDataType
 } from "../Types/AuthTypes";
-import {CreatePackType, PacksReqestType, ResponsePacksType} from "../Types/PacksTypes";
-import {CardsResponseType, RequestCardsType} from "../Types/CardTypes";
+import {CreatePackType, ParamsPacksType, ResponsePacksType} from "../Types/PacksTypes";
+import {CardsResponseType, RequestCardPostType, RequestCardsType} from "../Types/CardTypes";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || 'https://neko-back.herokuapp.com/2.0',
@@ -76,25 +76,26 @@ export const FileAPI = {
 }
 
 export const PackAPI = {
-    getPacks(pageCount?: number, page?: number, id?: string|null, min?: number, max?: number, sortPacks?: any, packName?: string) {
-        return instance.get<PacksReqestType, { data: ResponsePacksType }>('/cards/pack', {
-            params: {min, max, sortPacks, page, pageCount, user_id: id, packName}
-        });
+    getPacks(params: ParamsPacksType) {
+        return instance.get<ResponsePacksType>('/cards/pack', {params});
     },
     deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`);
     },
-    updatePack(cardsPack: { _id: string, name: string }) {
+    updatePack(cardsPack: { _id: string, name: string, private: boolean}) {
         return instance.put(`/cards/pack`, {cardsPack})
     },
-    createPack(cardsPack: { name?: string, deckCover?: string, private?: boolean }) {
+    createPack(cardsPack: { name: string, private: boolean, deckCover?: string }) {
         return instance.post<CreatePackType, any, any>(`/cards/pack`, {cardsPack})
     },
 }
 
 
 export const CardsAPI = {
-    getCards(cardsPack_id: string, pageCount?: number, page?: number) {
-        return instance.get<RequestCardsType, { data: CardsResponseType }>(`/cards/card`, {params: {cardsPack_id, pageCount, page}});
+    getCards(params: RequestCardsType) {
+        return instance.get<RequestCardsType, { data: CardsResponseType }>(`/cards/card`, {params});
+    },
+    createCard(card: RequestCardPostType) {
+        return instance.post<RequestCardPostType, any, any>(`/cards/card`, {card});
     },
 }

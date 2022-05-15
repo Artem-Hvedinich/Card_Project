@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {PacksInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
@@ -11,32 +11,34 @@ import {
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
-import {DoubleRange} from "../../../UtilsFunction/DoubleRange";
+import {initialStateAuthorizationType} from "../../../Store-Reducers/Auth-Reducer";
+import {DoubleRange} from "../../Common/DoubleRange";
 import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 
 export const PacksList = NotAuthRedirect(() => {
 
         const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
-        const myId = useAppSelector<string | null>(state => state.AuthorizationReducer._id);
-        const [valueMin, setValueMin] = useState(0);
-        const [valueMax, setValueMax] = useState(50);
+        const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
+        const dispatch = useTypedDispatch();
 
         useEffect(() => {
-            // valueMin < valueMax ? dispatch(CardsMinMaxFilterTC(valueMin, valueMax)) : dispatch(CardsMinMaxFilterTC(valueMax, valueMin))
-        }, [valueMin, valueMax])
+            dispatch(setUserIdAC({userId: ""}));
+            dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
+            dispatch(getAllPacksTC());
+        }, []);
 
-        const dispatch = useTypedDispatch();
-        const onClickHandler = (valueFilter: FilterCardsType) => {
-            if (valueFilter === 'My') {
-                dispatch(setChangeFilteredPageAC({valueFilter}))
-                myId && dispatch(getAllPacksTC(myId))
+        const onClickHandler = (valueFilter: FilterPacksType) => {
+            dispatch(setChangeFilteredPageAC({valueFilter}));
+            if (valueFilter === 'My' && _id) {
+                dispatch(setUserIdAC({userId: _id}));
+                dispatch(getAllPacksTC());
             } else {
-                dispatch(setChangeFilteredPageAC({valueFilter}))
-                dispatch(getAllPacksTC())
+                dispatch(setUserIdAC({userId: ""}));
+                dispatch(getAllPacksTC());
             }
         };
 
-        const active = statePack.filter === "All";
+        const active = statePack.packsType === "All";
 
         return (
             <GeneralProfileWrapper>
@@ -56,16 +58,15 @@ export const PacksList = NotAuthRedirect(() => {
 
                     <NumberCards>
                         <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                        <DoubleRange />
+                        {/*<DoubleRange/>*/}
                     </NumberCards>
                 </ToolsProfileBlock>
 
-                <AllPacks packsArray={statePack.data.cardPacks} namePage={"Packs List"}/>
+                <AllPacks namePage={"Packs List"}/>
 
             </GeneralProfileWrapper>
         )
-    })
-;
+    });
 
 const ShowPacks = styled.div`
   display: flex;

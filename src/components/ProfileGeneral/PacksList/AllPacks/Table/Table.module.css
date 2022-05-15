@@ -13,6 +13,14 @@
     align-items: center;
 }
 
+.item_col_bg {
+    align-items: center;
+    width: 90%;
+    height: 2.3vw;
+    padding: 0 24px;
+    display: flex;
+}
+
 .item {
     align-items: center;
     width: 90%;
@@ -28,8 +36,8 @@
 }
 
 .item:nth-child(1) {
-    min-width: 25%;
     cursor: pointer;
+    min-width: 25%;
 }
 .item:nth-child(2) {
     display: flex;

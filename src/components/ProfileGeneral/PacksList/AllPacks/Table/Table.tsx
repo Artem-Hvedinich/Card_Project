@@ -6,9 +6,6 @@ import {TableElemets} from "./TableElements/TableElemets";
 import {PacksBlock} from '../../../../StylesComponents/CardsWrapper';
 
 type CardTableType = {
-    showEditModal: string
-    setShowEditModal: (id: string) => void
-    onEditClick: (id: string) => void
     itemPack: OnePacksType[]
     isFetching: boolean
 };
@@ -20,23 +17,21 @@ const TableList = [
     {id: 5, name: "Actions"},
 ];
 
-export const CardTable = ({itemPack, isFetching, onEditClick, showEditModal, setShowEditModal}: CardTableType) => {
+export const CardTable = ({itemPack, isFetching}: CardTableType) => {
     return (
         <PacksBlock>
             {isFetching
                 ? <LoadingTable/>
                 : <div className={s.table}>
                     <div className={s.item_columns}>
-                        <div className={s.item}>
-                            {TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)}
+                        <div className={s.item_col_bg}>
+                            {TableList.map(el => <span key={el.id}
+                                                       className={s.name_column_one}
+                                                       onClick={() => {}}
+                            >{el.name}</span>)}
                         </div>
                     </div>
-                    {itemPack.map(el => <TableElemets key={el._id}
-                                                      el={el}
-                                                      setShowEditModal={setShowEditModal}
-                                                      onEditClick={onEditClick}
-                                                      showEditModal={showEditModal}
-                    />)}
+                    {itemPack.map(el => <TableElemets key={el._id} el={el}/>)}
                 </div>
             }
         </PacksBlock>

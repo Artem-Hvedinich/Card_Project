@@ -1,14 +1,19 @@
-export type FilterCardsType = "All" | "My";
+export type FilterPacksType = "All" | "My";
 
-export type PacksReqestType = {
+export type ParamsPacksType = {
     packName: string
     min: number
     max: number
-    sortPacks : string
+    sortPacks: '0updated' | '1updated',
     page: number
     pageCount: number
-    user_id: string
-}
+    user_id: string,
+};
+
+export type UpdatePackType = {
+    namePack: string
+    private: boolean
+};
 
 export type PacksType = {
     key: string,
@@ -44,7 +49,7 @@ export type OnePacksType = {
     __v: number
 }
 
-type ResponseCardsType = {
+export type ResponseCardsType = {
     answer: string
     question: string
     cardsPack_id: string
@@ -76,3 +81,14 @@ export type ResponsePacksType = {
     token: string
     tokenDeathTime: number
 }
+
+export type RequestUpdatePackType = {
+    _id: string
+    name: string
+    private: boolean
+}
+
+export type FormikErrorType = {
+    namePack?: string;
+    private?: boolean
+};
