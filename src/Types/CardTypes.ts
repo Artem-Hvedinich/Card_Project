@@ -3,6 +3,7 @@ export type CardsResponseType = {
     cardsTotalCount: number
     params: ParamsCardsType
     isFetching: boolean
+    packUserId: string
 }
 
 export type ParamsCardsType = {
@@ -37,7 +38,6 @@ export type OneCardType = {
     __v: number
 }
 
-
 export type RequestCardsType = {
     cardAnswer?: string
     cardQuestion?: string
@@ -48,3 +48,20 @@ export type RequestCardsType = {
     page?: number
     pageCount?: number
 }
+
+export type RequestCardPostType = {
+    cardsPack_id: string
+    question?: string
+    answer?: string
+    grade?: number
+    shots?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+}
+
+export type CardFormikErrorType = {
+    question?: string;
+    answer?: string
+};

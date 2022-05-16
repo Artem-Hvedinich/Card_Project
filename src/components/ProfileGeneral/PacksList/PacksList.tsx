@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {PacksInitialStateType, setChangeFilteredPageAC, setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
-import {FilterPacksType} from "../../../Types/PacksTypes";
 import {
     GeneralProfileWrapper,
     TitleProfileWrapper,
@@ -14,59 +13,62 @@ import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
 import {initialStateAuthorizationType} from "../../../Store-Reducers/Auth-Reducer";
 import {DoubleRange} from "../../Common/DoubleRange";
 import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
+import {FilterPacksType} from "../../../Types/PacksTypes";
 
 export const PacksList = NotAuthRedirect(() => {
 
-        const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
-        const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
-        const dispatch = useTypedDispatch();
+    const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
+    const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
+    const dispatch = useTypedDispatch();
+    useEffect(() => {
+        dispatch(setUserIdAC({userId: ""}));
+        dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
+    }, []);
 
-        useEffect(() => {
+    useEffect(() => {
+        // dispatch(setUserIdAC({userId: ""}));
+        dispatch(getAllPacksTC());
+        // dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
+    }, [statePack.params.user_id, statePack.packsType, statePack.params.min, statePack.params.max]);
+
+    const onClickHandler = (valueFilter: FilterPacksType) => {
+        dispatch(setChangeFilteredPageAC({valueFilter}));
+        if (valueFilter === 'My' && _id) {
+            dispatch(setUserIdAC({userId: _id}));
+        } else {
             dispatch(setUserIdAC({userId: ""}));
-            dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
-            dispatch(getAllPacksTC());
-        }, []);
+        }
+    };
 
-        const onClickHandler = (valueFilter: FilterPacksType) => {
-            dispatch(setChangeFilteredPageAC({valueFilter}));
-            if (valueFilter === 'My' && _id) {
-                dispatch(setUserIdAC({userId: _id}));
-                dispatch(getAllPacksTC());
-            } else {
-                dispatch(setUserIdAC({userId: ""}));
-                dispatch(getAllPacksTC());
-            }
-        };
+    const active = statePack.packsType === "All";
 
-        const active = statePack.packsType === "All";
+    return (
+        <GeneralProfileWrapper>
+            <ToolsProfileBlock>
+                <ShowPacks>
+                    <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
+                    <ButtonWrapper>
+                        <Button active={!active}
+                                onClick={() => onClickHandler("My")}>My
+                        </Button>
 
-        return (
-            <GeneralProfileWrapper>
-                <ToolsProfileBlock>
-                    <ShowPacks>
-                        <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
-                        <ButtonWrapper>
-                            <Button active={!active}
-                                    onClick={() => onClickHandler("My")}>My
-                            </Button>
+                        <Button active={active}
+                                onClick={() => onClickHandler("All")}>All
+                        </Button>
+                    </ButtonWrapper>
+                </ShowPacks>
 
-                            <Button active={active}
-                                    onClick={() => onClickHandler("All")}>All
-                            </Button>
-                        </ButtonWrapper>
-                    </ShowPacks>
+                <NumberCards>
+                    <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
+                        <DoubleRange />
+                </NumberCards>
+            </ToolsProfileBlock>
 
-                    <NumberCards>
-                        <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                        {/*<DoubleRange/>*/}
-                    </NumberCards>
-                </ToolsProfileBlock>
+            <AllPacks namePage={"Packs List"}/>
 
-                <AllPacks namePage={"Packs List"}/>
-
-            </GeneralProfileWrapper>
-        )
-    });
+        </GeneralProfileWrapper>
+    )
+});
 
 const ShowPacks = styled.div`
   display: flex;

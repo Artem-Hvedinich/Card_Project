@@ -9,7 +9,7 @@ import {
     NewPasswordDataType, NewNameAndAvatarType, ResponseUpdateDataType
 } from "../Types/AuthTypes";
 import {CreatePackType, ParamsPacksType, ResponsePacksType} from "../Types/PacksTypes";
-import {CardsResponseType, RequestCardsType} from "../Types/CardTypes";
+import {CardsResponseType, RequestCardPostType, RequestCardsType} from "../Types/CardTypes";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || 'https://neko-back.herokuapp.com/2.0',
@@ -37,7 +37,7 @@ export const AuthAPI = {
                 message: `
 <div style="background-color: #2D2E46; padding: 15px; color: lavender">
 Password recovery link: 
-<a style="text-decoration:none; color: deepskyblue;" href='http://localhost:3001/#/set-new-password/$token$'>link</a></div>`
+<a style="text-decoration:none; color: deepskyblue;" href='https://artem-hvedinich.github.io/Card_Project/#/set-new-password/$token$'>link</a></div>`
             })
     },
     newPassword(password: string, resetPasswordToken: string) {
@@ -94,5 +94,8 @@ export const PackAPI = {
 export const CardsAPI = {
     getCards(params: RequestCardsType) {
         return instance.get<RequestCardsType, { data: CardsResponseType }>(`/cards/card`, {params});
+    },
+    createCard(card: RequestCardPostType) {
+        return instance.post<RequestCardPostType, any, any>(`/cards/card`, {card});
     },
 }

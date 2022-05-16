@@ -1,5 +1,3 @@
-import {isNum} from "react-toastify/dist/utils";
-
 export type FilterPacksType = "All" | "My";
 
 export type ParamsPacksType = {
@@ -23,6 +21,15 @@ export type PacksType = {
     cards: number,
     last_updated: string,
     created_by: string,
+}
+export type PacksParamsType = {
+    packName: string
+    min: number
+    max: number
+    sortPacks: string
+    page: number
+    pageCount: number
+    user_id: string
 }
 
 export type CreatePackType = {
@@ -51,7 +58,7 @@ export type OnePacksType = {
     __v: number
 }
 
-type ResponseCardsType = {
+export type ResponseCardsType = {
     answer: string
     question: string
     cardsPack_id: string

@@ -1,6 +1,5 @@
 import React, {ChangeEvent, memo, useCallback, useState} from 'react';
-import {InputWrapper} from "./CardsWrapper";
-import {debug} from "util";
+import {InputWrapper} from "../../StylesComponents/CardsWrapper";
 
 type SearchFieldPropsType = {
     width?: string
@@ -21,12 +20,12 @@ export const SearchField = memo(({
     const [timerId, setTimerId] = useState<number>(0);
 
     const onChangeSearchHandler = useCallback((title: ChangeEvent<HTMLInputElement>) => {
-        debugger
         setValue(title.currentTarget.value);
         clearTimeout(timerId);
         const id: number = +setTimeout(onChangeWithDebounce, 500, title.currentTarget.value);
         setTimerId(id);
     },[value, onChangeWithDebounce]);
+
 
     return (
         <InputWrapper

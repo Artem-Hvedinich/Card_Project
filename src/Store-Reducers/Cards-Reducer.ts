@@ -17,6 +17,7 @@ const initialCardsState: CardsInitialStateType = {
         pageCount: 10,
     } as ParamsCardsType,
     isFetching: false,
+    packUserId: ''
 };
 
 const CardsSlice = createSlice({
@@ -26,6 +27,7 @@ const CardsSlice = createSlice({
         setCardsDataAC(state, action: PayloadAction<CardsResponseType>) {
             state.cards = action.payload.cards;
             state.cardsTotalCount = action.payload.cardsTotalCount;
+            state.packUserId = action.payload.packUserId
         },
         setFetchingCardsTableAC(state, action: PayloadAction<{ isFetching: boolean }>) {
             state.isFetching = action.payload.isFetching

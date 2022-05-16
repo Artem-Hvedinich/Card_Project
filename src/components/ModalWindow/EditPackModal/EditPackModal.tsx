@@ -54,6 +54,7 @@ export const EditPackModal = ({el, setShow}: EditPackModalType) => {
                         </WrapperTextAndClose>
 
                         <InputWrapper>
+                            <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>New Pack Name</TextAuthWrapper>
                             <Input maxLength={maxLengthInput}
                                    type="text"
                                    id="namePack"
