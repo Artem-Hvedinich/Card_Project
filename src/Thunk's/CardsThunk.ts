@@ -6,7 +6,7 @@ import {setCardsDataAC, setFetchingCardsTableAC} from "../Store-Reducers/Cards-R
 import {RequestCardPostType} from "../Types/CardTypes";
 import {setAppSuccessMessageAC} from "../Store-Reducers/App-Reducer";
 
-export const getCardsTC = (packId :string): AppThunkType =>
+export const getCardsTC = (): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
     dispatch(setFetchingCardsTableAC({ isFetching: true }));
@@ -34,9 +34,29 @@ export const createCardTC = (card: RequestCardPostType): AppThunkType => async d
     try {
         const {data} = await CardsAPI.createCard(card);
         if (data) {
-            dispatch(getCardsTC(card.cardsPack_id));
+            dispatch(getCardsTC());
             dispatch(setFetchingCardsTableAC({ isFetching: false }));
              dispatch(setAppSuccessMessageAC({success: "Card is added"}));
+        }
+    }
+    catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            handleServerNetworkError(error.response.data.error, dispatch);
+
+        }
+    }
+};
+
+export const deleteCardTC = (id: string): AppThunkType => async dispatch => {
+
+    dispatch(setFetchingCardsTableAC({ isFetching: true }));
+
+    try {
+        const {data} = await CardsAPI.deleteCard(id);
+        if (data) {
+            dispatch(getCardsTC());
+            dispatch(setFetchingCardsTableAC({ isFetching: false }));
+             dispatch(setAppSuccessMessageAC({success: "Card is deleted"}));
         }
     }
     catch (error) {

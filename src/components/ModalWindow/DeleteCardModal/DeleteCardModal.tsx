@@ -9,39 +9,37 @@ import {
     WrapperText,
     WrapperTextAndClose
 } from '../../StylesComponents/ModalWrappers';
-import {detelePackTC} from "../../../Thunk's/PacksThunk";
-import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {OnePacksType} from "../../../Types/PacksTypes";
+import {useTypedDispatch} from "../../../Store-Reducers/Store";
+import {deleteCardTC} from "../../../Thunk's/CardsThunk";
 
-type DeletePackModalType = {
+type DeleteCardModalType = {
+    nameCard: string
     id: string
     setShow: (show: boolean) => void
 }
 
-export const DeletePackModal = ({setShow, id}: DeletePackModalType) => {
+export const DeleteCardModal = ({setShow, id, nameCard}: DeleteCardModalType) => {
 
-    const statePack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs)
     const dispatch = useTypedDispatch();
 
     const closeModalClick = () => setShow(false);
     const deleteClickHandler = () => {
         setShow(false);
-        dispatch(detelePackTC(id));
+        dispatch(deleteCardTC(id));
     };
-    let findName = statePack.find(el => el._id === id)?.name;
 
     return (
         <ModalWrapper>
             <ModalWindow>
                 <Modal>
                     <WrapperTextAndClose>
-                        <ModalTextWrapper>Delete Pack</ModalTextWrapper>
+                        <ModalTextWrapper>Delete Card</ModalTextWrapper>
                         <Close onClick={closeModalClick}/>
                     </WrapperTextAndClose>
 
                     <WrapperText>
-                        {`Do you really want to remove `}<b>{findName}</b>{`?
-                            All cards will be excluded from this course.`}
+                        {`Do you really want to remove `}<b>{nameCard}</b> ?
+                        <p>{`This card will be permanently deleted.`}</p>
                     </WrapperText>
 
                     <ButtonsBlock>

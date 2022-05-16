@@ -3,7 +3,6 @@ import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {
     PacksInitialStateType,
     setChangeFilteredPageAC,
-    setMinCardsFilterAC,
     setUserIdAC
 } from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
@@ -29,10 +28,10 @@ export const PacksList = NotAuthRedirect(() => {
     useEffect(() => {
         dispatch(setUserIdAC({userId: ""}));
         dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
-    }, []);
+    }, [dispatch]);
     useEffect(() => {
         dispatch(getAllPacksTC());
-    }, [statePack.params.user_id, statePack.packsType, statePack.params.min, statePack.params.max]);
+    },[statePack.params.user_id, statePack.packsType, statePack.params.min, statePack.params.max, dispatch]);
 
     const onClickHandler = (valueFilter: FilterPacksType) => {
         dispatch(setChangeFilteredPageAC({valueFilter}));

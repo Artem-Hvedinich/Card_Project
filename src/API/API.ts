@@ -98,4 +98,7 @@ export const CardsAPI = {
     createCard(card: RequestCardPostType) {
         return instance.post<RequestCardPostType, any, any>(`/cards/card`, {card});
     },
+    deleteCard(id: string) {
+        return instance.delete(`/cards/card?id=${id}`);
+    },
 }

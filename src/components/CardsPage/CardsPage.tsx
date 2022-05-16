@@ -13,10 +13,9 @@ export const CardsPage = NotAuthRedirect(() => {
     const stateCards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
     const dispatch = useTypedDispatch();
 
-
     useEffect(() => {
-        dispatch(getCardsTC(stateCards.params.cardsPack_id));
-    }, [dispatch, stateCards.params.cardsPack_id]);
+        dispatch(getCardsTC());
+    }, []);
 
 
     const onPageChanged = (page: number) => dispatch(getOnePageCardsAC({page}));

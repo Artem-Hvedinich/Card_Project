@@ -3,12 +3,14 @@ import {LoadingTable} from "../../Common/Loading/LoadingTable";
 import {Item, PacksBlock, Table, TableItem} from "../../StylesComponents/CardsWrapper";
 import s from "../CardsTable.module.css";
 import {CardsInitialStateType} from "../../../Store-Reducers/Cards-Reducer";
+import {ActiveCardButtonsTable} from "./ActiveCardsButtonsTable/ActiveCardButtonsTable";
 
 const TableList = [
     {id: 1, name: "Question"},
     {id: 2, name: "Answer"},
     {id: 3, name: "Last Updated"},
     {id: 4, name: "Grade"},
+    {id: 5, name: "Actions"},
 ];
 
 type CardsTableType = {
@@ -34,7 +36,8 @@ export const CardsTable = ({stateCards}: CardsTableType) => {
                                 <span className={s.item}>{el.question}</span>
                                 <span className={s.item}>{el.answer}</span>
                                 <span className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
-                                <span className={s.item}>{el.grade}</span>
+                                <span className={s.item}>0 0 0 0 0</span>
+                                <span className={s.item}> <ActiveCardButtonsTable el={el}/> </span>
                             </div>
                         </div>
                     ))}

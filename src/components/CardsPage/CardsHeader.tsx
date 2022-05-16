@@ -28,12 +28,12 @@ export const CardsHeader = () => {
     const onChangeWillDebounceQuestions = (title: string) => {
         dispatch(getOnePagePacksAC({page: 1}));
         dispatch(setCardsQuestionSearch({title}));
-        dispatch(getCardsTC(stateCards.params.cardsPack_id));
+        dispatch(getCardsTC());
     };
     const onChangeWillDebounceAnswers = (title: string) => {
         dispatch(getOnePagePacksAC({page: 1}));
         dispatch(setCardsAnswerSearch({title}));
-        dispatch(getCardsTC(stateCards.params.cardsPack_id));
+        dispatch(getCardsTC());
     };
 
     return (
@@ -49,7 +49,6 @@ export const CardsHeader = () => {
                 {stateCards.packUserId === _id
                     && <Button name={'Add new card'} onClick={() => setShowAddCard(true)}/>
                 }
-                {/*<Button name={'Add new card'} onClick={() => setShowAddCard(true)}/>*/}
             </NamePackBlock>
 
             {showAddCard

@@ -9,8 +9,8 @@ export const DoubleRange = () => {
 
     const state = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
 
-    const [min, setMin] = useState(state.minCardsCount);
-    const [max, setMax] = useState(state.maxCardsCount);
+    const [min, setMin] = useState(state.params.min);
+    const [max, setMax] = useState(state.params.max);
     const dispatch = useTypedDispatch();
 
     const valueMinDeb = useDebounce(min, 1500);

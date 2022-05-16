@@ -5,7 +5,7 @@
 }
 
 .item:nth-child(1) {
-    min-width: 27%;
+    min-width: 30%;
     display: flex;
     justify-content: flex-start;
     margin-left: 24px;
@@ -13,25 +13,31 @@
 }
 .item:nth-child(2) {
     display: flex;
-    justify-content: center;
-    min-width: 15%;
-    margin-right: 18.5%;
+    min-width: 30%;
 }
 .item:nth-child(3) {
     display: flex;
-    justify-content: center;
-    min-width: 16%;
-    margin-right: 11%;
+    min-width: 10%;
+    padding-right: 5%;
+}
+.item:nth-child(4) {
+    display: flex;
+    min-width: 9%;
+    margin:0 3%;
 }
 
 .name_column_one:nth-child(1) {
-    min-width: 37%;
+    min-width: 35%;
 }
 .name_column_one:nth-child(2) {
-    min-width: 37%;
+    min-width: 33%;
 }
 .name_column_one:nth-child(3) {
-    min-width: 25%;
+    min-width: 13%;
+    margin-right: 5%;
+}
+.name_column_one:nth-child(4) {
+    min-width: 15%;
 }
 
 .elements_table_general_block {
