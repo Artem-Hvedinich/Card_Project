@@ -1,16 +1,8 @@
 import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {
-    PacksInitialStateType,
-    setChangeFilteredPageAC,
-    setUserIdAC
-} from "../../../Store-Reducers/Packs-Reducer";
+import {PacksInitialStateType, setChangeFilteredPageAC, setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
-import {
-    GeneralProfileWrapper,
-    TitleProfileWrapper,
-    ToolsProfileBlock
-} from '../../StylesComponents/ProfileAndPacksWrapper';
+import {GeneralProfileWrapper, TitleProfileWrapper, ToolsProfileBlock} from '../../StylesComponents/ProfileAndPacksWrapper';
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
@@ -78,7 +70,8 @@ const ShowPacks = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  height: 7vw;`
+  height: 7vw;
+`;
 
 const NumberCards = styled.div`
   display: flex;
@@ -86,9 +79,11 @@ const NumberCards = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  height: 5vw;`
+  height: 5vw;
+`;
 const ButtonWrapper = styled.div`
-  display: flex;`
+  display: flex;
+`;
 
 const Button = styled.button<{ active: boolean }>`
   width: 4vw;
@@ -99,4 +94,5 @@ const Button = styled.button<{ active: boolean }>`
   background-color: ${({active}) => active ? colors.FilterButtonColor : colors.WhiteColor};
   color: ${({active}) => active ? colors.WhiteColor : colors.TextColor};
   transition: background-color 0.5s, color 0.5s;
-  transition-delay: 0.1s;`
+  transition-delay: 0.1s;
+`;
