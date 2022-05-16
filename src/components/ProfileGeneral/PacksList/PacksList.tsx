@@ -1,6 +1,11 @@
 import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {PacksInitialStateType, setChangeFilteredPageAC, setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
+import {
+    PacksInitialStateType,
+    setChangeFilteredPageAC,
+    setMinCardsFilterAC,
+    setUserIdAC
+} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
 import {
     GeneralProfileWrapper,
@@ -20,15 +25,13 @@ export const PacksList = NotAuthRedirect(() => {
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const dispatch = useTypedDispatch();
+
     useEffect(() => {
         dispatch(setUserIdAC({userId: ""}));
         dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
     }, []);
-
     useEffect(() => {
-        // dispatch(setUserIdAC({userId: ""}));
         dispatch(getAllPacksTC());
-        // dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
     }, [statePack.params.user_id, statePack.packsType, statePack.params.min, statePack.params.max]);
 
     const onClickHandler = (valueFilter: FilterPacksType) => {

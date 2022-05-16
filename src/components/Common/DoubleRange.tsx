@@ -9,8 +9,8 @@ export const DoubleRange = () => {
 
     const state = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
 
-    const [min, setMin] = useState(state.params.min);
-    const [max, setMax] = useState(state.params.max);
+    const [min, setMin] = useState(state.minCardsCount);
+    const [max, setMax] = useState(state.maxCardsCount);
     const dispatch = useTypedDispatch();
 
     const valueMinDeb = useDebounce(min, 1500);
@@ -30,8 +30,8 @@ export const DoubleRange = () => {
     }, [valueMinDeb, valueMaxDeb, setMinCardsFilterAC])
 
     useEffect(() => {
-        setMin(state.minCardsCount)
-        setMax(state.maxCardsCount)
+        setMin(state.minCardsCount);
+        setMax(state.maxCardsCount);
     }, [state.minCardsCount, state.maxCardsCount]);
 
     const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => setMin(+e.currentTarget.value);
