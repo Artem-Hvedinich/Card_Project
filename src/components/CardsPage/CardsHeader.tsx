@@ -24,6 +24,7 @@ export const CardsHeader = () => {
 
 
     const onArrowClick = () => navigate(-1);
+
     const onChangeWillDebounceQuestions = (title: string) => {
         dispatch(getOnePagePacksAC({page: 1}));
         dispatch(setCardsQuestionSearch({title}));
@@ -45,10 +46,10 @@ export const CardsHeader = () => {
                     </TitleProfileWrapper>
                 </ArrowAndTextWrapper>
 
-                {/*{stateCards.params.cardsPack_id === _id*/}
-                {/*    && <Button name={'Add new card'} onClick={() => setShowAddCard(true)}/>*/}
-                {/*}*/}
-                <Button name={'Add new card'} onClick={() => setShowAddCard(true)}/>
+                {stateCards.packUserId === _id
+                    && <Button name={'Add new card'} onClick={() => setShowAddCard(true)}/>
+                }
+                {/*<Button name={'Add new card'} onClick={() => setShowAddCard(true)}/>*/}
             </NamePackBlock>
 
             {showAddCard

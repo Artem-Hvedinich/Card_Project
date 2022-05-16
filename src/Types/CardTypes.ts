@@ -3,6 +3,7 @@ export type CardsResponseType = {
     cardsTotalCount: number
     params: ParamsCardsType
     isFetching: boolean
+    packUserId: string
 }
 
 export type ParamsCardsType = {

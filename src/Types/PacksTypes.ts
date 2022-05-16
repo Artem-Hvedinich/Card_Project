@@ -22,6 +22,15 @@ export type PacksType = {
     last_updated: string,
     created_by: string,
 }
+export type PacksParamsType = {
+    packName: string
+    min: number
+    max: number
+    sortPacks: string
+    page: number
+    pageCount: number
+    user_id: string
+}
 
 export type CreatePackType = {
     cardsPack: {
