@@ -29,7 +29,8 @@ export const PacksList = NotAuthRedirect(() => {
         // dispatch(setUserIdAC({userId: ""}));
         dispatch(getAllPacksTC());
         // dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
-    }, [statePack.params.user_id, statePack.packsType]);
+    }, [statePack.params.user_id, statePack.packsType, statePack.params.min, statePack.params.max]);
+
     const onClickHandler = (valueFilter: FilterPacksType) => {
         dispatch(setChangeFilteredPageAC({valueFilter}));
         if (valueFilter === 'My' && _id) {

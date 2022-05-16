@@ -10,6 +10,8 @@ export const DoubleRange = () => {
 
     const state = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
 
+    // const [min, setMin] = useState(state.params.min);
+    // const [max, setMax] = useState(state.params.max);
     const [min, setMin] = useState(state.params.min);
     const [max, setMax] = useState(state.params.max);
     const dispatch = useTypedDispatch();
@@ -37,15 +39,16 @@ export const DoubleRange = () => {
 
     const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => setMin(+e.currentTarget.value);
     const onChangeCallbackMax = (e: ChangeEvent<HTMLInputElement>) => setMax(+e.currentTarget.value);
-
+    const valueMax = max * 100 / state.maxCardsCount
+    const valueMin = min * 100 / state.maxCardsCount
 
     return (
         <DoubleRangeWrapper>
             <NumberValue>
-                <ValueWrapper value={min} count={-2}>
+                <ValueWrapper value={min} count={-2.5}>
                     <Value>{min}</Value>
                 </ValueWrapper>
-                <ValueWrapper value={max} count={-7}>
+                <ValueWrapper value={valueMax} count={-7.5}>
                     <Value>{max}</Value>
                 </ValueWrapper>
             </NumberValue>
@@ -57,15 +60,17 @@ export const DoubleRange = () => {
                        id={'valueMax'}
                        onChange={onChangeCallbackMax}
                        value={max}
-                       min={'0'} max={max}
+                       min={state.minCardsCount} max={state.maxCardsCount}
+                       slider={valueMax}
                 />
                 <Input index={min > max ? 1 : 2}
                        bgCol={min > max ? 'rgba(33, 38, 143)' : 'rgb(126, 128, 175)'}
                        id={'valueMin'}
                        type={'range'}
                        onChange={onChangeCallbackMin}
-                       min={'0'} max={max}
+                       min={state.minCardsCount} max={state.maxCardsCount}
                        value={min}
+                       slider={valueMin}
                 />
             </RangeInput>
         </DoubleRangeWrapper>
@@ -82,7 +87,7 @@ const NumberValue = styled.div`
 `
 const ValueWrapper = styled.div<{ value: number, count: number }>`
   position: relative;
-  left: ${({value}) => value * 1.85}%;
+  left: ${({value}) => value}%;
   transform: translate(${({count}) => `${count}vw`});
 `
 const Value = styled.label`
@@ -120,12 +125,26 @@ const RangeInput = styled.span`
     -moz-appearance: none;
   }
 `
-const Input = styled.input<{ value: number, bgCol: string, index: number }>`
+const Input = styled.input<{ slider: number, bgCol: string, index: number }>`
   display: flex;
   justify-content: start;
   z-index: ${({index}) => index};
 
+
+  :after {
+    height: 0.3vw;
+    width: ${({slider}) => slider}%;
+    position: absolute;
+    top: 0.2vw;
+    border-bottom-left-radius: 0.2vw;
+    border-top-left-radius: 0.2vw;
+    background: ${({bgCol}) => bgCol};
+    content: '';
+  }
+
   ::-webkit-slider-thumb {
+    position: relative;
+    z-index: 1;
     height: 0.7vw;
     width: 0.7vw;
     border: 0.25vw solid ${colors.Blue};
@@ -133,16 +152,5 @@ const Input = styled.input<{ value: number, bgCol: string, index: number }>`
     background: ${colors.WhiteColor};
     pointer-events: auto;
     -webkit-appearance: none;
-  }
-
-  :after {
-    height: 0.3vw;
-    width: ${({value}) => value * 1.87}%;
-    position: absolute;
-    top: 0.2vw;
-    border-bottom-left-radius: 0.2vw;
-    border-top-left-radius: 0.2vw;
-    background: ${({bgCol}) => bgCol};
-    content: '';
   }
 `
