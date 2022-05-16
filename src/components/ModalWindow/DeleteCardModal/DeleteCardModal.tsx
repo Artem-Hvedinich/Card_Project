@@ -11,21 +11,21 @@ import {
 } from '../../StylesComponents/ModalWrappers';
 import {useTypedDispatch} from "../../../Store-Reducers/Store";
 import {deleteCardTC} from "../../../Thunk's/CardsThunk";
+import {OneCardType} from "../../../Types/CardTypes";
 
 type DeleteCardModalType = {
-    nameCard: string
-    id: string
+    el:  OneCardType
     setShow: (show: boolean) => void
 }
 
-export const DeleteCardModal = ({setShow, id, nameCard}: DeleteCardModalType) => {
+export const DeleteCardModal = ({setShow, el}: DeleteCardModalType) => {
 
     const dispatch = useTypedDispatch();
 
     const closeModalClick = () => setShow(false);
     const deleteClickHandler = () => {
         setShow(false);
-        dispatch(deleteCardTC(id));
+        dispatch(deleteCardTC(el._id));
     };
 
     return (
@@ -38,7 +38,7 @@ export const DeleteCardModal = ({setShow, id, nameCard}: DeleteCardModalType) =>
                     </WrapperTextAndClose>
 
                     <WrapperText>
-                        {`Do you really want to remove `}<b>{nameCard}</b> ?
+                        {`Do you really want to remove `}<b>{el.question}</b> ?
                         <p>{`This card will be permanently deleted.`}</p>
                     </WrapperText>
 

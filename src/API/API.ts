@@ -9,7 +9,7 @@ import {
     NewPasswordDataType, NewNameAndAvatarType, ResponseUpdateDataType
 } from "../Types/AuthTypes";
 import {CreatePackType, ParamsPacksType, ResponsePacksType} from "../Types/PacksTypes";
-import {CardsResponseType, RequestCardPostType, RequestCardsType} from "../Types/CardTypes";
+import {CardsResponseType, RequestCardPostType, RequestCardsType, RequestCardUpdateType} from "../Types/CardTypes";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || 'https://neko-back.herokuapp.com/2.0',
@@ -95,10 +95,13 @@ export const CardsAPI = {
     getCards(params: RequestCardsType) {
         return instance.get<RequestCardsType, { data: CardsResponseType }>(`/cards/card`, {params});
     },
+    deleteCard(id: string) {
+        return instance.delete(`/cards/card?id=${id}`);
+    },
     createCard(card: RequestCardPostType) {
         return instance.post<RequestCardPostType, any, any>(`/cards/card`, {card});
     },
-    deleteCard(id: string) {
-        return instance.delete(`/cards/card?id=${id}`);
+    updateCard(card: RequestCardUpdateType) {
+        return instance.put<RequestCardUpdateType, any, any>(`/cards/card`, {card});
     },
 }

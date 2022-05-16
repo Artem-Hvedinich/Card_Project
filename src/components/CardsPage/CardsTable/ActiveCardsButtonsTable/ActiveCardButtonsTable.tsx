@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
 import {DeleteCardModal} from "../../../ModalWindow/DeleteCardModal/DeleteCardModal";
 import {OneCardType} from "../../../../Types/CardTypes";
+import {EditCardModal} from "../../../ModalWindow/EditCardModal/EditCardModal";
 
 type ActiveButtonsTableType = {
-    el:  OneCardType
+    myId: string | null
+    el: OneCardType
 }
 
-export const ActiveCardButtonsTable = ({el}: ActiveButtonsTableType) => {
+export const ActiveCardButtonsTable = ({el, myId}: ActiveButtonsTableType) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
@@ -19,44 +20,24 @@ export const ActiveCardButtonsTable = ({el}: ActiveButtonsTableType) => {
     return (
         <>
             {showDeleteModal
-                ? <DeleteCardModal nameCard={el.question} id={el._id} setShow={setShowDeleteModal}/>
+                ? <DeleteCardModal el={el} setShow={setShowDeleteModal}/>
                 : <></>
             }
-            {/*{showEditModal*/}
-            {/*    ? <EditCardModal el={el} setShow={setShowEditModal}/>*/}
-            {/*    : <></>*/}
-            {/*}*/}
-            {/*{myId === el.user_id*/}
-            {/*    ? <>*/}
+            {showEditModal
+                ? <EditCardModal el={el} setShow={setShowEditModal}/>
+                : <></>
+            }
+            {el.user_id === myId
+                ? <>
                     <DeleteTableButton onClick={deletePackHandler}>
                         Delete
                     </DeleteTableButton>
                     <TableButton onClick={editPackHandler}>
                         Edit
                     </TableButton>
-                    {/*{el.cardsCount === 0*/}
-                    {/*    ? <>*/}
-                    {/*        <TableButton disabled={true} onClick={() => onLearnClick(el._id)}>*/}
-                    {/*            Learn*/}
-                    {/*        </TableButton>*/}
-                    {/*    </>*/}
-                    {/*    : <TableButton onClick={() => onLearnClick(el._id)}>*/}
-                    {/*        Learn*/}
-                    {/*    </TableButton>*/}
-                    {/*}*/}
-                {/*</>*/}
-                {/*: el.cardsCount === 0*/}
-                {/*    ? <>*/}
-                {/*        /!*<TableButton disabled={true} onClick={() => onLearnClick(el._id)}>*!/*/}
-                {/*        <TableButton disabled={true} onClick={() => {}}>*/}
-                {/*            Learn*/}
-                {/*        </TableButton>*/}
-                {/*    </>*/}
-                {/*    // : <TableButton onClick={() => onLearnClick(el._id)}>*/}
-                {/*    : <TableButton onClick={() => {}}>*/}
-                {/*        Learn*/}
-                {/*    </TableButton>*/}
-            {/*}*/}
+                </>
+                : <></>
+            }
         </>
     );
 };
@@ -78,6 +59,11 @@ const TableButton = styled.button`
     opacity: .3;
     cursor: no-drop;
   }
+  
+  @media (max-width: 1550px) {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
 `;
 const DeleteTableButton = styled.button`
   border-radius: 3px;
@@ -89,4 +75,14 @@ const DeleteTableButton = styled.button`
   font-size: 13px;
   font-weight: 700;
   text-align: center;
+
+  &:disabled {
+    opacity: .3;
+    cursor: no-drop;
+  }
+
+  @media (max-width: 1550px) {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
 `;

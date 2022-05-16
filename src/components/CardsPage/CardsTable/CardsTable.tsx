@@ -4,20 +4,31 @@ import {Item, PacksBlock, Table, TableItem} from "../../StylesComponents/CardsWr
 import s from "../CardsTable.module.css";
 import {CardsInitialStateType} from "../../../Store-Reducers/Cards-Reducer";
 import {ActiveCardButtonsTable} from "./ActiveCardsButtonsTable/ActiveCardButtonsTable";
-
-const TableList = [
-    {id: 1, name: "Question"},
-    {id: 2, name: "Answer"},
-    {id: 3, name: "Last Updated"},
-    {id: 4, name: "Grade"},
-    {id: 5, name: "Actions"},
-];
+import {useAppSelector} from "../../../Store-Reducers/Store";
+import {initialStateAuthorizationType} from "../../../Store-Reducers/Auth-Reducer";
 
 type CardsTableType = {
     stateCards: CardsInitialStateType
 };
 
 export const CardsTable = ({stateCards}: CardsTableType) => {
+
+    const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
+
+    const TableListAction = [
+        {id: 1, name: "Question"},
+        {id: 2, name: "Answer"},
+        {id: 3, name: "Last Updated"},
+        {id: 4, name: "Grade"},
+        {id: 5, name: "Actions"},
+    ];
+    const TableList = [
+        {id: 1, name: "Question"},
+        {id: 2, name: "Answer"},
+        {id: 3, name: "Last Updated"},
+        {id: 4, name: "Grade"},
+    ];
+
     return (
         <PacksBlock>
             {stateCards.isFetching
@@ -25,8 +36,10 @@ export const CardsTable = ({stateCards}: CardsTableType) => {
                 : <Table>
                     <TableItem>
                         <Item>
-                            {TableList.map(el => <span className={s.name_column_one}
-                                                       key={el.id}>{el.name}</span>)}
+                            {stateCards.packUserId === _id
+                                ? TableListAction.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)
+                                : TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)
+                            }
                         </Item>
                     </TableItem>
 
@@ -37,7 +50,7 @@ export const CardsTable = ({stateCards}: CardsTableType) => {
                                 <span className={s.item}>{el.answer}</span>
                                 <span className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
                                 <span className={s.item}>0 0 0 0 0</span>
-                                <span className={s.item}> <ActiveCardButtonsTable el={el}/> </span>
+                                <span className={s.item}> <ActiveCardButtonsTable myId={_id} el={el}/> </span>
                             </div>
                         </div>
                     ))}

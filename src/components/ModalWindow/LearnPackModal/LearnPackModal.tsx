@@ -19,7 +19,7 @@ export const LearnPackModal = () => {
 
     const [showAnswer, setShowAnswer] = useState<boolean>(false);
     const pack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs);
-    const packId = document.location.hash.slice(13);
+    const packId = document.location.hash.slice(15);
     const navigate = useNavigate();
 
     const closeModalClick = () => navigate(-1);

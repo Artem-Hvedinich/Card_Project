@@ -3,7 +3,7 @@ import axios from "axios";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {CardsAPI} from "../API/API";
 import {setCardsDataAC, setFetchingCardsTableAC} from "../Store-Reducers/Cards-Reducer";
-import {RequestCardPostType} from "../Types/CardTypes";
+import {RequestCardPostType, RequestCardUpdateType} from "../Types/CardTypes";
 import {setAppSuccessMessageAC} from "../Store-Reducers/App-Reducer";
 
 export const getCardsTC = (): AppThunkType =>
@@ -22,27 +22,6 @@ export const getCardsTC = (): AppThunkType =>
     catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
-
-        }
-    }
-};
-
-export const createCardTC = (card: RequestCardPostType): AppThunkType => async dispatch => {
-
-    dispatch(setFetchingCardsTableAC({ isFetching: true }));
-
-    try {
-        const {data} = await CardsAPI.createCard(card);
-        if (data) {
-            dispatch(getCardsTC());
-            dispatch(setFetchingCardsTableAC({ isFetching: false }));
-             dispatch(setAppSuccessMessageAC({success: "Card is added"}));
-        }
-    }
-    catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            handleServerNetworkError(error.response.data.error, dispatch);
-
         }
     }
 };
@@ -56,13 +35,50 @@ export const deleteCardTC = (id: string): AppThunkType => async dispatch => {
         if (data) {
             dispatch(getCardsTC());
             dispatch(setFetchingCardsTableAC({ isFetching: false }));
-             dispatch(setAppSuccessMessageAC({success: "Card is deleted"}));
+            dispatch(setAppSuccessMessageAC({success: "Card is deleted"}));
         }
     }
     catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
+        }
+    }
+};
 
+export const createCardTC = (card: RequestCardPostType): AppThunkType => async dispatch => {
+
+    dispatch(setFetchingCardsTableAC({ isFetching: true }));
+
+    try {
+        const {data} = await CardsAPI.createCard(card);
+        if (data) {
+            dispatch(getCardsTC());
+            dispatch(setFetchingCardsTableAC({ isFetching: false }));
+            dispatch(setAppSuccessMessageAC({success: "Card is added"}));
+        }
+    }
+    catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            handleServerNetworkError(error.response.data.error, dispatch);
+        }
+    }
+};
+
+export const updateCardTC = (card: RequestCardUpdateType): AppThunkType => async dispatch => {
+
+    dispatch(setFetchingCardsTableAC({ isFetching: true }));
+
+    try {
+        const {data} = await CardsAPI.updateCard(card);
+        if (data) {
+            dispatch(getCardsTC());
+            dispatch(setFetchingCardsTableAC({ isFetching: false }));
+            dispatch(setAppSuccessMessageAC({success: "Card is edited"}));
+        }
+    }
+    catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            handleServerNetworkError(error.response.data.error, dispatch);
         }
     }
 };

@@ -17,7 +17,6 @@ export const CardsPage = NotAuthRedirect(() => {
         dispatch(getCardsTC());
     }, []);
 
-
     const onPageChanged = (page: number) => dispatch(getOnePageCardsAC({page}));
 
     return (
