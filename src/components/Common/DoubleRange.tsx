@@ -4,14 +4,11 @@ import {colors} from "../StylesComponents/Colors";
 import {useAppSelector, useTypedDispatch} from "../../Store-Reducers/Store";
 import useDebounce from "../../UtilsFunction/Hook/useDebounce";
 import {PacksInitialStateType, setMinCardsFilterAC} from "../../Store-Reducers/Packs-Reducer";
-import {getAllPacksTC} from "../../Thunk's/PacksThunk";
 
 export const DoubleRange = () => {
 
     const state = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
 
-    // const [min, setMin] = useState(state.params.min);
-    // const [max, setMax] = useState(state.params.max);
     const [min, setMin] = useState(state.params.min);
     const [max, setMax] = useState(state.params.max);
     const dispatch = useTypedDispatch();
