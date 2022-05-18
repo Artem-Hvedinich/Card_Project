@@ -29,7 +29,7 @@ export const PacksList = NotAuthRedirect(() => {
 
     useEffect(() => {
         dispatch(getAllPacksTC());
-    },[statePack.params.user_id, statePack.packsType, statePack.params.min, statePack.params.max, statePack.params.pageCount]);
+    },[statePack.params, statePack.packsType]);
 
     const onClickHandler = (valueFilter: FilterPacksType) => {
         dispatch(setChangeFilteredPageAC({valueFilter}));
