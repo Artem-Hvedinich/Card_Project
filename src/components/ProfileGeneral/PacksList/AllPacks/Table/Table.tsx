@@ -14,6 +14,13 @@ type CardTableType = {
     itemPack: OnePacksType[]
     isFetching: boolean
 };
+const TableList = [
+    {id: 1, name: "Name"},
+    {id: 2, name: "Cards"},
+    {id: 3, name: "Last Updated"},
+    {id: 4, name: "Created by"},
+    {id: 5, name: "Actions"},
+];
 
 export const CardTable = ({itemPack, isFetching}: CardTableType) => {
 
@@ -31,11 +38,13 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
             <div className={s.table}>
                 <div className={s.item_columns}>
                     <div className={s.item_col_bg}>
-                        <span className={s.name_column_one}>Name</span>
-                        <span className={s.name_column_one}>Cards</span>
-                        <Span up={up} className={s.name_column_one} onClick={onFilterColumnClick}>Last Updated</Span>
-                        <span className={s.name_column_one}>Created by</span>
-                        <span className={s.name_column_one}>Actions</span>
+                        {TableList.map(el => (
+                            <span key={el.id} className={s.name_column_one}>
+                                {el.name}
+                                {el.name === 'Last Updated' && <Span up={up} onClick={onFilterColumnClick} />}
+                            </span>
+                            ))
+                        }
                     </div>
                 </div>
                 {isFetching
