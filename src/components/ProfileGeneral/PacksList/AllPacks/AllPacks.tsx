@@ -41,18 +41,13 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
     };
 
     return (
-        <ProfileWrapper>
-            {showAddModal
-                ? <AddPackModal setShow={setShowAddModal}/>
-                : <></>
-            }
+        <ProfileWrapper more={statePack.cardPacksTotalCount > 11}>
+            {showAddModal && <AddPackModal setShow={setShowAddModal}/>}
             <TitleProfileWrapper fontSz={1.5}>{namePage}</TitleProfileWrapper>
-
             <SearchBlock>
                 <SearchField stateValue={statePack.params.packName}
                              placeholder={"Search pack..."}
-                             onChangeWithDebounce={onChangeDebounceRequest}
-                />
+                             onChangeWithDebounce={onChangeDebounceRequest}/>
                 <Button name={'Add new pack'} onClick={addPackHandler}/>
             </SearchBlock>
 
@@ -68,11 +63,11 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
                         <ShowCardsPage>Show
                             <PageSelect value={statePack.params.pageCount}
                                         onChange={(page) => dispatch(setPageCountAC({pageCount: page}))}
-                                        items={[5, 10, 15, 20]}/>
-                            Cards per Page</ShowCardsPage>
+                                        items={[5, 10, 15, 20, 30, 40, 50, 100, 200]}/>
+                            Cards per Page
+                        </ShowCardsPage>
                     </>}
             </PaginationBlock>
-
 
         </ProfileWrapper>
     );

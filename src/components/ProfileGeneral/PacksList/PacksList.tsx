@@ -44,7 +44,7 @@ export const PacksList = NotAuthRedirect(() => {
 
     return (
         <GeneralProfileWrapper>
-            <ToolsProfileBlock>
+            <ToolsProfileBlock more={statePack.cardPacksTotalCount > 11}>
                 <ShowPacks>
                     <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
                     <ButtonWrapper>
@@ -57,7 +57,6 @@ export const PacksList = NotAuthRedirect(() => {
                         </Button>
                     </ButtonWrapper>
                 </ShowPacks>
-
 
                 <NumberCards>
                     <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
