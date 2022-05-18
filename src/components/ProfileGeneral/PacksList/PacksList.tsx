@@ -19,7 +19,6 @@ import {DoubleRange} from "../../Common/DoubleRange";
 import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 import {FilterPacksType} from "../../../Types/PacksTypes";
 
-
 export const PacksList = NotAuthRedirect(() => {
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
@@ -32,7 +31,7 @@ export const PacksList = NotAuthRedirect(() => {
 
     useEffect(() => {
         dispatch(getAllPacksTC());
-    },[statePack.params.user_id, statePack.packsType, statePack.params.min, statePack.params.max]);
+    },[statePack.params.user_id, statePack.packsType, statePack.params.min, statePack.params.max, statePack.params.pageCount]);
 
     const onClickHandler = (valueFilter: FilterPacksType) => {
         dispatch(setChangeFilteredPageAC({valueFilter}));
@@ -71,10 +70,9 @@ export const PacksList = NotAuthRedirect(() => {
             </ToolsProfileBlock>
 
             <AllPacks namePage={"Packs List"}/>
-
         </GeneralProfileWrapper>
     )
-});
+})
 
 const ShowPacks = styled.div`
   display: flex;

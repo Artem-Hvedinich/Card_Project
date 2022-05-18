@@ -61,6 +61,9 @@ const PacksSlice = createSlice({
         setTitleForSearchAC(state, action: PayloadAction<{ title: string }>) {
             state.params.packName = action.payload.title;
         },
+        setPageCountAC(state, action: PayloadAction<{ pageCount: number }>) {
+            state.params.pageCount = action.payload.pageCount;
+        },
     },
 });
 
@@ -69,4 +72,4 @@ export const PacksReducer = PacksSlice.reducer;
 
 
 export const {setFetchingPacksTableAC, setTitleForSearchAC, setPacksDataAC, setUserIdAC, setMinCardsFilterAC,
-    searchPacksTableAC, setChangeFilteredPageAC, getOnePagePacksAC} = PacksSlice.actions;
+    searchPacksTableAC, setChangeFilteredPageAC, getOnePagePacksAC,setPageCountAC} = PacksSlice.actions;

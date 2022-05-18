@@ -88,6 +88,7 @@ export const CardsWrapper = styled.div`
 `;
 
 export const PaginationBlock = styled.div`
-  position: relative;
-  width: 100%;
-`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 3vw;`
