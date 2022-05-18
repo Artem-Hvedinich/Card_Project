@@ -12,6 +12,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background: linear-gradient(#E6D4DE, #5c6193);
     height: 100%;
+    scroll-behavior: smooth;
 }
 
 a {

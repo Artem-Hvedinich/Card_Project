@@ -105,7 +105,6 @@ const Main = styled.span<{ active: boolean }>`
   cursor: pointer;
   border-radius: ${({active}) => active ? '0.2vw 0.2vw 0 0' : '0.2vw'};
   border-bottom: ${({active}) => active && 'none'};
-    //background-color: ${({active}) => active && colors.Lavender};
   transition: 0.3s all;
 
   :hover {
@@ -118,7 +117,7 @@ const Items = styled.div`
   align-items: center;
   flex-direction: column;
   width: 3vw;
-  height: 3vw;
+  height: 3.9vw;
   overflow-y: scroll;
   position: absolute;
   border: 0.15vw solid ${colors.AzureishWhite};
@@ -127,6 +126,7 @@ const Items = styled.div`
   background-color: ${colors.Lavender};
   cursor: pointer;
   transition: 0.3s all;
+  
 ::-webkit-scrollbar{
   width: 0.1vw;
 }`
