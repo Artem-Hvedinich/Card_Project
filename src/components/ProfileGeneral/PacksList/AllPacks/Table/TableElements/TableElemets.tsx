@@ -38,7 +38,12 @@ export const TableElemets = ({el}: TableElementsType) => {
 const GeneralBlock = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;`
+  flex-direction: row;
+
+  &:nth-child(2n) {
+    background-color: #F8F7FD;
+  }
+`;
 
 const Item = styled.span`
   display: flex;
@@ -50,6 +55,7 @@ const Item = styled.span`
   font-size: 0.8vw;
   
   :nth-child(1) {
+    cursor: pointer;
     min-width: 25%;
     justify-content: start;
   }

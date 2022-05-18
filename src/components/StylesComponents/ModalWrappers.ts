@@ -80,7 +80,7 @@ export const ModalWindow = styled.div`
   top: 30%;
   margin: 0 auto;
   width: 25%;
-  height: 33%;
+  height: 35%;
   background-color: #F9F9FE;
   border-radius: 5px;
 `;
