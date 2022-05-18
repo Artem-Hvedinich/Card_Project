@@ -31,31 +31,40 @@ export const CardsTable = ({stateCards}: CardsTableType) => {
 
     return (
         <PacksBlock>
-            {stateCards.isFetching
-                ? <LoadingTable/>
-                : <Table>
-                    <TableItem>
-                        <Item>
-                            {stateCards.packUserId === _id
-                                ? TableListAction.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)
-                                : TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)
-                            }
-                        </Item>
-                    </TableItem>
+            <Table>
+                <TableItem>
+                    <Item>
+                        {stateCards.packUserId === _id
+                            ? TableListAction.map(el => <span className={s.name_column_one}
+                                                              key={el.id}>{el.name}</span>)
+                            : TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)
+                        }
+                    </Item>
+                </TableItem>
 
-                    {stateCards.cards.map(el => (
+                {stateCards.isFetching
+                    ? <LoadingTable/>
+                    : stateCards.cards.map(el => (
                         <div className={s.elements_table_general_block} key={el._id}>
                             <div className={s.li}>
                                 <span className={s.item}>{el.question}</span>
                                 <span className={s.item}>{el.answer}</span>
-                                <span className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
-                                <span className={s.item}>0 0 0 0 0</span>
+                                <span
+                                    className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
+                                {/*<span className={s.item}>0 0 0 0 0</span>*/}
+                                <span className={s.item}>
+                                    <span className={`fa fa-star ${el.grade > 0 ? s.checked : ''}`}/>
+                                    <span className={`fa fa-star ${el.grade > 1 ? s.checked : ''}`}/>
+                                    <span className={`fa fa-star ${el.grade > 2 ? s.checked : ''}`}/>
+                                    <span className={`fa fa-star ${el.grade > 3 ? s.checked : ''}`}/>
+                                    <span className={`fa fa-star ${el.grade > 4 ? s.checked : ''}`}/>
+                                </span>
                                 <span className={s.item}> <ActiveCardButtonsTable myId={_id} el={el}/> </span>
                             </div>
                         </div>
-                    ))}
-                </Table>
-            }
+                    ))
+                }
+            </Table>
         </PacksBlock>
     );
 };

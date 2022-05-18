@@ -28,7 +28,7 @@ type AddCardModalType = {
 export const EditCardModal = ({setShow, el}: AddCardModalType) => {
 
     const dispatch = useTypedDispatch();
-    const maxLengthInput = 50;
+    const maxLengthInput = 100;
     const {_id} = el;
 
     const closeModalClick = () => setShow(false);
@@ -93,8 +93,8 @@ export const EditCardModal = ({setShow, el}: AddCardModalType) => {
                             </ButtonCancel>
                             <ButtonSave type="submit"
                                         disabled={!(loginForm.isValid && loginForm.dirty)
-                                            || el.answer === loginForm.values.answer
-                                            || el.question === loginForm.values.question}>
+                                            ||  (el.answer === loginForm.values.answer
+                                            && el.question === loginForm.values.question)}>
                                 Save change
                             </ButtonSave>
                         </ButtonsBlock>

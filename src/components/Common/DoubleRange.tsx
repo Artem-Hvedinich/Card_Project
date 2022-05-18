@@ -78,7 +78,8 @@ export const DoubleRange = memo(({paramsMin, paramsMax, minCardsCount, maxCardsC
             </RangeInput>
         </DoubleRangeWrapper>
     )
-})
+});
+
 const DoubleRangeWrapper = styled.div``
 
 const NumberValue = styled.div`

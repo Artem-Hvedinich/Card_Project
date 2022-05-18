@@ -2,15 +2,12 @@ import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {
     PacksInitialStateType,
-    setChangeFilteredPageAC, setMinCardsFilterAC,
+    setChangeFilteredPageAC,
+    setMinCardsFilterAC,
     setUserIdAC
 } from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
-import {
-    GeneralProfileWrapper,
-    TitleProfileWrapper,
-    ToolsProfileBlock
-} from '../../StylesComponents/ProfileAndPacksWrapper';
+import {GeneralProfileWrapper, TitleProfileWrapper, ToolsProfileBlock} from '../../StylesComponents/ProfileAndPacksWrapper';
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
@@ -20,6 +17,7 @@ import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 import {FilterPacksType} from "../../../Types/PacksTypes";
 
 export const PacksList = NotAuthRedirect(() => {
+
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const dispatch = useTypedDispatch();
@@ -70,9 +68,10 @@ export const PacksList = NotAuthRedirect(() => {
             </ToolsProfileBlock>
 
             <AllPacks namePage={"Packs List"}/>
+
         </GeneralProfileWrapper>
     )
-})
+});
 
 const ShowPacks = styled.div`
   display: flex;
@@ -80,7 +79,8 @@ const ShowPacks = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  height: 7vw;`
+  height: 7vw;
+`;
 
 const NumberCards = styled.div`
   display: flex;
@@ -88,9 +88,11 @@ const NumberCards = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  height: 5vw;`
+  height: 5vw;
+`;
 const ButtonWrapper = styled.div`
-  display: flex;`
+  display: flex;
+`;
 
 const Button = styled.button<{ active: boolean }>`
   width: 4vw;

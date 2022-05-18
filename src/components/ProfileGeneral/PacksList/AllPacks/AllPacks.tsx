@@ -76,7 +76,7 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
 
         </ProfileWrapper>
     );
-})
+});
 
 const ShowCardsPage = styled.div`
   display: flex;

@@ -64,6 +64,9 @@ const PacksSlice = createSlice({
         setPageCountAC(state, action: PayloadAction<{ pageCount: number }>) {
             state.params.pageCount = action.payload.pageCount;
         },
+        setFilteredColumnAC(state, action: PayloadAction) {
+            state.params.sortPacks = state.params.sortPacks === '0updated' ? '1updated' : '0updated';
+        },
     },
 });
 
@@ -72,4 +75,4 @@ export const PacksReducer = PacksSlice.reducer;
 
 
 export const {setFetchingPacksTableAC, setTitleForSearchAC, setPacksDataAC, setUserIdAC, setMinCardsFilterAC,
-    searchPacksTableAC, setChangeFilteredPageAC, getOnePagePacksAC,setPageCountAC} = PacksSlice.actions;
+    searchPacksTableAC, setChangeFilteredPageAC, getOnePagePacksAC,setPageCountAC, setFilteredColumnAC} = PacksSlice.actions;

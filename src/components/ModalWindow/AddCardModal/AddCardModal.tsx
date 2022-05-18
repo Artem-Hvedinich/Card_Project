@@ -28,7 +28,7 @@ type AddCardModalType = {
 export const AddCardModal = ({setShow, cardsPack_id}: AddCardModalType) => {
 
     const dispatch = useTypedDispatch();
-    const maxLengthInput = 50;
+    const maxLengthInput = 100;
 
     const closeModalClick = () => setShow(false);
 
