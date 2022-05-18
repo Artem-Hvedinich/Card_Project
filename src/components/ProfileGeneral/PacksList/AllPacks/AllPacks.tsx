@@ -59,15 +59,18 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
             <CardTable itemPack={statePack.packs} isFetching={statePack.isFetching}/>
 
             <PaginationBlock>
-                <Pagination portionSize={10}
-                            totalItemsCount={statePack.cardPacksTotalCount}
-                            pageSize={statePack.params.pageCount}
-                            onPageChanged={onPageChanged}
-                            currentPage={statePack.params.page}/>
-                <ShowCardsPage>Show <PageSelect value={statePack.params.pageCount}
-                                                onChange={(page) => dispatch(setPageCountAC({pageCount: page}))}
-                                                items={[5, 10, 15, 20]}/> Cards per
-                    Page</ShowCardsPage>
+                {statePack.cardPacksTotalCount > 10 &&
+                    <><Pagination portionSize={10}
+                                  totalItemsCount={statePack.cardPacksTotalCount}
+                                  pageSize={statePack.params.pageCount}
+                                  onPageChanged={onPageChanged}
+                                  currentPage={statePack.params.page}/>
+                        <ShowCardsPage>Show
+                            <PageSelect value={statePack.params.pageCount}
+                                        onChange={(page) => dispatch(setPageCountAC({pageCount: page}))}
+                                        items={[5, 10, 15, 20]}/>
+                            Cards per Page</ShowCardsPage>
+                    </>}
             </PaginationBlock>
 
 
