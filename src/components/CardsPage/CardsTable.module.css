@@ -1,23 +1,26 @@
 .item:nth-child(1) {
-    min-width: 30%;
+    width: 26%;
     display: flex;
     justify-content: flex-start;
     margin-left: 24px;
-
+    margin-right: 55px;
+    overflow: hidden;
+    height: 3vh;
 }
 .item:nth-child(2) {
     display: flex;
-    min-width: 30%;
+    width: 27%;
+    margin-right: 50px;
+    overflow: hidden;
+    height: 3vh;
 }
 .item:nth-child(3) {
     display: flex;
-    min-width: 10%;
-    padding-right: 5%;
+    min-width: 13%;
 }
 .item:nth-child(4) {
     display: flex;
-    min-width: 9%;
-    margin:0 3%;
+    min-width: 12%;
 }
 
 .name_column_one:nth-child(1) {
@@ -27,8 +30,7 @@
     min-width: 33%;
 }
 .name_column_one:nth-child(3) {
-    min-width: 13%;
-    margin-right: 5%;
+    min-width: 16.5%;
 }
 .name_column_one:nth-child(4) {
     min-width: 15%;
@@ -54,6 +56,24 @@
     .name_column_one {
         font-size: 0.8rem;
     }
+    .item:nth-child(1) {
+        width: 22%;
+        display: flex;
+        justify-content: flex-start;
+        margin-left: 24px;
+        margin-right: 55px;
+        overflow: hidden;
+        height: 3vh;
+    }
+    .name_column_one:nth-child(1) {
+        min-width: 32%;
+    }
+    .name_column_one:nth-child(2) {
+        min-width: 35%;
+    }
+    .name_column_one:nth-child(3) {
+        min-width: 18%;
+    }
     .item {
         font-size: 0.7rem;
         height: 2vw;
@@ -61,4 +81,8 @@
     .li {
         height: 4.7vh;
     }
+}
+
+.checked {
+    color: orange;
 }

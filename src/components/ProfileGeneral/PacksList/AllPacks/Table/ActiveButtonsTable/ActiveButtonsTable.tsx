@@ -81,6 +81,11 @@ const TableButton = styled.button`
     opacity: .3;
     cursor: no-drop;
   }
+
+  @media (max-width: 1550px) {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
 `;
 const DeleteTableButton = styled.button`
   border-radius: 3px;
@@ -92,4 +97,9 @@ const DeleteTableButton = styled.button`
   font-size: 13px;
   font-weight: 700;
   text-align: center;
+
+  @media (max-width: 1550px) {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
 `;

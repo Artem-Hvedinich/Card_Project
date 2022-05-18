@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
 import {CardTable} from "./Table/Table";
 import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/ProfileAndPacksWrapper';
@@ -14,7 +14,7 @@ type AllPacksType = {
     namePage: string
 }
 
-export const AllPacks = ({namePage}: AllPacksType) => {
+export const AllPacks = memo(({namePage}: AllPacksType) => {
 
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
@@ -59,4 +59,4 @@ export const AllPacks = ({namePage}: AllPacksType) => {
             </PaginationBlock>
         </ProfileWrapper>
     );
-};
+});

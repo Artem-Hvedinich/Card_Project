@@ -61,6 +61,9 @@ const PacksSlice = createSlice({
         setTitleForSearchAC(state, action: PayloadAction<{ title: string }>) {
             state.params.packName = action.payload.title;
         },
+        setFilteredColumnAC(state, action: PayloadAction) {
+            state.params.sortPacks = state.params.sortPacks === '0updated' ? '1updated' : '0updated';
+        },
     },
 });
 
@@ -69,4 +72,4 @@ export const PacksReducer = PacksSlice.reducer;
 
 
 export const {setFetchingPacksTableAC, setTitleForSearchAC, setPacksDataAC, setUserIdAC, setMinCardsFilterAC,
-    searchPacksTableAC, setChangeFilteredPageAC, getOnePagePacksAC} = PacksSlice.actions;
+    searchPacksTableAC, setChangeFilteredPageAC, getOnePagePacksAC, setFilteredColumnAC} = PacksSlice.actions;

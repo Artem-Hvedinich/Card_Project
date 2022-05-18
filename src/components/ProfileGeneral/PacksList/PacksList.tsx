@@ -1,6 +1,11 @@
 import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {PacksInitialStateType, setChangeFilteredPageAC, setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
+import {
+    PacksInitialStateType,
+    setChangeFilteredPageAC,
+    setMinCardsFilterAC,
+    setUserIdAC
+} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
 import {GeneralProfileWrapper, TitleProfileWrapper, ToolsProfileBlock} from '../../StylesComponents/ProfileAndPacksWrapper';
 import styled from 'styled-components';
@@ -29,8 +34,10 @@ export const PacksList = NotAuthRedirect(() => {
         dispatch(setChangeFilteredPageAC({valueFilter}));
         if (valueFilter === 'My' && _id) {
             dispatch(setUserIdAC({userId: _id}));
+            dispatch(setMinCardsFilterAC({min: 0, max: 103}))
         } else {
             dispatch(setUserIdAC({userId: ""}));
+            dispatch(setMinCardsFilterAC({min: 0, max: 103}))
         }
     };
 

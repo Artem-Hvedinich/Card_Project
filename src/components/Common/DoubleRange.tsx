@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
+import React, {ChangeEvent, memo, useEffect, useState} from 'react'
 import styled from "styled-components";
 import {colors} from "../StylesComponents/Colors";
 import {useAppSelector, useTypedDispatch} from "../../Store-Reducers/Store";
 import useDebounce from "../../UtilsFunction/Hook/useDebounce";
 import {PacksInitialStateType, setMinCardsFilterAC} from "../../Store-Reducers/Packs-Reducer";
 
-export const DoubleRange = () => {
+export const DoubleRange = memo(() => {
 
     const state = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
 
@@ -72,7 +72,8 @@ export const DoubleRange = () => {
             </RangeInput>
         </DoubleRangeWrapper>
     )
-}
+});
+
 const DoubleRangeWrapper = styled.div``
 
 const NumberValue = styled.div`
