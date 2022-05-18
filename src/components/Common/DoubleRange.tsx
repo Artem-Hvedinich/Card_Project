@@ -1,16 +1,22 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
+import React, {ChangeEvent, memo, useEffect, useState} from 'react'
 import styled from "styled-components";
 import {colors} from "../StylesComponents/Colors";
-import {useAppSelector, useTypedDispatch} from "../../Store-Reducers/Store";
+import {useTypedDispatch} from "../../Store-Reducers/Store";
 import useDebounce from "../../UtilsFunction/Hook/useDebounce";
-import {PacksInitialStateType, setMinCardsFilterAC} from "../../Store-Reducers/Packs-Reducer";
 
-export const DoubleRange = () => {
+type PropsType = {
+    paramsMin: number
+    paramsMax: number
+    minCardsCount: number
+    maxCardsCount: number
+    dispatchAction: any
+}
 
-    const state = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
+export const DoubleRange = memo(({paramsMin, paramsMax, minCardsCount, maxCardsCount, dispatchAction}
+                                     : PropsType) => {
 
-    const [min, setMin] = useState(state.params.min);
-    const [max, setMax] = useState(state.params.max);
+    const [min, setMin] = useState(paramsMin);
+    const [max, setMax] = useState(paramsMax);
     const dispatch = useTypedDispatch();
 
     const valueMinDeb = useDebounce(min, 1500);
@@ -19,25 +25,25 @@ export const DoubleRange = () => {
     useEffect(() => {
         if (valueMinDeb) {
             min < max
-                ? dispatch(setMinCardsFilterAC({min, max}))
-                : dispatch(setMinCardsFilterAC({min: max, max: min}))
+                ? dispatch(dispatchAction({min, max}))
+                : dispatch(dispatchAction({min: max, max: min}))
         }
         if (valueMaxDeb) {
             min < max
-                ? dispatch(setMinCardsFilterAC({min, max}))
-                : dispatch(setMinCardsFilterAC({min: max, max: min}))
+                ? dispatch(dispatchAction({min, max}))
+                : dispatch(dispatchAction({min: max, max: min}))
         }
-    }, [valueMinDeb, valueMaxDeb, setMinCardsFilterAC])
+    }, [valueMinDeb, valueMaxDeb, dispatchAction])
 
     useEffect(() => {
-        setMin(state.minCardsCount);
-        setMax(state.maxCardsCount);
-    }, [state.minCardsCount, state.maxCardsCount]);
+        setMin(minCardsCount);
+        setMax(maxCardsCount);
+    }, [minCardsCount,maxCardsCount]);
 
     const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => setMin(+e.currentTarget.value);
     const onChangeCallbackMax = (e: ChangeEvent<HTMLInputElement>) => setMax(+e.currentTarget.value);
-    const valueMax = max * 100 / state.maxCardsCount
-    const valueMin = min * 100 / state.maxCardsCount
+    const valueMax = max * 100 / maxCardsCount
+    const valueMin = min * 100 / maxCardsCount
 
     return (
         <DoubleRangeWrapper>
@@ -57,7 +63,7 @@ export const DoubleRange = () => {
                        id={'valueMax'}
                        onChange={onChangeCallbackMax}
                        value={max}
-                       min={state.minCardsCount} max={state.maxCardsCount}
+                       min={minCardsCount} max={maxCardsCount}
                        slider={valueMax}
                 />
                 <Input index={min > max ? 1 : 2}
@@ -65,14 +71,14 @@ export const DoubleRange = () => {
                        id={'valueMin'}
                        type={'range'}
                        onChange={onChangeCallbackMin}
-                       min={state.minCardsCount} max={state.maxCardsCount}
+                       min={minCardsCount} max={maxCardsCount}
                        value={min}
                        slider={valueMin}
                 />
             </RangeInput>
         </DoubleRangeWrapper>
     )
-}
+})
 const DoubleRangeWrapper = styled.div``
 
 const NumberValue = styled.div`

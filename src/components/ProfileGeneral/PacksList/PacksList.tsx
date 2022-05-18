@@ -18,6 +18,7 @@ import {initialStateAuthorizationType} from "../../../Store-Reducers/Auth-Reduce
 import {DoubleRange} from "../../Common/DoubleRange";
 import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 import {FilterPacksType} from "../../../Types/PacksTypes";
+import { setCardsDataAC } from '../../../Store-Reducers/Cards-Reducer';
 
 export const PacksList = NotAuthRedirect(() => {
 
@@ -60,9 +61,12 @@ export const PacksList = NotAuthRedirect(() => {
                     </ButtonWrapper>
                 </ShowPacks>
 
+
                 <NumberCards>
                     <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                        <DoubleRange />
+                    <DoubleRange paramsMin={statePack.params.min} paramsMax={statePack.params.max}
+                                 minCardsCount={statePack.minCardsCount} maxCardsCount={statePack.maxCardsCount}
+                                 dispatchAction={setCardsDataAC}/>
                 </NumberCards>
             </ToolsProfileBlock>
 
