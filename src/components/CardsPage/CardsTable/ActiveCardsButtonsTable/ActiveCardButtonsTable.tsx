@@ -19,16 +19,11 @@ export const ActiveCardButtonsTable = ({el, myId}: ActiveButtonsTableType) => {
 
     return (
         <>
-            {showDeleteModal
-                ? <DeleteCardModal el={el} setShow={setShowDeleteModal}/>
-                : <></>
-            }
-            {showEditModal
-                ? <EditCardModal el={el} setShow={setShowEditModal}/>
-                : <></>
-            }
+            {showDeleteModal && <DeleteCardModal el={el} setShow={setShowDeleteModal}/>}
+            {showEditModal && <EditCardModal el={el} setShow={setShowEditModal}/>}
+
             {el.user_id === myId
-                ? <>
+                && <>
                     <DeleteTableButton onClick={deletePackHandler}>
                         Delete
                     </DeleteTableButton>
@@ -36,7 +31,6 @@ export const ActiveCardButtonsTable = ({el, myId}: ActiveButtonsTableType) => {
                         Edit
                     </TableButton>
                 </>
-                : <></>
             }
         </>
     );
@@ -59,7 +53,7 @@ const TableButton = styled.button`
     opacity: .3;
     cursor: no-drop;
   }
-  
+
   @media (max-width: 1550px) {
     padding: 6px 10px;
     font-size: 10px;
