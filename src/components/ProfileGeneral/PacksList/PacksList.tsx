@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {
     PacksInitialStateType,
-    setChangeFilteredPageAC,
+    setChangeFilteredPageAC, setMinCardsFilterAC,
     setUserIdAC
 } from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
@@ -18,10 +18,9 @@ import {initialStateAuthorizationType} from "../../../Store-Reducers/Auth-Reduce
 import {DoubleRange} from "../../Common/DoubleRange";
 import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 import {FilterPacksType} from "../../../Types/PacksTypes";
-import { setCardsDataAC } from '../../../Store-Reducers/Cards-Reducer';
+
 
 export const PacksList = NotAuthRedirect(() => {
-
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const dispatch = useTypedDispatch();
@@ -66,7 +65,7 @@ export const PacksList = NotAuthRedirect(() => {
                     <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
                     <DoubleRange paramsMin={statePack.params.min} paramsMax={statePack.params.max}
                                  minCardsCount={statePack.minCardsCount} maxCardsCount={statePack.maxCardsCount}
-                                 dispatchAction={setCardsDataAC}/>
+                                 dispatchAction={setMinCardsFilterAC}/>
                 </NumberCards>
             </ToolsProfileBlock>
 
