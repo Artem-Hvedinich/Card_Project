@@ -8,6 +8,7 @@ import styled from "styled-components";
 import {setFilteredColumnAC} from "../../../../../Store-Reducers/Packs-Reducer";
 import {useTypedDispatch} from "../../../../../Store-Reducers/Store";
 import {getAllPacksTC} from "../../../../../Thunk's/PacksThunk";
+import {Arrow} from "../../../../../UtilsFunction/Arrow";
 
 
 type CardTableType = {
@@ -35,36 +36,41 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
 
     return (
         <PacksBlock>
-            <div className={s.table}>
-                <div className={s.item_columns}>
-                    <div className={s.item_col_bg}>
+            <Table>
+                <ItemColumn>
                         {TableList.map(el => (
-                            <span key={el.id} className={s.name_column_one}>
+                            <OneColumn>
                                 {el.name}
-                                {el.name === 'Last Updated' && <Span up={up} onClick={onFilterColumnClick} />}
-                            </span>
+                                {el.name === 'Last Updated' &&
+                                    <Span up={up} onClick={onFilterColumnClick} />
+                                    // <Arrow rotate={up ? '225' : '45'} width={0.02} onClick={onFilterColumnClick}/>
+                                }
+                            </OneColumn>
                             ))
                         }
-                    </div>
-                </div>
+                </ItemColumn>
                 {isFetching
                     ? <LoadingTable/>
                     : itemPack.map(el => <TableElemets key={el._id} el={el}/>)
                 }
-            </div>
+            </Table>
         </PacksBlock>
     );
 };
 
 
 const Span = styled.span<{ up?: boolean }>`
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  height: 100%;
+  //border: 1px solid red;
   &:after {
     content: '';
     border: solid #242524;
     border-width: 0 0.2vw 0.2vw 0;
-    display: inline-block;
-    padding: 0.3vw;
-    margin-left: 10px;
+    padding: 0.2vw;
+    margin-left: 0.3vw;
     transform: rotate(${({up}) => up ? 225 : 45}deg);
     cursor: pointer;
     transition: 1s all;
@@ -78,7 +84,7 @@ const SpanDisabled = styled.span<{ up?: boolean }>`
     border: solid #242524;
     border-width: 0 0.2vw 0.2vw 0;
     display: inline-block;
-    padding: 0.3vw;
+    padding: 0.2vw;
     margin-left: 10px;
     transform: rotate(${({up}) => up ? 225 : 45}deg);
     cursor: no-drop;
@@ -97,11 +103,6 @@ const ItemColumn = styled.div`
   font-weight: 600;
   display: flex;
   align-items: center;`
-
-const ItemBg = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;`
 
 const OneColumn = styled.div`
   display: flex;

@@ -12,7 +12,7 @@ const ArrowBlock = styled.div<{ rotate: string, width: number }>`
   border: solid ${colors.AzureishWhite};
   border-width: 0 0.2vw 0.2vw 0;
   display: inline-block;
-  padding: ${({width}) => width}vw;
+  padding: 0.2vw;
   transform: rotate(${({rotate}) => `${rotate}deg`});
   cursor: pointer;
 
