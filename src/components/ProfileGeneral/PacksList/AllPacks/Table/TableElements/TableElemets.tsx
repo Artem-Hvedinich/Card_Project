@@ -7,6 +7,7 @@ import {initialStateAuthorizationType} from "../../../../../../Store-Reducers/Au
 import {PATH} from "../../../../../../UtilsFunction/const-enum-path";
 import {useNavigate} from "react-router-dom";
 import {setCardsPackId} from "../../../../../../Store-Reducers/Cards-Reducer";
+import styled from "styled-components";
 
 type TableElementsType = {
     el: OnePacksType
@@ -24,14 +25,48 @@ export const TableElemets = ({el}: TableElementsType) => {
     };
 
     return (
-        <div className={s.elements_table_general_block}>
-            <div className={s.li}>
-                <span className={s.item} onClick={() => onPackClick(el._id)}>{el.name}</span>
-                <span className={s.item}>{el.cardsCount}</span>
-                <span className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
-                <span className={s.item}>{el.user_name}</span>
-                <span className={s.item}> <ActiveButtonsTable el={el} myId={stateAuth._id}/> </span>
-            </div>
-        </div>
+        <GeneralBlock>
+            <Item onClick={() => onPackClick(el._id)}>{el.name}</Item>
+            <Item>{el.cardsCount}</Item>
+            <Item>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</Item>
+            <Item>{el.user_name}</Item>
+            <Item> <ActiveButtonsTable el={el} myId={stateAuth._id}/> </Item>
+        </GeneralBlock>
     );
 };
+
+const GeneralBlock = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;`
+
+const Item = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 2.3vw;
+  padding: 0 1.2vw;
+  font-size: 0.8vw;
+  
+  :nth-child(1) {
+    min-width: 25%;
+    justify-content: start;
+  }
+
+  :nth-child(2) {
+    max-width: 13%;
+  }
+
+  :nth-child(3) {
+    max-width: 16%;
+  }
+
+  :nth-child(4) {
+    min-width: 20%;
+  }
+
+  :nth-child(5) {
+    justify-content: end;
+    min-width: 20%;
+  }`

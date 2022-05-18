@@ -80,6 +80,8 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
 
 const ShowCardsPage = styled.div`
   display: flex;
+  font-size: 0.8vw;
+  align-items: center;
   justify-content: space-between;
-  width: 20%`
+  width: 20%;`
 
