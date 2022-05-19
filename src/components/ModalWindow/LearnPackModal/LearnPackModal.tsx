@@ -84,7 +84,8 @@ export const LearnPackModal = () => {
                         <ButtonCancel onClick={closeModalClick}>Cancel</ButtonCancel>
                         <ButtonSave bgColor={showAnswer ? colors.Green : colors.Blue}
                                     onClick={showAnswer ? onNext : showAnswerClickHandler} width={"230px"}>
-                            {showAnswer ? 'Next' : 'Show answer'}</ButtonSave>
+                            {showAnswer ? 'Next' : 'Show answer'}
+                        </ButtonSave>
                     </ButtonsBlock>
                 </Modal>
             </ModalWindow>
