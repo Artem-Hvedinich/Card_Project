@@ -133,10 +133,10 @@ export const ButtonsBlock = styled.div`
   }
 `;
 
-export const ButtonSave = styled.button<{width?: string}>`
+export const ButtonSave = styled.button<{width?: string,bgColor?:string}>`
   width: ${({width}) => width ? width: "150px"};
   height: 40px;
-  background-color: #21268F;
+  background-color:${({bgColor}) => bgColor ? bgColor: '#21268F'};
   color: #ECECF9;
   border-radius: 30px;
   letter-spacing: 0.7px;
