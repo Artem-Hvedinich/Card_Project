@@ -28,17 +28,11 @@ export const LearnPackModal = () => {
     const dispatch = useTypedDispatch();
     const closeModalClick = () => navigate(-1);
 
-    const [card, setCard] = useState({
-        cardsPack_id: '62850a120cf3a40004dfa336',
-        _id: '',
-        answer: 'answer fake',
-        question: 'question fake',
-        grade: 0,
-    });
+    const [card, setCard] = useState({} as OneCardType);
 
     useEffect(() => {
-        dispatch(getCardsTC())
         setCard(Random(cards))
+        dispatch(getCardsTC())
     }, []);
 
     const namePack = pack.find(el => el._id === packId)?.name;
@@ -59,7 +53,7 @@ export const LearnPackModal = () => {
     const onChangeOption = (grade: number) => {
         setGrade(grade)
     }
-    console.log(card._id)
+
     const onNext = () => {
         grade && dispatch(updatedGradeTC(grade, card._id))
         setCard(Random(cards))

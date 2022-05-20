@@ -9,7 +9,7 @@ const initialCardsState: CardsInitialStateType = {
     params: {
         cardAnswer: '',
         cardQuestion: '',
-        cardsPack_id: '',
+        cardsPack_id: '62850a120cf3a40004dfa336',
         min: 0,
         max: 5,
         sortCards: '0grade',
@@ -17,7 +17,7 @@ const initialCardsState: CardsInitialStateType = {
         pageCount: 10,
     } as ParamsCardsType,
     isFetching: false,
-    packUserId: ''
+    packUserId: '62850a120cf3a40004dfa336'
 };
 
 const CardsSlice = createSlice({
