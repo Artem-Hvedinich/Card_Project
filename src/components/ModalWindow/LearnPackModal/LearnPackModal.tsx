@@ -31,7 +31,7 @@ export const LearnPackModal = () => {
     const [card, setCard] = useState({} as OneCardType);
 
     useEffect(() => {
-        setCard(Random(cards))
+        cards.length > 0 && setCard(Random(cards))
         dispatch(getCardsTC())
     }, []);
 
