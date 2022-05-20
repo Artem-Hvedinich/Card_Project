@@ -8,9 +8,7 @@ import {setAppSuccessMessageAC} from "../Store-Reducers/App-Reducer";
 
 export const getCardsTC = (): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
-
         dispatch(setFetchingCardsTableAC({isFetching: true}));
-
         try {
             let params = getState().CardsReducer.params;
             const {data} = await CardsAPI.getCards(params);
@@ -79,14 +77,12 @@ export const updateCardTC = (card: RequestCardUpdateType): AppThunkType => async
 
 export const updatedGradeTC = (grade: number, card_id: string): AppThunkType => async dispatch => {
     dispatch(setFetchingCardsTableAC({isFetching: true}));
-
     try {
         const {data} = await CardsAPI.updatedGrade(grade, card_id)
-        console.log(data)
         if (data) {
             dispatch(getCardsTC());
             dispatch(setFetchingCardsTableAC({isFetching: false}));
-            dispatch(setAppSuccessMessageAC({success: "Card is edited"}));
+            dispatch(setAppSuccessMessageAC({success: "Grade nice"}));
         }
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

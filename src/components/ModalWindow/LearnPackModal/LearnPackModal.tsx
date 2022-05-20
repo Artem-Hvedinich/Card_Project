@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
     ButtonCancel,
     ButtonSave,
@@ -19,51 +19,47 @@ import {OneCardType} from "../../../Types/CardTypes";
 import {getCardsTC, updatedGradeTC} from "../../../Thunk's/CardsThunk";
 import {Random} from "../../../UtilsFunction/Random";
 
+const grades = [
+    {title: 'Did not know', grade: 1},
+    {title: 'Forgot', grade: 2},
+    {title: 'A lot of thought', grade: 3},
+    {title: 'Сonfused', grade: 4},
+    {title: 'Knew the answer', grade: 5}
+]
 
 export const LearnPackModal = () => {
-    const [showAnswer, setShowAnswer] = useState<boolean>(false);
+
     const pack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs);
     const cards = useAppSelector<OneCardType[]>(state => state.CardsReducer.cards);
     const {packId} = useParams()
     const navigate = useNavigate();
     const dispatch = useTypedDispatch();
     const closeModalClick = () => navigate(-1);
-
-    const [card, setCard] = useState({
-        cardsPack_id: '',
-        _id: '',
-        answer: 'answer fake',
-        question: 'question fake',
-        grade: 0,
-    });
+    const [showAnswer, setShowAnswer] = useState<boolean>(false);
+    const [grade, setGrade] = useState<number>();
+    const [card, setCard] = useState({} as OneCardType);
 
     useEffect(() => {
+        cards.length > 0 && setCard(Random(cards))
         dispatch(getCardsTC())
-        setCard(Random(cards))
     }, []);
 
     const namePack = pack.find(el => el._id === packId)?.name;
+
     const showAnswerClickHandler = () => {
         setShowAnswer(true);
     }
 
-    const [grade, setGrade] = useState<number>();
-    const grades = [
-        {title: 'Did not know', grade: 1},
-        {title: 'Forgot', grade: 2},
-        {title: 'A lot of thought', grade: 3},
-        {title: 'Сonfused', grade: 4},
-        {title: 'Knew the answer', grade: 5}]
 
     const onChangeOption = (grade: number) => {
         setGrade(grade)
     }
-    const onNext = () => {
-        grade && dispatch(updatedGradeTC(grade, card.cardsPack_id))
+
+    const onNext = useCallback(() => {
+        grade && dispatch(updatedGradeTC(grade, card._id))
         setCard(Random(cards))
         setShowAnswer(false);
-
-    }
+    }, [])
 
     return (
         <ModalWrapperClear>

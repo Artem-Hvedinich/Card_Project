@@ -8,6 +8,7 @@ import {OnePacksType} from "../../../../../../Types/PacksTypes";
 import {colors} from "../../../../../StylesComponents/Colors";
 import {useTypedDispatch} from "../../../../../../Store-Reducers/Store";
 import {setCardsPackId} from "../../../../../../Store-Reducers/Cards-Reducer";
+import {getCardsTC} from "../../../../../../Thunk's/CardsThunk";
 
 type ActiveButtonsTableType = {
     el: OnePacksType

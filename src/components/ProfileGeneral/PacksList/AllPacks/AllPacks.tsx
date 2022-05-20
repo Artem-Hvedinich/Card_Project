@@ -31,13 +31,11 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
     const addPackHandler = () => setShowAddModal(true);
     const onPageChanged = (page: number) => {
         dispatch(getOnePagePacksAC({page}));
-        dispatch(getAllPacksTC());
     };
 
     const onChangeDebounceRequest = (title: string) => {
         dispatch(getOnePagePacksAC({page: 1}));
         dispatch(setTitleForSearchAC({title}));
-        dispatch(getAllPacksTC());
     };
 
     return (
