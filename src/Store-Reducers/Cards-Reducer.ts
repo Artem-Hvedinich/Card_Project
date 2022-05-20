@@ -29,6 +29,7 @@ const CardsSlice = createSlice({
             state.cardsTotalCount = action.payload.cardsTotalCount;
             state.packUserId = action.payload.packUserId
         },
+
         setFetchingCardsTableAC(state, action: PayloadAction<{ isFetching: boolean }>) {
             state.isFetching = action.payload.isFetching
         },
@@ -51,5 +52,7 @@ const CardsSlice = createSlice({
 export const CardsReducer = CardsSlice.reducer;
 
 
-export const {setCardsDataAC, setFetchingCardsTableAC, setCardsPackId,
-    getOnePageCardsAC, setCardsAnswerSearch, setCardsQuestionSearch} = CardsSlice.actions;
+export const {
+    setCardsDataAC, setFetchingCardsTableAC, setCardsPackId,
+    getOnePageCardsAC, setCardsAnswerSearch, setCardsQuestionSearch
+} = CardsSlice.actions;

@@ -19,7 +19,6 @@ import {OneCardType} from "../../../Types/CardTypes";
 import {getCardsTC, updatedGradeTC} from "../../../Thunk's/CardsThunk";
 import {Random} from "../../../UtilsFunction/Random";
 
-
 export const LearnPackModal = () => {
     const [showAnswer, setShowAnswer] = useState<boolean>(false);
     const pack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs);
@@ -30,7 +29,7 @@ export const LearnPackModal = () => {
     const closeModalClick = () => navigate(-1);
 
     const [card, setCard] = useState({
-        cardsPack_id: '',
+        cardsPack_id: '62850a120cf3a40004dfa336',
         _id: '',
         answer: 'answer fake',
         question: 'question fake',
@@ -43,6 +42,7 @@ export const LearnPackModal = () => {
     }, []);
 
     const namePack = pack.find(el => el._id === packId)?.name;
+
     const showAnswerClickHandler = () => {
         setShowAnswer(true);
     }
@@ -53,16 +53,17 @@ export const LearnPackModal = () => {
         {title: 'Forgot', grade: 2},
         {title: 'A lot of thought', grade: 3},
         {title: 'Сonfused', grade: 4},
-        {title: 'Knew the answer', grade: 5}]
+        {title: 'Knew the answer', grade: 5}
+    ]
 
     const onChangeOption = (grade: number) => {
         setGrade(grade)
     }
+    console.log(card._id)
     const onNext = () => {
-        grade && dispatch(updatedGradeTC(grade, card.cardsPack_id))
+        grade && dispatch(updatedGradeTC(grade, card._id))
         setCard(Random(cards))
         setShowAnswer(false);
-
     }
 
     return (
