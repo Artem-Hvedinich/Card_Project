@@ -82,7 +82,7 @@ export const PackAPI = {
     deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`);
     },
-    updatePack(cardsPack: { _id: string, name: string, private: boolean}) {
+    updatePack(cardsPack: { _id: string, name: string, private: boolean }) {
         return instance.put(`/cards/pack`, {cardsPack})
     },
     createPack(cardsPack: { name: string, private: boolean, deckCover?: string }) {
@@ -104,4 +104,7 @@ export const CardsAPI = {
     updateCard(card: RequestCardUpdateType) {
         return instance.put<RequestCardUpdateType, any, any>(`/cards/card`, {card});
     },
+    updatedGrade(grade: number, card_id: string) {
+        return instance.put(`/cards/grade`, {grade, card_id})
+    }
 }

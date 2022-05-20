@@ -14,27 +14,13 @@ import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {useNavigate, useParams} from "react-router-dom";
 import {OnePacksType} from "../../../Types/PacksTypes";
 import {colors} from "../../StylesComponents/Colors";
-import {RadioInput} from "../../../UtilsFunction/RadioInput";
+import {RadioInput} from "../../Common/RadioInput";
 import {OneCardType} from "../../../Types/CardTypes";
-import {getCardsTC} from "../../../Thunk's/CardsThunk";
+import {getCardsTC, updatedGradeTC} from "../../../Thunk's/CardsThunk";
+import {Random} from "../../../UtilsFunction/Random";
 
-const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Сonfused', 'Knew the answer'];
-
-const getCard = (cards: OneCardType[]) => {
-    const sum = cards.reduce((acc: number, card: any) => acc + (6 - card.grade) * (6 - card.grade), 0);
-    const rand = Math.random() * sum;
-    const res = cards.reduce((acc: { sum: number, id: number }, card: any, i: number) => {
-            const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
-            return {sum: newSum, id: newSum < rand ? i : acc.id}
-        }
-        , {sum: 0, id: -1});
-    console.log('test: ', sum, rand, res)
-
-    return cards[res.id + 1];
-}
 
 export const LearnPackModal = () => {
-
     const [showAnswer, setShowAnswer] = useState<boolean>(false);
     const pack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs);
     const cards = useAppSelector<OneCardType[]>(state => state.CardsReducer.cards);
@@ -50,9 +36,10 @@ export const LearnPackModal = () => {
         question: 'question fake',
         grade: 0,
     });
+
     useEffect(() => {
         dispatch(getCardsTC())
-        setCard(getCard(cards))
+        setCard(Random(cards))
     }, []);
 
     const namePack = pack.find(el => el._id === packId)?.name;
@@ -60,9 +47,22 @@ export const LearnPackModal = () => {
         setShowAnswer(true);
     }
 
+    const [grade, setGrade] = useState<number>();
+    const grades = [
+        {title: 'Did not know', grade: 1},
+        {title: 'Forgot', grade: 2},
+        {title: 'A lot of thought', grade: 3},
+        {title: 'Сonfused', grade: 4},
+        {title: 'Knew the answer', grade: 5}]
+
+    const onChangeOption = (grade: number) => {
+        setGrade(grade)
+    }
     const onNext = () => {
-        setCard(getCard(cards))
+        grade && dispatch(updatedGradeTC(grade, card.cardsPack_id))
+        setCard(Random(cards))
         setShowAnswer(false);
+
     }
 
     return (
@@ -80,7 +80,7 @@ export const LearnPackModal = () => {
                         <WrapperText>
                             <b>Answer:</b> "{card.answer}"
                         </WrapperText>
-                        <RadioInput options={grades}/>
+                        <RadioInput options={grades} value={grade} onChangeOption={onChangeOption}/>
                     </>}
 
                     <ButtonsBlock>

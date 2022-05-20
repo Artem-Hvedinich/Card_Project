@@ -9,36 +9,34 @@ import {setAppSuccessMessageAC} from "../Store-Reducers/App-Reducer";
 export const getCardsTC = (): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
-    dispatch(setFetchingCardsTableAC({ isFetching: true }));
+        dispatch(setFetchingCardsTableAC({isFetching: true}));
 
-    try {
-        let params = getState().CardsReducer.params;
-        const {data} = await CardsAPI.getCards(params);
-        if (data) {
-            dispatch(setCardsDataAC(data));
-            dispatch(setFetchingCardsTableAC({ isFetching: false }));
+        try {
+            let params = getState().CardsReducer.params;
+            const {data} = await CardsAPI.getCards(params);
+            if (data) {
+                dispatch(setCardsDataAC(data));
+                dispatch(setFetchingCardsTableAC({isFetching: false}));
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                handleServerNetworkError(error.response.data.error, dispatch);
+            }
         }
-    }
-    catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            handleServerNetworkError(error.response.data.error, dispatch);
-        }
-    }
-};
+    };
 
 export const deleteCardTC = (id: string): AppThunkType => async dispatch => {
 
-    dispatch(setFetchingCardsTableAC({ isFetching: true }));
+    dispatch(setFetchingCardsTableAC({isFetching: true}));
 
     try {
         const {data} = await CardsAPI.deleteCard(id);
         if (data) {
             dispatch(getCardsTC());
-            dispatch(setFetchingCardsTableAC({ isFetching: false }));
+            dispatch(setFetchingCardsTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Card is deleted"}));
         }
-    }
-    catch (error) {
+    } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
         }
@@ -47,17 +45,16 @@ export const deleteCardTC = (id: string): AppThunkType => async dispatch => {
 
 export const createCardTC = (card: RequestCardPostType): AppThunkType => async dispatch => {
 
-    dispatch(setFetchingCardsTableAC({ isFetching: true }));
+    dispatch(setFetchingCardsTableAC({isFetching: true}));
 
     try {
         const {data} = await CardsAPI.createCard(card);
         if (data) {
             dispatch(getCardsTC());
-            dispatch(setFetchingCardsTableAC({ isFetching: false }));
+            dispatch(setFetchingCardsTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Card is added"}));
         }
-    }
-    catch (error) {
+    } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
         }
@@ -65,18 +62,33 @@ export const createCardTC = (card: RequestCardPostType): AppThunkType => async d
 };
 
 export const updateCardTC = (card: RequestCardUpdateType): AppThunkType => async dispatch => {
-
-    dispatch(setFetchingCardsTableAC({ isFetching: true }));
-
+    dispatch(setFetchingCardsTableAC({isFetching: true}));
     try {
         const {data} = await CardsAPI.updateCard(card);
         if (data) {
             dispatch(getCardsTC());
-            dispatch(setFetchingCardsTableAC({ isFetching: false }));
+            dispatch(setFetchingCardsTableAC({isFetching: false}));
             dispatch(setAppSuccessMessageAC({success: "Card is edited"}));
         }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            handleServerNetworkError(error.response.data.error, dispatch);
+        }
     }
-    catch (error) {
+};
+
+export const updatedGradeTC = (grade: number, card_id: string): AppThunkType => async dispatch => {
+    dispatch(setFetchingCardsTableAC({isFetching: true}));
+
+    try {
+        const {data} = await CardsAPI.updatedGrade(grade, card_id)
+        console.log(data)
+        if (data) {
+            dispatch(getCardsTC());
+            dispatch(setFetchingCardsTableAC({isFetching: false}));
+            dispatch(setAppSuccessMessageAC({success: "Card is edited"}));
+        }
+    } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             handleServerNetworkError(error.response.data.error, dispatch);
         }
