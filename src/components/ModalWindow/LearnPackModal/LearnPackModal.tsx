@@ -10,16 +10,17 @@ import {
     WrapperText,
     WrapperTextAndClose
 } from '../../StylesComponents/ModalWrappers';
-import {useAppSelector} from "../../../Store-Reducers/Store";
+import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {useNavigate, useParams} from "react-router-dom";
 import {OnePacksType} from "../../../Types/PacksTypes";
-import {CardsInitialStateType} from "../../../Store-Reducers/Cards-Reducer";
 import {colors} from "../../StylesComponents/Colors";
 import {RadioInput} from "../../../UtilsFunction/RadioInput";
+import {OneCardType} from "../../../Types/CardTypes";
+import {getCardsTC} from "../../../Thunk's/CardsThunk";
 
 const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Сonfused', 'Knew the answer'];
 
-const getCard = (cards: any) => {
+const getCard = (cards: OneCardType[]) => {
     const sum = cards.reduce((acc: number, card: any) => acc + (6 - card.grade) * (6 - card.grade), 0);
     const rand = Math.random() * sum;
     const res = cards.reduce((acc: { sum: number, id: number }, card: any, i: number) => {
@@ -35,15 +36,12 @@ const getCard = (cards: any) => {
 export const LearnPackModal = () => {
 
     const [showAnswer, setShowAnswer] = useState<boolean>(false);
-
     const pack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs);
-    const cards = useAppSelector<CardsInitialStateType>(state => state.CardsReducer);
+    const cards = useAppSelector<OneCardType[]>(state => state.CardsReducer.cards);
     const {packId} = useParams()
     const navigate = useNavigate();
-
+    const dispatch = useTypedDispatch();
     const closeModalClick = () => navigate(-1);
-    const showAnswerClickHandler = () => setShowAnswer(true);
-    let namePack = pack.find(el => el._id === packId)?.name;
 
     const [card, setCard] = useState({
         cardsPack_id: '',
@@ -52,14 +50,19 @@ export const LearnPackModal = () => {
         question: 'question fake',
         grade: 0,
     });
-
     useEffect(() => {
-        setCard(getCard(cards.cards));
-    }, [packId, cards, card]);
+        dispatch(getCardsTC())
+        setCard(getCard(cards))
+    }, []);
+
+    const namePack = pack.find(el => el._id === packId)?.name;
+    const showAnswerClickHandler = () => {
+        setShowAnswer(true);
+    }
 
     const onNext = () => {
+        setCard(getCard(cards))
         setShowAnswer(false);
-        setCard(getCard(cards));
     }
 
     return (
