@@ -3,11 +3,15 @@ import styled from "styled-components";
 import {colors} from "../StylesComponents/Colors";
 import {Arrow} from "../../UtilsFunction/Arrow";
 
-
-export const Pagination = ({totalItemsCount, pageSize, onPageChanged, portionSize, currentPage}: {
-    totalItemsCount: number, pageSize: number, portionSize: number, currentPage: number
+type PaginationType = {
+    totalItemsCount: number
+    pageSize: number
+    portionSize: number
+    currentPage: number
     onPageChanged: (pageNumber: number) => void
-}) => {
+};
+
+export const Pagination = ({totalItemsCount, pageSize, onPageChanged, portionSize, currentPage}: PaginationType) => {
 
     const pagesCount = Math.ceil(totalItemsCount / pageSize)
     const pages = []
@@ -22,7 +26,7 @@ export const Pagination = ({totalItemsCount, pageSize, onPageChanged, portionSiz
 
     return (
         <NumbersWrapper>
-            {portionNumber > 1 && <Arrow rotate={'135'} onClick={() => setPortionNumber(portionNumber - 1)}/>}
+            {portionNumber > 1 && <Arrow width={0.3} rotate={'135'} onClick={() => setPortionNumber(portionNumber - 1)}/>}
 
             {pages.filter(p => p >= leftPositionPageNumber && p <= rightPositionPageNumber)
                 .map((p) => <PageWrap key={p}
@@ -30,17 +34,16 @@ export const Pagination = ({totalItemsCount, pageSize, onPageChanged, portionSiz
                                       active={currentPage === p}>{p}</PageWrap>
                 )}
             {portionCount > portionNumber &&
-                <Arrow rotate={'-45'} onClick={() => setPortionNumber(portionNumber + 1)}/>}
+                <Arrow width={0.3} rotate={'-45'} onClick={() => setPortionNumber(portionNumber + 1)}/>}
         </NumbersWrapper>
     )
 };
 
 const NumbersWrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding-top: 1vw`
+  width: 60%;`
 
 const PageWrap = styled.span<{ active: boolean }>`
   display: flex;

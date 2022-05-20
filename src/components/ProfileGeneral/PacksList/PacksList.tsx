@@ -1,68 +1,76 @@
 import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {PacksInitialStateType, setChangeFilteredPageAC} from "../../../Store-Reducers/Packs-Reducer";
-import {AllPacks} from "./AllPacks/AllPacks";
-import {FilterCardsType} from "../../../Types/PacksTypes";
 import {
-    GeneralProfileWrapper,
-    TitleProfileWrapper,
-    ToolsProfileBlock
-} from '../../StylesComponents/ProfileAndPacksWrapper';
+    PacksInitialStateType,
+    setChangeFilteredPageAC,
+    setMinCardsFilterAC,
+    setUserIdAC
+} from "../../../Store-Reducers/Packs-Reducer";
+import {AllPacks} from "./AllPacks/AllPacks";
+import {GeneralProfileWrapper, TitleProfileWrapper, ToolsProfileBlock} from '../../StylesComponents/ProfileAndPacksWrapper';
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
-import {DoubleRange} from "../../../UtilsFunction/DoubleRange";
+import {initialStateAuthorizationType} from "../../../Store-Reducers/Auth-Reducer";
+import {DoubleRange} from "../../Common/DoubleRange";
 import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
+import {FilterPacksType} from "../../../Types/PacksTypes";
 
 export const PacksList = NotAuthRedirect(() => {
 
-        const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
-        const myId = useAppSelector<string | null>(state => state.AuthorizationReducer._id);
+    const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
+    const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
+    const dispatch = useTypedDispatch();
 
+    useEffect(() => {
+        dispatch(setUserIdAC({userId: ""}));
+        dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
+    }, [dispatch]);
 
-        const dispatch = useTypedDispatch();
+    useEffect(() => {
+        dispatch(getAllPacksTC());
+    },[statePack.params, statePack.packsType]);
 
+    const onClickHandler = (valueFilter: FilterPacksType) => {
+        dispatch(setChangeFilteredPageAC({valueFilter}));
+        if (valueFilter === 'My' && _id) {
+            dispatch(setUserIdAC({userId: _id}));
+        } else {
+            dispatch(setUserIdAC({userId: ""}));
+        }
+    };
 
-        const onClickHandler = (valueFilter: FilterCardsType) => {
-            if (valueFilter === 'My') {
-                dispatch(setChangeFilteredPageAC({valueFilter}))
-                myId && dispatch(getAllPacksTC(myId))
-            } else {
-                dispatch(setChangeFilteredPageAC({valueFilter}))
-                dispatch(getAllPacksTC())
-            }
-        };
+    const active = statePack.packsType === "All";
 
-        const active = statePack.filter === "All";
+    return (
+        <GeneralProfileWrapper>
+            <ToolsProfileBlock more={statePack.cardPacksTotalCount > 11}>
+                <ShowPacks>
+                    <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
+                    <ButtonWrapper>
+                        <Button active={!active}
+                                onClick={() => onClickHandler("My")}>My
+                        </Button>
 
-        return (
-            <GeneralProfileWrapper>
-                <ToolsProfileBlock>
-                    <ShowPacks>
-                        <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
-                        <ButtonWrapper>
-                            <Button active={!active}
-                                    onClick={() => onClickHandler("My")}>My
-                            </Button>
+                        <Button active={active}
+                                onClick={() => onClickHandler("All")}>All
+                        </Button>
+                    </ButtonWrapper>
+                </ShowPacks>
 
-                            <Button active={active}
-                                    onClick={() => onClickHandler("All")}>All
-                            </Button>
-                        </ButtonWrapper>
-                    </ShowPacks>
+                <NumberCards>
+                    <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
+                    <DoubleRange paramsMin={statePack.params.min} paramsMax={statePack.params.max}
+                                 minCardsCount={statePack.minCardsCount} maxCardsCount={statePack.maxCardsCount}
+                                 dispatchAction={setMinCardsFilterAC}/>
+                </NumberCards>
+            </ToolsProfileBlock>
 
-                    <NumberCards>
-                        <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>
-                        {/*<DoubleRange/>*/}
-                    </NumberCards>
-                </ToolsProfileBlock>
+            <AllPacks namePage={"Packs List"}/>
 
-                <AllPacks packsArray={statePack.data.cardPacks} namePage={"Packs List"}/>
-
-            </GeneralProfileWrapper>
-        )
-    })
-;
+        </GeneralProfileWrapper>
+    )
+});
 
 const ShowPacks = styled.div`
   display: flex;
@@ -70,7 +78,8 @@ const ShowPacks = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  height: 7vw;`
+  height: 7vw;
+`;
 
 const NumberCards = styled.div`
   display: flex;
@@ -78,9 +87,11 @@ const NumberCards = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  height: 5vw;`
+  height: 5vw;
+`;
 const ButtonWrapper = styled.div`
-  display: flex;`
+  display: flex;
+`;
 
 const Button = styled.button<{ active: boolean }>`
   width: 4vw;

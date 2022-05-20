@@ -3,67 +3,68 @@ import styled from "styled-components";
 import {DeletePackModal} from "../../../../../ModalWindow/DeletePackModal/DeletePackModal";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../../../../../UtilsFunction/const-enum-path";
+import {EditPackModal} from '../../../../../ModalWindow/EditPackModal/EditPackModal';
+import {OnePacksType} from "../../../../../../Types/PacksTypes";
+import {colors} from "../../../../../StylesComponents/Colors";
+import {useTypedDispatch} from "../../../../../../Store-Reducers/Store";
+import {setCardsPackId} from "../../../../../../Store-Reducers/Cards-Reducer";
 
 type ActiveButtonsTableType = {
+    el: OnePacksType
     myId: string | null
-    userId: string
-    id: string
-    onEditClick: (id: string) => void
 }
 
-export const ActiveButtonsTable = ({myId, onEditClick, id, userId}: ActiveButtonsTableType) => {
+export const ActiveButtonsTable = ({myId, el}: ActiveButtonsTableType) => {
 
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const navigate = useNavigate();
+    const dispatch = useTypedDispatch();
 
     const deletePackHandler = () => setShowDeleteModal(true);
-    const onLearnClick = (id: string) => navigate(PATH.learnPack + `/:${id}`);
+    const editPackHandler = () => setShowEditModal(true);
+    const onLearnClick = (id: string) => {
+        navigate(PATH.learnPack + `/${id}`)
+        dispatch(setCardsPackId({cardsPack_id: id}))
+    }
 
     return (
         <>
-            {showDeleteModal
-                ? <DeletePackModal id={id} setShow={setShowDeleteModal}/>
-                : <></>
-            }
-            {myId === userId
-                ? <>
-                    <DeleteTableButton onClick={deletePackHandler}>
-                        Delete
-                    </DeleteTableButton>
-                    <TableButton onClick={() => onEditClick(id)}>
-                        Edit
-                    </TableButton>
-                    <TableButton onClick={() => onLearnClick(id)}>
-                        Learn
-                    </TableButton>
-                </>
-                : <TableButton onClick={() => onLearnClick(id)}>
-                    Learn
-                </TableButton>
-            }
+            {showDeleteModal && <DeletePackModal id={el._id} setShow={setShowDeleteModal}/>}
+            {showEditModal && <EditPackModal el={el} setShow={setShowEditModal}/>}
 
+            {myId === el.user_id &&
+                <>
+                    <Button color={colors.WhiteColor} bgColor={'#F1453D'} onClick={deletePackHandler}>
+                        Delete
+                    </Button>
+                    <Button color={colors.Blue} bgColor={colors.AzureishWhite} onClick={editPackHandler}>
+                        Edit
+                    </Button>
+                </>}
+
+            <Button color={colors.Blue} bgColor={colors.AzureishWhite} disabled={el.cardsCount === 0}
+                    onClick={() => onLearnClick(el._id)}>
+                Learn
+            </Button>
         </>
-    );
+    )
 };
 
 
-const TableButton = styled.div`
+const Button = styled.button<{ color: string, bgColor: string }>`
   cursor: pointer;
-  background-color: #D7D8EF;
-  padding: 5px 10px;
-  margin-left: 13px;
-  color: #21268F;
-  font-size: 13px;
-  font-weight: 700;
-  text-align: center;
-`;
-const DeleteTableButton = styled.div`
+  background-color: ${({bgColor}) => bgColor};
   border: none;
-  cursor: pointer;
-  background-color: #F1453D;
-  padding: 5px 10px;
-  color: #ffffff;
-  font-size: 13px;
+  border-radius: 0.15vw;
+  font-size: 0.8vw;
+  padding: 7px 12px;
+  margin-left: 13px;
+  color: ${({color}) => color};
   font-weight: 700;
   text-align: center;
-`;
+
+  &:disabled {
+    opacity: .3;
+    cursor: no-drop;
+  }`

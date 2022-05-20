@@ -1,104 +1,82 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {memo, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../../Store-Reducers/Store";
-import {PacksInitialStateType} from "../../../../Store-Reducers/Packs-Reducer";
 import {CardTable} from "./Table/Table";
 import {ProfileWrapper, TitleProfileWrapper} from '../../../StylesComponents/ProfileAndPacksWrapper';
-import styled from "styled-components";
-import {colors} from "../../../StylesComponents/Colors";
 import {Pagination} from "../../../Common/Pagination";
-import {getAllPacksTC, getOnePagePacksTC, SearchPackTC} from '../../../../Thunk\'s/PacksThunk';
 import {AddPackModal} from "../../../ModalWindow/AddPackModal/AddPackModal";
-import {OnePacksType} from "../../../../Types/PacksTypes";
-import { InputWrapper, PaginationBlock, SearchBlock } from '../../../StylesComponents/CardsWrapper';
+import {PaginationBlock, SearchBlock} from '../../../StylesComponents/CardsWrapper';
+import {
+    getOnePagePacksAC,
+    PacksInitialStateType,
+    setPageCountAC,
+    setTitleForSearchAC
+} from "../../../../Store-Reducers/Packs-Reducer";
+import {getAllPacksTC} from "../../../../Thunk's/PacksThunk";
+import {SearchField} from "../../../Common/SearchInput/SearchInput";
+import {Button} from "../../../Common/Buttons/Button";
+import {PageSelect} from "../../../../UtilsFunction/PageSelector";
+import styled from "styled-components";
 
 type AllPacksType = {
-    myId?: string
-    packsArray: OnePacksType[];
     namePage: string
 }
 
-export const AllPacks = ({namePage, packsArray, myId}: AllPacksType) => {
+export const AllPacks = memo(({namePage}: AllPacksType) => {
 
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
-    const [value, setValue] = useState<string>("");
-    const [error, setError] = useState<string | null>(null);
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
-    const [showEditModal, setShowEditModal] = useState<string>('');
+
     const dispatch = useTypedDispatch();
 
-    useEffect(() => {
-        dispatch(getAllPacksTC(myId));
-    }, []);
-
-    let pageCount = 10;
-
-    const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (error && error.trim() !== '') setError(null)
-        if (e.ctrlKey || e.key === "Enter") {
-            dispatch(SearchPackTC(value));
-        } else {
-            setError('Error value')
-        }
+    const addPackHandler = () => setShowAddModal(true);
+    const onPageChanged = (page: number) => {
+        dispatch(getOnePagePacksAC({page}));
+        dispatch(getAllPacksTC());
     };
 
-    const onChangeSearchHandler = (text: ChangeEvent<HTMLInputElement>) => {
-        setError(null)
-        setValue(text.currentTarget.value);
-    }
-    const addPackHandler = () => setShowAddModal(true);
-    const editPackHandler = (id: string) => {
-        if (showEditModal.length === 0 ) {
-            setShowEditModal(id);
-        } else {
-            setShowEditModal('');
-        }
-    }
-
-    const onPageChanged = (numberPage: number) => dispatch(getOnePagePacksTC(numberPage));
+    const onChangeDebounceRequest = (title: string) => {
+        dispatch(getOnePagePacksAC({page: 1}));
+        dispatch(setTitleForSearchAC({title}));
+        dispatch(getAllPacksTC());
+    };
 
     return (
-        <ProfileWrapper>
-            {showAddModal
-                ? <AddPackModal setShow={setShowAddModal}/>
-                : <></>
-            }
+        <ProfileWrapper more={statePack.cardPacksTotalCount > 11}>
+            {showAddModal && <AddPackModal setShow={setShowAddModal}/>}
             <TitleProfileWrapper fontSz={1.5}>{namePage}</TitleProfileWrapper>
-
             <SearchBlock>
-                <InputWrapper
-                    placeholder={"Search..."}
-                    onChange={(e) => onChangeSearchHandler(e)}
-                    value={value}
-                    onKeyPress={(e) => onKeyPress(e)}
-                />
-                <ButtonAddNewPack onClick={addPackHandler}>Add new pack</ButtonAddNewPack>
+                <SearchField stateValue={statePack.params.packName}
+                             placeholder={"Search pack..."}
+                             onChangeWithDebounce={onChangeDebounceRequest}/>
+                <Button name={'Add new pack'} onClick={addPackHandler}/>
             </SearchBlock>
 
-            <CardTable itemPack={packsArray}
-                       showEditModal={showEditModal}
-                       setShowEditModal={setShowEditModal}
-                       onEditClick={editPackHandler}
-                       isFetching={statePack.isFetching}/>
+            <CardTable itemPack={statePack.packs} isFetching={statePack.isFetching}/>
 
             <PaginationBlock>
-                <Pagination portionSize={pageCount}
-                            totalItemsCount={statePack.data.cardPacksTotalCount}
-                            pageSize={statePack.data.pageCount}
-                            onPageChanged={onPageChanged}
-                            currentPage={statePack.data.page}/>
+                {statePack.cardPacksTotalCount > 10 &&
+                    <><Pagination portionSize={10}
+                                  totalItemsCount={statePack.cardPacksTotalCount}
+                                  pageSize={statePack.params.pageCount}
+                                  onPageChanged={onPageChanged}
+                                  currentPage={statePack.params.page}/>
+                        <ShowCardsPage>Show
+                            <PageSelect value={statePack.params.pageCount}
+                                        onChange={(page) => dispatch(setPageCountAC({pageCount: page}))}
+                                        items={[5, 10, 15, 20, 50]}/>
+                            Cards per Page
+                        </ShowCardsPage>
+                    </>}
             </PaginationBlock>
+
         </ProfileWrapper>
     );
-};
+});
 
-
-const ButtonAddNewPack = styled.button`
-  width: 20%;
-  height: 2vw;
+const ShowCardsPage = styled.div`
+  display: flex;
   font-size: 0.8vw;
-  background-color: ${colors.Blue};
-  color: ${colors.WhiteColor};
-  border-radius: 2vw;
-  letter-spacing: 0.7px;
-  border: none;
-  cursor: pointer;`
+  align-items: center;
+  justify-content: space-between;
+  width: 20%;`
+

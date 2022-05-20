@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const WrapperTextAndClose = styled.div`
+export const WrapperTextAndClose = styled.div<{ c?: string }>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({c}) => c ? c : 'space-between'};
 `;
 
 export const ModalTextWrapper = styled.div`
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #2D2E46;
@@ -53,7 +53,7 @@ export const Modal = styled.div`
   border-radius: 8px;
 `;
 
-export const ModalWrapper = styled.div<{back?: string}>`
+export const ModalWrapper = styled.div<{ back?: string }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -97,6 +97,14 @@ export const InputWrapper = styled.div`
   }
 `;
 
+export const AddCardInputWrapper = styled.div`
+  padding: 10% 0 10% 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+`;
+
 
 export const Input = styled.input`
   width: 95%;
@@ -125,10 +133,10 @@ export const ButtonsBlock = styled.div`
   }
 `;
 
-export const ButtonSave = styled.button<{width?: string}>`
-  width: ${({width}) => width ? width: "150px"};
+export const ButtonSave = styled.button<{ width?: string, bgColor?: string }>`
+  width: ${({width}) => width ? width : "150px"};
   height: 40px;
-  background-color: #21268F;
+  background-color: ${({bgColor}) => bgColor ? bgColor : '#21268F'};
   color: #ECECF9;
   border-radius: 30px;
   letter-spacing: 0.7px;
@@ -137,6 +145,7 @@ export const ButtonSave = styled.button<{width?: string}>`
   transition: all 1s;
 
   &:disabled {
+    cursor: no-drop;
     opacity: 0.5;
   }
 
