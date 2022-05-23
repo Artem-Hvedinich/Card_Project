@@ -9,7 +9,6 @@ import {FilterAllMyFunction} from "../UtilsFunction/FilterAllMyFunction";
 
 export const getAllPacksTC = (): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
-
         dispatch(setFetchingPacksTableAC({isFetching: true}));
 
         try {
@@ -27,7 +26,7 @@ export const getAllPacksTC = (): AppThunkType =>
         }
     };
 
-export const updatePackTC = (packId: string, values: {namePack: string, private: boolean}): AppThunkType =>
+export const updatePackTC = (packId: string, values: { namePack: string, private: boolean }): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
         dispatch(setFetchingPacksTableAC({isFetching: true}));
@@ -68,7 +67,7 @@ export const detelePackTC = (id: string): AppThunkType =>
         }
     };
 
-export const createPackTC = (values: {namePack: string, private: boolean}): AppThunkType =>
+export const createPackTC = (values: { namePack: string, private: boolean }): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
         dispatch(setFetchingPacksTableAC({isFetching: true}));
