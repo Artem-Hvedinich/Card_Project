@@ -11,7 +11,7 @@ import {
     TitleProfileWrapper, ToolsProfileBlock
 } from '../../StylesComponents/ProfileAndPacksWrapper';
 import {AllPacks} from "../PacksList/AllPacks/AllPacks";
-import {setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
+import {setMinCardsFilterAC, setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
 import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 
 export const Profile = NotAuthRedirect(() => {

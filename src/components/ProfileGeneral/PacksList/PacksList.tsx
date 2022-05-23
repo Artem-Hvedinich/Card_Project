@@ -1,17 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
-import {
-    PacksInitialStateType,
-    setChangeFilteredPageAC,
-    setMinCardsFilterAC,
-    setUserIdAC
-} from "../../../Store-Reducers/Packs-Reducer";
+import {PacksInitialStateType, setChangeFilteredPageAC,
+    setMinCardsFilterAC, setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
-import {
-    GeneralProfileWrapper,
-    TitleProfileWrapper,
-    ToolsProfileBlock
-} from '../../StylesComponents/ProfileAndPacksWrapper';
+import {GeneralProfileWrapper, TitleProfileWrapper, ToolsProfileBlock} from '../../StylesComponents/ProfileAndPacksWrapper';
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
@@ -26,10 +18,6 @@ export const PacksList = NotAuthRedirect(() => {
     const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const dispatch = useTypedDispatch();
     const [first, setFirst] = useState<boolean>(true);
-
-    useEffect(() => {
-
-    }, [dispatch]);
 
     useEffect(() => {
         if (first) {
