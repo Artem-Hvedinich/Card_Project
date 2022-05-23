@@ -6,6 +6,9 @@ import {PATH} from "../../../../../../UtilsFunction/const-enum-path";
 import {EditPackModal} from '../../../../../ModalWindow/EditPackModal/EditPackModal';
 import {OnePacksType} from "../../../../../../Types/PacksTypes";
 import {colors} from "../../../../../StylesComponents/Colors";
+import {useTypedDispatch} from "../../../../../../Store-Reducers/Store";
+import {setCardsPackId} from "../../../../../../Store-Reducers/Cards-Reducer";
+import {getCardsTC} from "../../../../../../Thunk's/CardsThunk";
 
 type ActiveButtonsTableType = {
     el: OnePacksType
@@ -17,10 +20,14 @@ export const ActiveButtonsTable = ({myId, el}: ActiveButtonsTableType) => {
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
     const navigate = useNavigate();
+    const dispatch = useTypedDispatch();
 
     const deletePackHandler = () => setShowDeleteModal(true);
     const editPackHandler = () => setShowEditModal(true);
-    const onLearnClick = (id: string) => navigate(PATH.learnPack + `/:${id}`);
+    const onLearnClick = (id: string) => {
+        navigate(PATH.learnPack + `/${id}`)
+        dispatch(setCardsPackId({cardsPack_id: id}))
+    }
 
     return (
         <>

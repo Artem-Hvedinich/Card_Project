@@ -93,46 +93,55 @@ export const PageSelect = (props: SelectPropsType) => {
 const Select = styled.div`
 `
 
-const Items = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 3vw;
-  position: absolute;
-  border: 0.15vw solid ${colors.Blue};
-  border-top: none;
-  border-radius: 0 0 0.15vw 0.15vw;
-  background-color: ${colors.Lavender};
-  cursor: pointer;`
 
 const Main = styled.span<{ active: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.15vw solid ${colors.Blue};
+  border: 0.15vw solid ${colors.AzureishWhite};
   height: 1.5vw;
   width: 3vw;
   box-sizing: border-box;
   cursor: pointer;
   border-radius: ${({active}) => active ? '0.2vw 0.2vw 0 0' : '0.2vw'};
   border-bottom: ${({active}) => active && 'none'};
-  background-color: ${({active}) => active && colors.Lavender};
+  transition: 0.3s all;
 
   :hover {
-    box-shadow: 0 0 3px black;
     cursor: pointer;
+    font-size: 0.9vw;
   }
 `
+const Items = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 3vw;
+  height: 3.9vw;
+  overflow-y: scroll;
+  position: absolute;
+  border: 0.15vw solid ${colors.AzureishWhite};
+  border-top: none;
+  border-radius: 0 0 0.15vw 0.15vw;
+  background-color: ${colors.Lavender};
+  cursor: pointer;
+  transition: 0.3s all;
+  
+::-webkit-scrollbar{
+  width: 0.1vw;
+}`
 
 const Option = styled.div<{ active: boolean }>`
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: center;
+  font-size: ${({active}) => active && '0.9vw'};
   background-color: ${({active}) => active && colors.FilterButtonColor};
-  color: ${({active}) => active && 'white'};
+  color: ${colors.Blue};
+  transition: 0.3s all;
+  font-weight: 500;
 
   :hover {
     background-color: ${colors.FilterButtonColor};
-  }
-`
+  }`

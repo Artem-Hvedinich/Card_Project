@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import {colors} from "./Colors";
 
-export const ProfileWrapper = styled.div`
+export const ProfileWrapper = styled.div<{ more?: boolean }>`
   width: 100%;
-  height: 80vh;
+  min-height: 80vh;
+  margin: ${({more}) => more && "5vw 0 2vw 0"};
   padding: 1.2vw 2.4vw;
   border-radius: 0 0.4vw 0.4vw 0;
   background-color: ${colors.BackgroundWight};`;
@@ -13,11 +14,12 @@ export const GeneralProfileWrapper = styled.div`
   flex-direction: row;
   width: 80%;
 `;
-export const ToolsProfileBlock = styled.div`
+export const ToolsProfileBlock = styled.div<{ more?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  margin: ${({more}) => more && "5vw 0 2vw 0"};
+  min-height: 80vh;
   width: 15vw;
   border-radius: 0.4vw 0 0 0.4vw;
   background-color: ${colors.ToolsBackground};

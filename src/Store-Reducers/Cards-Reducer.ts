@@ -9,7 +9,7 @@ const initialCardsState: CardsInitialStateType = {
     params: {
         cardAnswer: '',
         cardQuestion: '',
-        cardsPack_id: '',
+        cardsPack_id: '62850a120cf3a40004dfa336',
         min: 0,
         max: 5,
         sortCards: '0grade',
@@ -17,7 +17,7 @@ const initialCardsState: CardsInitialStateType = {
         pageCount: 10,
     } as ParamsCardsType,
     isFetching: false,
-    packUserId: ''
+    packUserId: '62850a120cf3a40004dfa336'
 };
 
 const CardsSlice = createSlice({
@@ -29,6 +29,7 @@ const CardsSlice = createSlice({
             state.cardsTotalCount = action.payload.cardsTotalCount;
             state.packUserId = action.payload.packUserId
         },
+
         setFetchingCardsTableAC(state, action: PayloadAction<{ isFetching: boolean }>) {
             state.isFetching = action.payload.isFetching
         },
@@ -51,5 +52,7 @@ const CardsSlice = createSlice({
 export const CardsReducer = CardsSlice.reducer;
 
 
-export const {setCardsDataAC, setFetchingCardsTableAC, setCardsPackId,
-    getOnePageCardsAC, setCardsAnswerSearch, setCardsQuestionSearch} = CardsSlice.actions;
+export const {
+    setCardsDataAC, setFetchingCardsTableAC, setCardsPackId,
+    getOnePageCardsAC, setCardsAnswerSearch, setCardsQuestionSearch
+} = CardsSlice.actions;

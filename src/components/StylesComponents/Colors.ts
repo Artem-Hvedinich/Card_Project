@@ -14,5 +14,6 @@ export const colors = {
     BackgroundWight: '#FEFEFF',
     ToolsBackground: '#ECECF9',
     FilterButtonColor: '#9A91C8',
+    Green:'#3f9a3a'
 }
 

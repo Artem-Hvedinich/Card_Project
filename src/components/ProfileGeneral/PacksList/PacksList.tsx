@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {
     PacksInitialStateType,
@@ -7,7 +7,11 @@ import {
     setUserIdAC
 } from "../../../Store-Reducers/Packs-Reducer";
 import {AllPacks} from "./AllPacks/AllPacks";
-import {GeneralProfileWrapper, TitleProfileWrapper, ToolsProfileBlock} from '../../StylesComponents/ProfileAndPacksWrapper';
+import {
+    GeneralProfileWrapper,
+    TitleProfileWrapper,
+    ToolsProfileBlock
+} from '../../StylesComponents/ProfileAndPacksWrapper';
 import styled from 'styled-components';
 import {colors} from "../../StylesComponents/Colors";
 import {NotAuthRedirect} from "../../../UtilsFunction/RedirectFunction";
@@ -21,15 +25,20 @@ export const PacksList = NotAuthRedirect(() => {
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const dispatch = useTypedDispatch();
+    const [first, setFirst] = useState<boolean>(true);
 
     useEffect(() => {
-        dispatch(setUserIdAC({userId: ""}));
-        dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
+
     }, [dispatch]);
 
     useEffect(() => {
-        dispatch(getAllPacksTC());
-    },[statePack.params, statePack.packsType]);
+        if (first) {
+            dispatch(setUserIdAC({userId: ""}));
+            dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
+            setFirst(false);
+        }
+        !first && dispatch(getAllPacksTC());
+    }, [statePack.params, statePack.packsType]);
 
     const onClickHandler = (valueFilter: FilterPacksType) => {
         dispatch(setChangeFilteredPageAC({valueFilter}));
@@ -44,7 +53,7 @@ export const PacksList = NotAuthRedirect(() => {
 
     return (
         <GeneralProfileWrapper>
-            <ToolsProfileBlock>
+            <ToolsProfileBlock more={statePack.cardPacksTotalCount > 11}>
                 <ShowPacks>
                     <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
                     <ButtonWrapper>
@@ -57,7 +66,6 @@ export const PacksList = NotAuthRedirect(() => {
                         </Button>
                     </ButtonWrapper>
                 </ShowPacks>
-
 
                 <NumberCards>
                     <TitleProfileWrapper fontSz={0.8}>Number of cards</TitleProfileWrapper>

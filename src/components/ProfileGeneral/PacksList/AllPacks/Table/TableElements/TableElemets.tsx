@@ -53,7 +53,7 @@ const Item = styled.span`
   height: 2.3vw;
   padding: 0 1.2vw;
   font-size: 0.8vw;
-  
+
   :nth-child(1) {
     cursor: pointer;
     min-width: 25%;

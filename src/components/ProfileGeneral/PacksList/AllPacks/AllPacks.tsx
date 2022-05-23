@@ -31,28 +31,21 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
     const addPackHandler = () => setShowAddModal(true);
     const onPageChanged = (page: number) => {
         dispatch(getOnePagePacksAC({page}));
-        dispatch(getAllPacksTC());
     };
 
     const onChangeDebounceRequest = (title: string) => {
         dispatch(getOnePagePacksAC({page: 1}));
         dispatch(setTitleForSearchAC({title}));
-        dispatch(getAllPacksTC());
     };
 
     return (
-        <ProfileWrapper>
-            {showAddModal
-                ? <AddPackModal setShow={setShowAddModal}/>
-                : <></>
-            }
+        <ProfileWrapper more={statePack.cardPacksTotalCount > 11}>
+            {showAddModal && <AddPackModal setShow={setShowAddModal}/>}
             <TitleProfileWrapper fontSz={1.5}>{namePage}</TitleProfileWrapper>
-
             <SearchBlock>
                 <SearchField stateValue={statePack.params.packName}
                              placeholder={"Search pack..."}
-                             onChangeWithDebounce={onChangeDebounceRequest}
-                />
+                             onChangeWithDebounce={onChangeDebounceRequest}/>
                 <Button name={'Add new pack'} onClick={addPackHandler}/>
             </SearchBlock>
 
@@ -68,11 +61,11 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
                         <ShowCardsPage>Show
                             <PageSelect value={statePack.params.pageCount}
                                         onChange={(page) => dispatch(setPageCountAC({pageCount: page}))}
-                                        items={[5, 10, 15, 20]}/>
-                            Cards per Page</ShowCardsPage>
+                                        items={[5, 10, 15, 20, 50]}/>
+                            Cards per Page
+                        </ShowCardsPage>
                     </>}
             </PaginationBlock>
-
 
         </ProfileWrapper>
     );

@@ -66,9 +66,8 @@ export const Item = styled.div`
 export const PacksBlock = styled.div`
   height: auto;
   overflow: hidden;
-  min-height: 70%;
-  max-height: 70%;
   width: 100%;
+  min-height: 70%;
   margin-top: 2vw;
   box-shadow: -0.1vw -0.1vw 0.5vw #cbcbcb,
   0.1vw 0.1vw 0.5vw 0.1vw #cbcbcb;
