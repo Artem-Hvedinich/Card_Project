@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import {
     ButtonCancel,
     ButtonSave,
@@ -27,34 +27,26 @@ const grades = [
     {title: 'Knew the answer', grade: 5}
 ]
 
-export const LearnPackModal = () => {
+export const LearnPackModal = memo(() => {
 
     const pack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs);
     const cards = useAppSelector<OneCardType[]>(state => state.CardsReducer.cards);
-    const {packId} = useParams()
-    const navigate = useNavigate();
-    const dispatch = useTypedDispatch();
-    const closeModalClick = () => navigate(-1);
     const [showAnswer, setShowAnswer] = useState<boolean>(false);
     const [grade, setGrade] = useState<number>();
     const [card, setCard] = useState({} as OneCardType);
+    const {packId} = useParams();
+    const navigate = useNavigate();
+    const dispatch = useTypedDispatch();
 
     useEffect(() => {
         cards.length > 0 && setCard(Random(cards))
         dispatch(getCardsTC())
     }, []);
 
+    const closeModalClick = () => navigate(-1);
     const namePack = pack.find(el => el._id === packId)?.name;
-
-    const showAnswerClickHandler = () => {
-        setShowAnswer(true);
-    }
-
-
-    const onChangeOption = (grade: number) => {
-        setGrade(grade)
-    }
-
+    const showAnswerClickHandler = () => setShowAnswer(true);
+    const onChangeOption = (grade: number) => setGrade(grade);
     const onNext = useCallback(() => {
         grade && dispatch(updatedGradeTC(grade, card._id))
         setCard(Random(cards))
@@ -90,4 +82,4 @@ export const LearnPackModal = () => {
             </ModalWindow>
         </ModalWrapperClear>
     );
-};
+});
