@@ -29,10 +29,7 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
     const dispatch = useTypedDispatch();
 
     const addPackHandler = () => setShowAddModal(true);
-    const onPageChanged = (page: number) => {
-        dispatch(getOnePagePacksAC({page}));
-    };
-
+    const onPageChanged = (page: number) => dispatch(getOnePagePacksAC({page}));
     const onChangeDebounceRequest = (title: string) => {
         dispatch(getOnePagePacksAC({page: 1}));
         dispatch(setTitleForSearchAC({title}));

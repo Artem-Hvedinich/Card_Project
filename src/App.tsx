@@ -17,8 +17,8 @@ import { Header } from './components/Header/Header';
 import {PacksList} from "./components/ProfileGeneral/PacksList/PacksList";
 import { Profile } from './components/ProfileGeneral/Profile/Profile';
 import {CardsPage} from "./components/CardsPage/CardsPage";
-import {LearnPackModal} from "./components/ModalWindow/LearnPackModal/LearnPackModal";
 import {Snackbar} from "./components/Common/SnackBar/SnackBar";
+import {LearnPackModal} from "./components/Learn/LearnPackModal";
 
 export const App = () => {
 

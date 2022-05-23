@@ -9,15 +9,15 @@ import {
     ModalWrapperClear,
     WrapperText,
     WrapperTextAndClose
-} from '../../StylesComponents/ModalWrappers';
-import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
+} from '../StylesComponents/ModalWrappers';
+import {useAppSelector, useTypedDispatch} from "../../Store-Reducers/Store";
 import {useNavigate, useParams} from "react-router-dom";
-import {OnePacksType} from "../../../Types/PacksTypes";
-import {colors} from "../../StylesComponents/Colors";
-import {RadioInput} from "../../Common/RadioInput";
-import {OneCardType} from "../../../Types/CardTypes";
-import {getCardsTC, updatedGradeTC} from "../../../Thunk's/CardsThunk";
-import {Random} from "../../../UtilsFunction/Random";
+import {OnePacksType} from "../../Types/PacksTypes";
+import {colors} from "../StylesComponents/Colors";
+import {RadioInput} from "../Common/RadioInput";
+import {OneCardType} from "../../Types/CardTypes";
+import {getCardsTC, updatedGradeTC} from "../../Thunk\'s/CardsThunk";
+import {Random} from "../../UtilsFunction/Random";
 
 const grades = [
     {title: 'Did not know', grade: 1},
