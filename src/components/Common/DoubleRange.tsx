@@ -23,6 +23,11 @@ export const DoubleRange = memo(({paramsMin, paramsMax, minCardsCount, maxCardsC
     const valueMaxDeb = useDebounce(max, 1500);
 
     useEffect(() => {
+        setMin(minCardsCount);
+        setMax(maxCardsCount);
+    }, [minCardsCount, maxCardsCount]);
+
+    useEffect(() => {
         if (valueMinDeb) {
             min < max
                 ? dispatch(dispatchAction({min, max}))
@@ -35,10 +40,6 @@ export const DoubleRange = memo(({paramsMin, paramsMax, minCardsCount, maxCardsC
         }
     }, [valueMinDeb, valueMaxDeb, dispatchAction])
 
-    useEffect(() => {
-        setMin(minCardsCount);
-        setMax(maxCardsCount);
-    }, [minCardsCount,maxCardsCount]);
 
     const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => setMin(+e.currentTarget.value);
     const onChangeCallbackMax = (e: ChangeEvent<HTMLInputElement>) => setMax(+e.currentTarget.value);
