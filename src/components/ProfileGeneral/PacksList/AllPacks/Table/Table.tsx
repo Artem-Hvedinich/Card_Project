@@ -6,7 +6,6 @@ import {PacksBlock} from '../../../../StylesComponents/CardsWrapper';
 import styled from "styled-components";
 import {setFilteredColumnAC} from "../../../../../Store-Reducers/Packs-Reducer";
 import {useTypedDispatch} from "../../../../../Store-Reducers/Store";
-import {getAllPacksTC} from "../../../../../Thunk's/PacksThunk";
 
 
 type CardTableType = {
@@ -26,12 +25,6 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
     const [up, setUp] = useState<boolean>(false);
     const dispatch = useTypedDispatch();
 
-    const onFilterColumnClick = () => {
-        setUp(!up);
-        dispatch(setFilteredColumnAC());
-        dispatch(getAllPacksTC());
-    }
-
     return (
         <PacksBlock>
             <Table>
@@ -39,7 +32,10 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                     {TableList.map(el => (
                         <OneColumn>
                             {el.name}
-                            {el.name === 'Last Updated' && <Span up={up} onClick={onFilterColumnClick}/>}
+                            {el.name === 'Last Updated' && <Span up={up} onClick={() => {
+                                setUp(!up);
+                                dispatch(setFilteredColumnAC());
+                            }}/>}
                         </OneColumn>
                     ))
                     }
@@ -59,7 +55,7 @@ const Span = styled.span<{ up?: boolean }>`
   align-items: start;
   justify-content: center;
   height: 100%;
-  margin-top: 7px;
+  margin-top: ${({up}) => up ? 9 : 7}px;
   border: solid #242524;
   border-width: 0 0.2vw 0.2vw 0;
   padding: 0.2vw;
@@ -68,6 +64,9 @@ const Span = styled.span<{ up?: boolean }>`
   cursor: pointer;
   transition: 1s all;
 
+  @media (max-width: 1500px) {
+    margin-top: 4px;
+  }
 `;
 
 const Table = styled.div`
@@ -86,7 +85,7 @@ const ItemColumn = styled.div`
 const OneColumn = styled.div`
   display: flex;
   justify-content: center;
-  padding: 0 1.2vw;
+  padding: 0 1vw;
   width: 100%;
 
   :nth-child(1) {

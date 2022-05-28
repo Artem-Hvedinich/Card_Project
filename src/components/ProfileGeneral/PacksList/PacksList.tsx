@@ -11,19 +11,15 @@ import {initialStateAuthorizationType} from "../../../Store-Reducers/Auth-Reduce
 import {DoubleRange} from "../../Common/DoubleRange";
 import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 import {FilterPacksType} from "../../../Types/PacksTypes";
+import {ButtonUp} from "../../Common/ButtonUp/ButtonUp";
 
 export const PacksList = NotAuthRedirect(() => {
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const dispatch = useTypedDispatch();
-    const [first, setFirst] = useState<boolean>(true);
-
+    debugger
     useEffect(() => {
-        if (first) {
-            dispatch(setUserIdAC({userId: ""}));
-            dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
-            setFirst(false);
-        } else dispatch(getAllPacksTC());
+        dispatch(getAllPacksTC());
     }, [statePack.params, statePack.packsType]);
 
     const onClickHandler = (valueFilter: FilterPacksType) => {
@@ -39,7 +35,7 @@ export const PacksList = NotAuthRedirect(() => {
 
     return (
         <GeneralProfileWrapper>
-            <ToolsProfileBlock more={statePack.cardPacksTotalCount > 11}>
+            <ToolsProfileBlock more={statePack.params.pageCount > 11}>
                 <ShowPacks>
                     <TitleProfileWrapper fontSz={0.8}>Show packs cards</TitleProfileWrapper>
                     <ButtonWrapper>
@@ -63,6 +59,9 @@ export const PacksList = NotAuthRedirect(() => {
 
             <AllPacks namePage={"Packs List"}/>
 
+            {statePack.cardPacksTotalCount > 11 &&
+                <ButtonUp speed={10}/>
+            }
         </GeneralProfileWrapper>
     )
 });

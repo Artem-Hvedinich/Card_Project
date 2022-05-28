@@ -32,7 +32,7 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
     };
 
     return (
-        <ProfileWrapper more={statePack.cardPacksTotalCount > 11}>
+        <ProfileWrapper more={statePack.params.pageCount > 11}>
             {showAddModal && <AddPackModal setShow={setShowAddModal}/>}
             <TitleProfileWrapper fontSz={1.5}>{namePage}</TitleProfileWrapper>
             <SearchBlock>
@@ -46,7 +46,8 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
 
             <PaginationBlock>
                 {statePack.cardPacksTotalCount > 10 &&
-                    <><Pagination portionSize={10}
+                    <>
+                        <Pagination portionSize={10}
                                   totalItemsCount={statePack.cardPacksTotalCount}
                                   pageSize={statePack.params.pageCount}
                                   onPageChanged={onPageChanged}
@@ -57,7 +58,8 @@ export const AllPacks = memo(({namePage}: AllPacksType) => {
                                         items={[5, 10, 15, 20, 50]}/>
                             Cards per Page
                         </ShowCardsPage>
-                    </>}
+                    </>
+                }
             </PaginationBlock>
 
         </ProfileWrapper>

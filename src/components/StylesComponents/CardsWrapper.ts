@@ -2,12 +2,12 @@ import styled from "styled-components";
 import SerchImg from "../../Assets/Union.svg";
 
 export const Table = styled.div`
-  height: 60.5vh;
+  height: 57.5vh;
   width: 100%;
   transition: 1s all;
   
   @media (max-width: 1550px) {
-    height: 380px;
+    height: 360px;
   }
 `;
 
@@ -77,9 +77,14 @@ export const PacksBlock = styled.div`
 export const CardsPageWrapper = styled.div`
   margin-top: 30px;
   width: 80%;
-  height: 85%;
+  height: 81vh;
   background: #FEFEFF;
   border-radius: 8px;
+  
+  @media (max-width: 1500px) {
+    height: 86vh;
+    margin-top: 40px;
+  }
 `;
 
 export const CardsWrapper = styled.div`

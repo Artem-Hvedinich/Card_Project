@@ -7,7 +7,12 @@ export const ProfileWrapper = styled.div<{ more?: boolean }>`
   margin: ${({more}) => more && "5vw 0 2vw 0"};
   padding: 1.2vw 2.4vw;
   border-radius: 0 0.4vw 0.4vw 0;
-  background-color: ${colors.BackgroundWight};`;
+  background-color: ${colors.BackgroundWight};
+
+  @media (max-width: 1500px) {
+    margin-top: 30px;
+  }
+`;
 
 export const GeneralProfileWrapper = styled.div`
   display: flex;
@@ -23,7 +28,11 @@ export const ToolsProfileBlock = styled.div<{ more?: boolean }>`
   width: 15vw;
   border-radius: 0.4vw 0 0 0.4vw;
   background-color: ${colors.ToolsBackground};
-`
+
+  @media (max-width: 1500px) {
+    margin-top: 30px;
+  }
+`;
 export const TitleProfileWrapper = styled.p<{ fontSz?: number }>`
   font-weight: 600;
   font-size: ${({fontSz}) => fontSz}vw;

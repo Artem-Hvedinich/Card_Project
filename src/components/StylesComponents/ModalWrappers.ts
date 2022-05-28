@@ -77,11 +77,11 @@ export const ModalWrapperClear = styled.div`
 
 export const ModalWindow = styled.div`
   position: relative;
-  top: 30%;
+  top: 20%;
   margin: 0 auto;
   width: 25%;
   height: auto;
-  min-height: 35%;
+  min-height: 30%;
   background-color: #F9F9FE;
   border-radius: 5px;
 `;

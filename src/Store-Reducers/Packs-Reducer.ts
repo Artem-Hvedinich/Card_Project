@@ -64,7 +64,7 @@ const PacksSlice = createSlice({
         setPageCountAC(state, action: PayloadAction<{ pageCount: number }>) {
             state.params.pageCount = action.payload.pageCount;
         },
-        setFilteredColumnAC(state, action: PayloadAction) {
+        setFilteredColumnAC(state) {
             state.params.sortPacks = state.params.sortPacks === '0updated' ? '1updated' : '0updated';
         },
     },

@@ -53,7 +53,6 @@ export const PersonalInfo = ({setEditMode, avatar, active}: PersonalInfoType) =>
             return errors;
         },
         onSubmit: (values) => {
-            console.log(values.nickname)
             dispatch(NewNameAndAvatarTC(values.nickname))
             PersonalInfo.resetForm();
         },

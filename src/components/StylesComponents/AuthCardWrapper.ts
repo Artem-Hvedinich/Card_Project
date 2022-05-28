@@ -34,7 +34,7 @@ export const FormWrapper = styled.form<{ height?: number }>`
   align-items: center;
   height: ${({height}) => height}px`;
 
-export const RememberMeWrapper = styled.div<{margin?: number}>`
+export const RememberMeWrapper = styled.div<{ margin?: number }>`
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -53,7 +53,8 @@ export const AppWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 100vh`;
+  min-height: 100vh;
+`;
 
 export const ButtonWrapper = styled.div`
   width: 100%;

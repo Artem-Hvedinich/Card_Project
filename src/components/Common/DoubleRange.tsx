@@ -38,7 +38,7 @@ export const DoubleRange = memo(({paramsMin, paramsMax, minCardsCount, maxCardsC
                 ? dispatch(dispatchAction({min, max}))
                 : dispatch(dispatchAction({min: max, max: min}))
         }
-    }, [valueMinDeb, valueMaxDeb, dispatchAction])
+    }, [valueMinDeb, valueMaxDeb])
 
 
     const onChangeCallbackMin = (e: ChangeEvent<HTMLInputElement>) => setMin(+e.currentTarget.value);

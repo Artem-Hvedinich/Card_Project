@@ -28,6 +28,7 @@ export const CardsTable = ({stateCards}: CardsTableType) => {
         {id: 3, name: "Last Updated"},
         {id: 4, name: "Grade"},
     ];
+    const fiveStar = [0,1,2,3,4];
 
     return (
         <PacksBlock>
@@ -35,9 +36,8 @@ export const CardsTable = ({stateCards}: CardsTableType) => {
                 <TableItem>
                     <Item>
                         {stateCards.packUserId === _id
-                            ? TableListAction.map(el => <span className={s.name_column_one}
-                                                              key={el.id}>{el.name}</span>)
-                            : TableList.map(el => <span className={s.name_column_one} key={el.id}>{el.name}</span>)
+                            ? TableListAction.map(el => <span key={el.id} className={s.name_column_one}>{el.name}</span>)
+                            : TableList.map(el => <span key={el.id} className={s.name_column_one}>{el.name}</span>)
                         }
                     </Item>
                 </TableItem>
@@ -45,19 +45,15 @@ export const CardsTable = ({stateCards}: CardsTableType) => {
                 {stateCards.isFetching
                     ? <LoadingTable/>
                     : stateCards.cards.map(el => (
-                        <div className={s.elements_table_general_block} key={el._id}>
+                        <div key={el._id} className={s.elements_table_general_block}>
                             <div className={s.li}>
                                 <span className={s.item}>{el.question}</span>
                                 <span className={s.item}>{el.answer}</span>
-                                <span
-                                    className={s.item}>{el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}</span>
-                                {/*<span className={s.item}>0 0 0 0 0</span>*/}
                                 <span className={s.item}>
-                                    <span className={`fa fa-star ${el.grade > 0 ? s.checked : ''}`}/>
-                                    <span className={`fa fa-star ${el.grade > 1 ? s.checked : ''}`}/>
-                                    <span className={`fa fa-star ${el.grade > 2 ? s.checked : ''}`}/>
-                                    <span className={`fa fa-star ${el.grade > 3 ? s.checked : ''}`}/>
-                                    <span className={`fa fa-star ${el.grade > 4 ? s.checked : ''}`}/>
+                                    {el.updated.slice(0, 10).replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)}
+                                </span>
+                                <span className={s.item}>
+                                    {fiveStar.map(num => <span key={el._id} className={`fa fa-star ${el.grade > num ? s.checked : ''}`}/>)}
                                 </span>
                                 <span className={s.item}> <ActiveCardButtonsTable myId={_id} el={el}/> </span>
                             </div>

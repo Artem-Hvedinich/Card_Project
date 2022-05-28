@@ -11,7 +11,7 @@ import {
     TitleProfileWrapper, ToolsProfileBlock
 } from '../../StylesComponents/ProfileAndPacksWrapper';
 import {AllPacks} from "../PacksList/AllPacks/AllPacks";
-import {setMinCardsFilterAC, setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
+import {setChangeFilteredPageAC, setMinCardsFilterAC, setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
 import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 
 export const Profile = NotAuthRedirect(() => {
@@ -26,6 +26,12 @@ export const Profile = NotAuthRedirect(() => {
             dispatch(setUserIdAC({userId: meAuth._id}));
         }
         dispatch(getAllPacksTC());
+
+        return () => {
+            debugger
+            dispatch(setUserIdAC({userId: ""}));
+            dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
+        }
     }, []);
 
     return (

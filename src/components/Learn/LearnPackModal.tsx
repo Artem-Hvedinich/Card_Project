@@ -16,8 +16,8 @@ import {OnePacksType} from "../../Types/PacksTypes";
 import {colors} from "../StylesComponents/Colors";
 import {RadioInput} from "../Common/RadioInput";
 import {OneCardType} from "../../Types/CardTypes";
-import {getCardsTC, updatedGradeTC} from "../../Thunk\'s/CardsThunk";
 import {Random} from "../../UtilsFunction/Random";
+import {getCardsTC, updatedGradeTC} from "../../Thunk's/CardsThunk";
 
 const grades = [
     {title: 'Did not know', grade: 1},
