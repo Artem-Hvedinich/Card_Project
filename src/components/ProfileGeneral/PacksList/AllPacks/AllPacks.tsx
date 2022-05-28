@@ -6,12 +6,8 @@ import {Pagination} from "../../../Common/Pagination";
 import {AddPackModal} from "../../../ModalWindow/AddPackModal/AddPackModal";
 import {PaginationBlock, SearchBlock} from '../../../StylesComponents/CardsWrapper';
 import {
-    getOnePagePacksAC,
-    PacksInitialStateType,
-    setPageCountAC,
-    setTitleForSearchAC
+    getOnePagePacksAC, PacksInitialStateType, setPageCountAC, setTitleForSearchAC
 } from "../../../../Store-Reducers/Packs-Reducer";
-import {getAllPacksTC} from "../../../../Thunk's/PacksThunk";
 import {SearchField} from "../../../Common/SearchInput/SearchInput";
 import {Button} from "../../../Common/Buttons/Button";
 import {PageSelect} from "../../../../UtilsFunction/PageSelector";

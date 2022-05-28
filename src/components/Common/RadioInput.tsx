@@ -24,7 +24,7 @@ export const RadioInput: React.FC<SuperRadioPropsType> = (
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => onChangeOption ? onChangeOption(+e.currentTarget.value) : []
 
 
-    const mappedOptions: any[] = options ? options.map((o, i) => ( // map options with key
+    const mappedOptions: any[] = options ? options.map((o, i) => (
         <div>
             <label key={o.grade}>
                 <input

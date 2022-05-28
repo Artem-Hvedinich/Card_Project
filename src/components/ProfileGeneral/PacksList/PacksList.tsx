@@ -13,7 +13,6 @@ import {getAllPacksTC} from "../../../Thunk's/PacksThunk";
 import {FilterPacksType} from "../../../Types/PacksTypes";
 
 export const PacksList = NotAuthRedirect(() => {
-
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const dispatch = useTypedDispatch();
@@ -24,8 +23,7 @@ export const PacksList = NotAuthRedirect(() => {
             dispatch(setUserIdAC({userId: ""}));
             dispatch(setChangeFilteredPageAC({valueFilter: 'All'}));
             setFirst(false);
-        }
-        !first && dispatch(getAllPacksTC());
+        } else dispatch(getAllPacksTC());
     }, [statePack.params, statePack.packsType]);
 
     const onClickHandler = (valueFilter: FilterPacksType) => {

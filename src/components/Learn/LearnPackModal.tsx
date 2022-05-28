@@ -32,6 +32,7 @@ export const LearnPackModal = memo(() => {
     const pack = useAppSelector<OnePacksType[]>(state => state.PacksReducer.packs);
     const cards = useAppSelector<OneCardType[]>(state => state.CardsReducer.cards);
     const [showAnswer, setShowAnswer] = useState<boolean>(false);
+    const [first, setFirst] = useState<boolean>(true);
     const [grade, setGrade] = useState<number>();
     const [card, setCard] = useState({} as OneCardType);
     const {packId} = useParams();
@@ -39,19 +40,22 @@ export const LearnPackModal = memo(() => {
     const dispatch = useTypedDispatch();
 
     useEffect(() => {
+        if (first) {
+            dispatch(getCardsTC())
+            setFirst(false)
+        }
         cards.length > 0 && setCard(Random(cards))
-        dispatch(getCardsTC())
-    }, []);
+    }, [cards]);
 
     const closeModalClick = () => navigate(-1);
     const namePack = pack.find(el => el._id === packId)?.name;
     const showAnswerClickHandler = () => setShowAnswer(true);
     const onChangeOption = (grade: number) => setGrade(grade);
     const onNext = useCallback(() => {
-        grade && dispatch(updatedGradeTC(grade, card._id))
         setCard(Random(cards))
+        grade && dispatch(updatedGradeTC(grade, card._id))
         setShowAnswer(false);
-    }, [])
+    }, [card._id, cards, dispatch, grade])
 
     return (
         <ModalWrapperClear>
