@@ -35,8 +35,8 @@ const PacksSlice = createSlice({
     reducers: {
         setPacksDataAC(state, action: PayloadAction< ResponsePacksType >) {
             state.packs = action.payload.cardPacks;
-            state.minCardsCount = action.payload.minCardsCount;
-            state.maxCardsCount = action.payload.maxCardsCount;
+            // state.minCardsCount = action.payload.minCardsCount;
+            // state.maxCardsCount = action.payload.maxCardsCount;
             state.cardPacksTotalCount = action.payload.cardPacksTotalCount;
         },
         setChangeFilteredPageAC(state, action: PayloadAction<{ valueFilter: FilterPacksType }>) {

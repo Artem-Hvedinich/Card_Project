@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../Store-Reducers/Store";
 import {PacksInitialStateType, setChangeFilteredPageAC,
     setMinCardsFilterAC, setUserIdAC} from "../../../Store-Reducers/Packs-Reducer";
@@ -17,7 +17,7 @@ export const PacksList = NotAuthRedirect(() => {
     const statePack = useAppSelector<PacksInitialStateType>(state => state.PacksReducer);
     const {_id} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
     const dispatch = useTypedDispatch();
-    debugger
+
     useEffect(() => {
         dispatch(getAllPacksTC());
     }, [statePack.params, statePack.packsType]);
